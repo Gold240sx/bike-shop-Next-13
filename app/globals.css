@@ -24,6 +24,10 @@
   * {
     @apply border-foreground/20;
   }
+
+  input[type="text"],   input[type="email"],   input[type="password"], input {
+    @apply placeholder:focus:text-transparent placeholder:focus:opacity-0 duration-150 ease-in-out transition-all;
+  }
 }
 
 .animate-in {
