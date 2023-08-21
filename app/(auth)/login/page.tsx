@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Messages from "../auth/messages"
+import Messages from "../messages"
 
 export default function Login() {
 	return (
@@ -38,7 +38,9 @@ export default function Login() {
 					placeholder="••••••••"
 					required
 				/>
-				<button className="bg-green-700 rounded px-4 py-2 text-white mb-2">Sign In</button>
+				<button formAction="/auth/sign-in" className="bg-green-700 rounded px-4 py-2 text-white mb-2">
+					Sign In
+				</button>
 				<Messages />
 				<span className="text-sm text-gray-400">
 					Don't have an account? <Link href="/signup">Sign Up</Link>

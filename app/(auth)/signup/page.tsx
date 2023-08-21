@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Messages from "../auth/messages"
+import Messages from "../messages"
 import { Router } from "next/router"
 
 export default function Signup() {
