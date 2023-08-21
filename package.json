@@ -1,24 +1,36 @@
 {
-  "name": "bike-shop-13",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@types/node": "20.5.1",
-    "@types/react": "18.2.20",
-    "@types/react-dom": "18.2.7",
-    "autoprefixer": "10.4.15",
-    "next": "13.4.19",
-    "postcss": "8.4.28",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "^6.15.0",
-    "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
-  }
+	"name": "bike-shop-13",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@types/node": "20.5.1",
+		"@types/react": "18.2.20",
+		"@types/react-dom": "18.2.7",
+		"@types/react-router-dom": "^5.3.3",
+		"@typescript-eslint/parser": "^6.0.0",
+		"@typescript-eslint/eslint-plugin": "^6.0.0",
+		"eslint": "^8.45.0",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.3",
+		"lint-staged": "^13.2.3",
+		"autoprefixer": "10.4.15",
+		"husky": "^8.0.3",
+		"next": "13.4.19",
+		"postcss": "8.4.28",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"react-router-dom": "^6.15.0",
+		"prettier": "^3.0.1",
+		"prettier-plugin-tailwindcss": "^0.4.1",
+		"tailwindcss": "3.3.3",
+		"react-feather": "^2.0.10",
+		"sass": "^1.64.2",
+		"typescript": "5.1.6"
+	}
 }
