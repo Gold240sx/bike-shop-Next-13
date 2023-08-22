@@ -12,25 +12,25 @@ import "./nav-menu.scss"
 const Navbar = ({ user }: { user: any }) => {
 	return (
 		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto">
-			<div className="z-10 bg-white logo rounded-xl group w-fit h-fit justify-between">
-				<Link href="/">
-					<div className="absolute bg-white h-[7.2rem] rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>
+			<Link href="/" className="cursor-pointer z-20">
+				<div className=" bg-white logo rounded-xl group w-fit h-fit justify-between cursor-pointer">
+					<div className="absolute bg-white h-[7.2rem] cursor-pointer rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>
 					<Image
 						alt="company logo"
 						src={Crank}
 						height={60}
 						width={25}
-						className="absolute h-auto mt-2 ml-[74px] w-[5.5rem] p-2  rounded-xl animate-spin"
+						className="absolute h-auto mt-2 ml-[74px] cursor-pointer w-[5.5rem] p-2  rounded-xl animate-spin"
 					/>
 					<Image
 						alt="company logo"
 						height={90}
 						width={55}
 						src={BikeShopLogo}
-						className="absolute h-auto scale-75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -mt-5 w-[9rem] p-2 -rotate-3 shadow-black shadow-2xl"
+						className="absolute h-auto scale-75 sm:scale-[85%] cursor-pointer sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -mt-5 w-[9rem] p-2 -rotate-3 shadow-black shadow-2xl"
 					/>
-				</Link>
-			</div>
+				</div>
+			</Link>
 			<ul className="flex h-full my-auto text-3xl align-middle ml-auto justify-between gap-6">
 				<li>
 					<Link href="/">
