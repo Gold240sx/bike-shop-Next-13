@@ -5,6 +5,7 @@ import { cache } from "react"
 
 // components
 import Navbar from "../components/navbar/Navbar"
+import Footer from "../components/footer/Footer"
 
 export default async function DashboardLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
@@ -18,6 +19,7 @@ export default async function DashboardLayout({ children }: { children: any }) {
 		<>
 			<Navbar user={data?.session?.user} />
 			<div className="">{children}</div>
+			<Footer />
 		</>
 	)
 }
