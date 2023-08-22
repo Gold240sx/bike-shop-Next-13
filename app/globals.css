@@ -4,14 +4,14 @@
 
 /* base styles */
 body {
-  background: #ebf0fa;
-  @apply text-gray-500 m-4;
+  /* background: #ebf0fa; */
+  @apply text-gray-500;
 }
 h1, h2 {
   @apply font-bold  text-lg;
 }
 main {
-  @apply max-w-5xl my-12 mx-auto px-8;
+  @apply max-w-5xl;
 }
 main > h2 {
   @apply mb-4 pb-2;
@@ -24,7 +24,6 @@ p > a {
 nav {
   @apply
     pb-4
-    border-b-2 border-gray-200
     flex items-center gap-5 
     mx-auto 
     max-w-5xl;
@@ -136,4 +135,32 @@ form button {
   @apply 
     absolute bottom-0 right-0 
     rounded-tl-md;
+}
+
+@layer utilities {
+    .animate-spin {
+    	animation: spin 1.5s linear infinite;
+    }
+
+    .animate-ping {
+        animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+    @keyframes ping {
+  85%, 100% {
+    /* transform: scale(.75); */
+          animation: ping 2s cubic-bezier(0, .2, 0, 1) infinite;
+    background-color: rgb(108, 211, 211);
+    opacity: 100;
+  }
+}
 }

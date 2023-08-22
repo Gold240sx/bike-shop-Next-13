@@ -8,7 +8,7 @@ import Navbar from "../components/navbar/Navbar"
 
 export default async function DashboardLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
-	const { data } = await supabase.auth.getSession()
+	const { data }: { data: { session: null | { user: any } } } = await supabase.auth.getSession()
 
 	// if (!data.session) {
 	// 	redirect("/login")
@@ -17,7 +17,7 @@ export default async function DashboardLayout({ children }: { children: any }) {
 	return (
 		<>
 			<Navbar user={data?.session?.user} />
-			<div className="mt-24">{children}</div>
+			<div className="">{children}</div>
 		</>
 	)
 }

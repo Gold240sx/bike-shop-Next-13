@@ -44,8 +44,12 @@ const Navbar = ({ user }: { user: any }) => {
 				</li>
 			</ul>
 			<CartIcon />
-			<RxDividerVertical className="scale-150 -mr-8 text-zinc-300" />
-			{user && <span>Hello, {user?.email} </span>}
+			<RxDividerVertical className="scale-150 -mr-2 text-zinc-300" />
+			{user && (
+				<p className="absolute right-32 top-[86px] z-[11] bg-black rounded-full px-3 text-zinc-200">
+					Hello, <span className="text-yellow-400 ml-2">{user?.email}!</span>
+				</p>
+			)}
 			{user && <LogoutButton />}
 			{!user && (
 				<div className="ml-6">

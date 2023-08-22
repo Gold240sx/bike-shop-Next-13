@@ -5,17 +5,20 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import Navbar from "../components/navbar/Navbar"
 
 export default async function AuthLayout({ children }: any) {
-	const supabase = createServerComponentClient({ cookies })
-	const { data } = await supabase.auth.getSession()
+  const supabase = createServerComponentClient({ cookies })
 
-	if (data.session) {
+  const {
+		data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
 		redirect("/")
-	}
+  }
 
-	return (
+  return (
 		<>
-			<Navbar user={data?.session?.user} />
+			<Navbar user={user} />
 			{children}
 		</>
-	)
+  )
 }
