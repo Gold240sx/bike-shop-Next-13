@@ -2,6 +2,7 @@ import Link from "next/link"
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import Navbar from "../components/navbar/Navbar"
 
 export default async function AuthLayout({ children }: any) {
 	const supabase = createServerComponentClient({ cookies })
@@ -13,11 +14,7 @@ export default async function AuthLayout({ children }: any) {
 
 	return (
 		<>
-			<nav>
-				<h1>Dojo Helpdesk</h1>
-				<Link href="/signup">Sign up</Link>
-				<Link href="/login">Login</Link>
-			</nav>
+			<Navbar user={data?.session?.user} />
 			{children}
 		</>
 	)

@@ -5,7 +5,7 @@
 /* base styles */
 body {
   background: #ebf0fa;
-  @apply text-gray-500 m-8;
+  @apply text-gray-500 m-4;
 }
 h1, h2 {
   @apply font-bold  text-lg;
@@ -26,7 +26,7 @@ nav {
     pb-4
     border-b-2 border-gray-200
     flex items-center gap-5 
-    my-10 mx-auto 
+    mx-auto 
     max-w-5xl;
 }
 nav a, nav span {
