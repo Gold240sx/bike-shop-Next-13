@@ -32,7 +32,7 @@ export default function Signup() {
 	}
 
 	return (
-		<main className="w-full items-center flex flex-col  h-full">
+		<main className="w-full flex flex-col h-full justify-center pb-28">
 			<h2 className="text-center">Sign up</h2>
 
 			<AuthForm handleSubmit={handleSubmit} />

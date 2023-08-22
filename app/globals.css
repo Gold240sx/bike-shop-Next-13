@@ -10,9 +10,7 @@ body {
 h1, h2 {
   @apply font-bold  text-lg;
 }
-main {
-  @apply max-w-5xl;
-}
+
 main > h2 {
   @apply mb-4 pb-2;
 }

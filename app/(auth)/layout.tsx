@@ -16,9 +16,9 @@ export default async function AuthLayout({ children }: any) {
   }
 
   return (
-		<>
+		<main className="bg-zinc-100 w-full h-screen">
 			<Navbar user={user} />
 			{children}
-		</>
+		</main>
   )
 }
