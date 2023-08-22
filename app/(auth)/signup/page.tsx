@@ -10,24 +10,24 @@ export default function Signup() {
   const router = useRouter()
   const [error, setError] = useState('')
 
-  const handleSubmit = async (e, email, password) => {
-    e.preventDefault()
-    setError('')
+  const handleSubmit = async (e: React.FormEvent, email: string, password: string) => {
+		e.preventDefault()
+		setError("")
 
-    const supabase = createClientComponentClient()
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/api/auth/callback`
-      }
-    })
-    if (error) {
-      setError(error.message)
-    }
-    if (!error) {
-      router.push('/verify')
-    } 
+		const supabase = createClientComponentClient()
+		const { error } = await supabase.auth.signUp({
+			email,
+			password,
+			options: {
+				emailRedirectTo: `${location.origin}/api/auth/callback`,
+			},
+		})
+		if (error) {
+			setError(error.message)
+		}
+		if (!error) {
+			router.push("/verify")
+		}
   }
 
   return (

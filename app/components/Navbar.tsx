@@ -3,11 +3,7 @@ import Image from "next/image"
 import Logo from "./dojo-logo.png"
 import LogoutButton from "./LogoutButton"
 
-interface NavbarProps {
-	user: any // Replace 'any' with the actual type of 'user'
-}
-
-export const Navbar: React.FC<NavbarProps> = ({ user }) => {
+const Navbar = ({ user }: { user: any }) => {
 	return (
 		<nav>
 			<Image src={Logo} alt="Dojo Helpdesk logo" width={70} placeholder="blur" quality={100} />
@@ -21,3 +17,5 @@ export const Navbar: React.FC<NavbarProps> = ({ user }) => {
 		</nav>
 	)
 }
+
+export default Navbar
