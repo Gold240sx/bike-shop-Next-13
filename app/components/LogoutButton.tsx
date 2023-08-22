@@ -1,9 +1,22 @@
+"use client"
+import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
 export default function LogoutButton() {
+  const router = useRouter()
+
+  const handleLogout = async () => {
+    const supabase = createClientComponentClient()
+    const { error } = await supabase.auth.signOut()
+
+    if (!error) {
+      router.push('/login')
+    }
+  }
+
   return (
-    <form action="/auth/sign-out" method="post">
-      <button className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover">
-        Logout
-      </button>
-    </form>
+    <button className="btn-secondary" onClick={handleLogout}>
+      Logout
+    </button>
   )
 }
