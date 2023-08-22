@@ -4,20 +4,20 @@ import { redirect } from "next/navigation"
 import { cache } from "react"
 
 // components
-import Navbar from "@/app/components/Navbar"
+import Navbar from "../components/navbar/Navbar"
 
 export default async function DashboardLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
-	const { data } = await supabase.auth.getSession()
+	const { data }: { data: { session: null | { user: any } } } = await supabase.auth.getSession()
 
-	if (!data.session) {
-		redirect("/login")
-	}
+	// if (!data.session) {
+	// 	redirect("/login")
+	// }
 
 	return (
 		<>
-			<Navbar user={data.session.user} />
-			{children}
+			<Navbar user={data?.session?.user} />
+			<div className="">{children}</div>
 		</>
 	)
 }

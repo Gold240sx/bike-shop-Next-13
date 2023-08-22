@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "es2017",
+		"target": "ES2017",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"allowJs": true,
 		"skipLibCheck": true,
@@ -30,7 +30,7 @@
 		".next/types/**/*.ts",
 		"app/(dashboard)/layout.tsx",
 		"app/(dashboard)/layout.tsx",
-		".next/types/app/(dashboard)/layout.js",
+		".next/types/app/(dashboard)/layout.jsx",
 		".next/types/app/(dashboard)/layout.tsx"
 	],
 	"exclude": ["node_modules"]
