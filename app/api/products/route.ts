@@ -3,7 +3,7 @@ import { cookies } from "next/headers"
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 export async function POST(request: Request): Promise<NextResponse> {
-	const ticket = await request.json()
+	const product = await request.json()
 
 	// get supabase instance
 	const supabase = createRouteHandlerClient({ cookies })
@@ -15,10 +15,10 @@ export async function POST(request: Request): Promise<NextResponse> {
 
 	// insert the data
 	const { data, error } = await supabase
-		.from("tickets")
+		.from("products")
 		.insert({
-			...ticket,
-			user_email: session?.user.email,
+			...product,
+			added_by: session?.user.email,
 		})
 		.select()
 		.single()

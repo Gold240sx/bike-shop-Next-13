@@ -7,7 +7,7 @@ export async function DELETE(_: any, { params }: { params: { id: string } }) {
 
 	const supabase = createRouteHandlerClient({ cookies })
 
-	const { error } = await supabase.from("tickets").delete().eq("id", id)
+	const { error } = await supabase.from("products").delete().eq("id", id)
 
 	return NextResponse.json({ error })
 }

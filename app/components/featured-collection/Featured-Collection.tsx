@@ -10,7 +10,7 @@ const FeaturedCollection: React.FC = () => {
 	// 	.map((product) => <FeaturedProduct {...product} key={product.id} />)
 
 	return (
-		<div className="container featured-collection">
+		<div className="featured-collection ">
 			<h2 className="featured-section-title">Featured Collection</h2>
 			{/* <div className="products">{productItems}</div> */}
 		</div>
