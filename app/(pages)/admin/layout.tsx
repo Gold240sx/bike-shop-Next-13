@@ -4,10 +4,10 @@ import { redirect } from "next/navigation"
 import { cache } from "react"
 
 // components
-import Navbar from "../components/navbar/Navbar"
-import Footer from "../components/footer/Footer"
+import Navbar from "../../components/navbar/Navbar"
+import Footer from "../../components/footer/Footer"
 
-export default async function DashboardLayout({ children }: { children: any }) {
+export default async function AdminLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
 	const { data }: { data: { session: null | { user: any } } } = await supabase.auth.getSession()
 
@@ -23,10 +23,3 @@ export default async function DashboardLayout({ children }: { children: any }) {
 		</>
 	)
 }
-
-export const createServerClient = cache(() => {
-	const cookieStore = cookies()
-	return createServerComponentClient({
-		cookies: () => cookieStore,
-	})
-})

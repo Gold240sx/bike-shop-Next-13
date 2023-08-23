@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import Homepage from "../components/shared/Homepage"
+import Link from "next/link"
+import Homepage from "../../components/shared/Homepage"
 
 export default function Home() {
-  return (
+	return (
 		<main>
 			<Homepage />
 			<h2>Dashboard</h2>
@@ -38,5 +38,5 @@ export default function Home() {
 				</p>
 			</div>
 		</main>
-  )
+	)
 }

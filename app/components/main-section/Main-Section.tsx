@@ -5,7 +5,8 @@ import "./Main-Section.styles.scss"
 import TreeTrail from "../../assets/Images/trail-trees.jpg"
 import Path from "../../assets/Images/path.svg"
 import Building from "../../assets/Images/building.jpg"
-
+import GoogleRating from "../../assets/Icons/GoogleRating.png"
+import Link from "next/link"
 
 const MainSection = ({ history }: any) => {
 	return (
@@ -24,10 +25,11 @@ const MainSection = ({ history }: any) => {
 					</div>
 					<div className="lg:flex main-section-middle z-10 mt-12 ">
 						<div className="flex flex-col gap-4 ms-m-description mt-5 ">
-							<h2 className="font-medium text-6xl text-white">Tuned and Tested</h2>
-							<p className="line-clamp-[8] w-[500px] text-zinc-400 pl-5">
-								All of our products are tested and inpected by us before every shipment. We offer custom builds, rentals,
-								and in-store service and support on all our products so you can hit the trails sooner.
+							<h2 className="font-medium text-5xl text-white">Rider owned and opperated</h2>
+							<p className="line-clamp-[8] max-w-[50vw]  pr-14 text-base text-balance w-full text-zinc-400 pl-5 text-wrap">
+								<span className="text-xl text-white">All of our products </span>are tested and inpected by us before every
+								shipment. We offer custom builds, rentals, and in-store service and support on all our products so you can
+								hit the trails sooner.
 							</p>
 							<button
 								className="px-4  py-1 text-lg ml-5 text-white bg-black hover:bg-zinc-900 hover:ring-2 hover:ring-teal-400 rounded w-fit  hover:shadow-md shadow-black/50"
@@ -37,6 +39,15 @@ const MainSection = ({ history }: any) => {
 						</div>
 					</div>
 				</div>
+				<Link href="/">
+					<Image
+						src={GoogleRating}
+						alt="google rating"
+						width={128}
+						height={40}
+						className="cursor-pointer -mt-8 mb-4 mr-8 flex ml-auto w-fit h-fit"
+					/>
+				</Link>
 			</div>
 		</>
 	)

@@ -1,4 +1,3 @@
-import { Products as SHOP_DATA } from "../shop/Products"
 import { createContext, useState, ReactNode } from "react"
 
 // export type Product = {
@@ -21,12 +20,6 @@ import { createContext, useState, ReactNode } from "react"
 // 	Clothes: [Product[]]
 // 	Accessories: [Product[]]
 // }
-
-// export const ProductContext = createContext<Products>({
-// 	Bikes: [SHOP_DATA.Bikes],
-// 	Clothes: [SHOP_DATA.Clothes],
-// 	Accessories: [SHOP_DATA.Accessories],
-// })
 
 const ProductsContextProvider = ({ children }: { children: ReactNode }) => {
 	// const initialProducts: Products = { Bikes: [SHOP_DATA.Bikes], Clothes: [SHOP_DATA.Clothes], Accessories: [SHOP_DATA.Accessories] }
