@@ -28,8 +28,8 @@
 		"**/*.tsx",
 		".next/types/**/*.ts,",
 		".next/types/**/*.ts",
-		"app/(dashboard)/layout.tsx",
-		"app/(dashboard)/layout.tsx",
+		"app/(home)/layout.tsx",
+		"app/(home)/layout.tsx",
 		".next/types/app/(dashboard)/layout.jsx",
 		".next/types/app/(dashboard)/layout.tsx"
 	],

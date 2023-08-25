@@ -8,7 +8,7 @@ body {
   @apply text-gray-500;
 }
 h1, h2 {
-  @apply font-bold  text-lg;
+  @apply font-bold ;
 }
 
 main > h2 {
@@ -58,7 +58,6 @@ button:hover {
 form {
   @apply 
     py-4 px-7 
-
     bg-opacity-5 
     rounded-md 
     block 
