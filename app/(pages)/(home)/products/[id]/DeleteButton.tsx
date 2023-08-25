@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 // icons & UI
 import { TiDelete } from "react-icons/ti"
 
-export default function DeleteIcon({ id }: { id: number }) {
+export default function DeleteButton({ id }: { id: number }) {
 	const [isLoading, setIsLoading] = useState(false)
 	const router = useRouter()
 
@@ -18,12 +18,11 @@ export default function DeleteIcon({ id }: { id: number }) {
 		const json: any = await res.json()
 
 		if (json.error) {
-			// console.log(error)
 			setIsLoading(false)
 		}
 		if (!json.error) {
 			router.refresh()
-			router.push("/products")
+			router.push("/admin")
 		}
 	}
 
@@ -35,13 +34,13 @@ export default function DeleteIcon({ id }: { id: number }) {
 			{isLoading && (
 				<div className="text-black   rounded border-1 px-2 flex justify-center align-middle items-center hover:text-white hover:bg-red-600">
 					<TiDelete />
-					Deleting....
+					<span>Deleting....</span>
 				</div>
 			)}
 			{!isLoading && (
-				<div className="text-black rounded border-1  px-2 flex justify-center align-middle items-center hover:text-white hover:bg-red-600">
+				<div className=" rounded border-1  px-2 flex justify-center align-middle items-center hover:bg-red-500 bg-red-600 ">
 					<TiDelete />
-					Delete Ticket
+					<span className="text-white">Delete Product</span>
 				</div>
 			)}
 		</button>

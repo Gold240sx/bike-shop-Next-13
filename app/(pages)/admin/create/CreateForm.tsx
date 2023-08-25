@@ -3,11 +3,18 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
-interface SubmitForm {
-	product: { id: string; body: string; priority: string; user_email: string }[]
+export interface Product {
+	id: string
+	body: string
+	priority: string
+	user_email: string
 }
 
-const createForm: React.FC<SubmitForm> = () => {
+export interface SubmitForm {
+	product: Product
+}
+
+const createForm: React.FC<SubmitForm> = ({ product }) => {
 	const [title, setTitle] = useState("")
 	const [body, setBody] = useState("")
 	const [priority, setPriority] = useState("low")
@@ -36,7 +43,12 @@ const createForm: React.FC<SubmitForm> = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="w-1/2">
+		<form onSubmit={handleSubmit} className="w-1/2 ">
+			<button
+				className="bg-white hover:bg-zinc-100 border border-zinc-400 hover:text-zinc-800 hover:border-zinc-800 rounded m-0 ml-auto mb-4"
+				onClick={() => router.push("/admin")}>
+				Back
+			</button>
 			<label>
 				<span>Title:</span>
 				<input required type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
