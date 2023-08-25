@@ -11,9 +11,10 @@ export default async function AdminLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
 	const { data }: { data: { session: null | { user: any } } } = await supabase.auth.getSession()
 
-	// if (!data.session) {
-	// 	redirect("/login")
-	// }
+	if (!data.session) {
+		// redirect to login page if user is not logged in
+		redirect("/signin")
+	}
 
 	return (
 		<>

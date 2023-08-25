@@ -4,8 +4,8 @@ import { cookies } from "next/headers"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
-export async function addTicket(formData: FormData) {
-	const ticket = Object.fromEntries(formData)
+export async function addProduct(formData: FormData) {
+	const product = Object.fromEntries(formData)
 
 	const supabase = createServerActionClient({ cookies })
 
@@ -15,11 +15,11 @@ export async function addTicket(formData: FormData) {
 	} = await supabase.auth.getSession()
 
 	// insert the data
-	const { error } = await supabase.from("tickets").insert({
-		...ticket,
+	const { error } = await supabase.from("products").insert({
+		...product,
 		user_email: session?.user.email,
 	})
 
-	revalidatePath("/tickets")
-	redirect("/tickets")
+	revalidatePath("/products")
+	redirect("/products")
 }

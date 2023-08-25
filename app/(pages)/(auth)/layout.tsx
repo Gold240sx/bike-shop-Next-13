@@ -12,7 +12,7 @@ export default async function AuthLayout({ children }: any) {
 	} = await supabase.auth.getUser()
 
 	if (user) {
-		redirect("/")
+		redirect("/admin")
 	}
 
 	return (

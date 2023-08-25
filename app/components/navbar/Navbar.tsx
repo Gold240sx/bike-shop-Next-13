@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { BiShoppingBag, BiHomeAlt2 } from "react-icons/bi"
+import { BiShoppingBag, BiHomeAlt2, BiTable } from "react-icons/bi"
 import { LuLayoutDashboard } from "react-icons/lu"
 import { RxDividerVertical } from "react-icons/rx"
 import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
@@ -29,6 +29,7 @@ const Navbar = ({ user }: { user: any }) => {
 						quality={100}
 						height={90}
 						width={55}
+						// priority
 						src={BikeShopLogo}
 						className="absolute h-auto scale-75 sm:scale-[85%] cursor-pointer sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -mt-5 w-[9rem] p-2 -rotate-3 shadow-black shadow-2xl"
 					/>
@@ -47,9 +48,15 @@ const Navbar = ({ user }: { user: any }) => {
 				</li>
 			</ul>
 			{user && (
-				<Link href="/admin">
-					<LuLayoutDashboard className="hover:scale-110 ml-[5px] mt-0.5 h-7 w-7 hover:text-teal-500" />
-				</Link>
+				<div className="bg-zinc-300 rounded-full px-4 pt-1 pb-0.5 flex gap-2">
+					<Link href="/products">
+						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />
+					</Link>
+
+					<Link href="/admin">
+						<LuLayoutDashboard className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
+				</div>
 			)}
 			{!user && <CartIcon />}
 			<RxDividerVertical className="scale-150 -mr-2 text-zinc-300" />

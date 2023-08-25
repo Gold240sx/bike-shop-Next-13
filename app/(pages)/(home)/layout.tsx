@@ -11,16 +11,12 @@ export default async function HomeLayout({ children }: { children: any }) {
 	const supabase = createServerComponentClient({ cookies })
 	const { data }: { data: { session: null | { user: any } } } = await supabase.auth.getSession()
 
-	// if (!data.session) {
-	// 	redirect("/login")
-	// }
-
 	return (
-		<>
+		<div className=" bg-zinc-100">
 			<Navbar user={data?.session?.user} />
-			<div className="">{children}</div>
+			<div className="min-h-screen">{children}</div>
 			<Footer />
-		</>
+		</div>
 	)
 }
 
