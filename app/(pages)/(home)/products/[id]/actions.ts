@@ -21,7 +21,7 @@ export async function editProduct(formData: FormData, id: number) {
 
 	revalidatePath("/products")
 	if (session) {
-		redirect(`/admin`)
+		redirect(`/products/admin`)
 	} else {
 		redirect("/products")
 	}

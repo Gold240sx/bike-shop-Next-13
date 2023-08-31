@@ -28,7 +28,7 @@ export async function addProduct(formData: FormData) {
 	if (!session) {
 		redirect("/products")
 	} else {
-		redirect("/admin")
+		redirect("/products/admin")
 	}
 }
 
@@ -47,5 +47,5 @@ export async function deleteProduct(id: string) {
 	}
 
 	revalidatePath("/products")
-	redirect("/admin")
+	redirect("/products/admin")
 }
