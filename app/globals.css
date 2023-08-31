@@ -5,10 +5,25 @@
 /* base styles */
 body {
   /* background: #ebf0fa; */
-  @apply text-gray-500;
+
+  @apply text-gray-500
+    bg-zinc-100
 }
 h1, h2 {
   @apply font-bold ;
+}
+
+.main {
+    @apply 
+        py-6 px-8 
+        mx-auto 
+        max-w-5xl
+        min-h-[85vh]
+        pt-24
+        items-center
+        justify-center
+        flex
+        flex-col;
 }
 
 main > h2 {
@@ -96,10 +111,11 @@ form button {
 /* card styles */
 .card {
   @apply 
-    bg-white 
+    bg-[#EAEAEA]
     shadow-sm 
     rounded-md 
     py-3 px-4 my-4 
+    pt-6 flex flex-col gap-2
     relative 
     overflow-hidden;
 }

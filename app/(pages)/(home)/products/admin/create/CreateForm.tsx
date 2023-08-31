@@ -4,8 +4,8 @@ import BackButton from "@/app/components/BackButton"
 
 const createForm = () => {
 	return (
-		<form action={addProduct} className="w-1/2 ">
-			<BackButton destination="/admin" />
+		<form action={addProduct} className="w-1/2 card">
+			<BackButton destination="/products/admin" />
 			<label>
 				<span>Title:</span>
 				<input required type="text" name="title" />

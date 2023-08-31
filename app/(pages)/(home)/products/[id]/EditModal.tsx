@@ -30,14 +30,7 @@ export default function EditModal({ id, product }: EditModalProps) {
 			<div className={` ${!isEditing && " ml-auto"} mx-8 mt-4 flex items-center justify-between`}>
 				{isEditing && <span className="text-2xl w-fit">EDIT PROJECT</span>}
 				<div className="flex ml-auto">
-					{/* {!isEditing && <DeleteButton id={id} />} */}
 					<button className="btn-primary  text-black text-lg border-black w-fit h-fit rounded " disabled={isLoading}>
-						{/* {isLoading && (
-							<div className="text-zinc-600 rounded border-1 px-2 flex justify-center align-middle items-center hover:text-black hover:bg-zinc-400">
-								<AiFillEdit />
-								Updating....
-							</div>
-						)} */}
 						{!isLoading && !isEditing && (
 							<div
 								className="text-zinc-600 rounded border-1  px-2 flex justify-center align-middle items-center hover:text-black hover:bg-yellow-300 bg-yellow-400"

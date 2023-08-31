@@ -53,7 +53,7 @@ const Navbar = ({ user }: { user: any }) => {
 						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />
 					</Link>
 
-					<Link href="/admin">
+					<Link href="/products/admin">
 						<LuLayoutDashboard className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>
 				</div>

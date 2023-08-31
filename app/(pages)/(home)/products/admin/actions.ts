@@ -20,6 +20,10 @@ export async function addProduct(formData: FormData) {
 		user_email: session?.user.email,
 	})
 
+	if (error) {
+		throw new Error("Could not add the new Product")
+	}
+
 	revalidatePath("/products")
 	if (!session) {
 		redirect("/products")
@@ -30,4 +34,18 @@ export async function addProduct(formData: FormData) {
 
 export const back = (destination: string) => {
 	redirect(destination)
+}
+
+export async function deleteProduct(id: string) {
+	const supabase = createServerActionClient({ cookies })
+
+	// delete the data
+	const { error } = await supabase.from("ProductsTest").delete().match({ id })
+
+	if (error) {
+		throw new Error("Could not delete the Product")
+	}
+
+	revalidatePath("/products")
+	redirect("/admin")
 }

@@ -16,7 +16,7 @@ const EditForm: React.FC<EditFormProps> = ({ product }) => {
 		<form className=" w-full" action={(e) => editProduct(e, id)}>
 			<div className="flex justify-between w-fit gap-2 ml-auto">
 				<DeleteButton id={id} />
-				<BackButton destination="/admin" />
+				<BackButton destination="/products/admin" />
 			</div>
 			<div>
 				<input type="text" defaultValue={product?.title} name="title" className="rounded" />
