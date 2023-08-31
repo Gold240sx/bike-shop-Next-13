@@ -2,9 +2,7 @@ import { cookies } from "next/headers"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 
 // components
-import DeleteButton from "./DeleteButton"
 import EditModal from "./EditModal"
-import EditForm from "./EditForm"
 
 export const dynamicParams = true
 
@@ -37,17 +35,20 @@ export default async function ProductDetails({ params }: any) {
 			<nav className="flex flex-col w-full">
 				<h2>Product Details</h2>
 				<div className="w-full">
-					{data?.session?.user.email === product?.user_email && <EditModal id={product?.id} product={product} />}
+					{data?.session?.user.email === product?.user_email ? (
+						<EditModal id={product?.id} product={product} />
+					) : (
+						<div className="card text-black border-1 border-zinc-800 bg-white">
+							<div>
+								<h3>{product?.title}</h3>
+								<small>Created by {product?.user_email}</small>
+								<p>{product?.body}</p>
+								<div className={`pill ${product?.priority}`}>{product?.priority} priority</div>
+							</div>
+						</div>
+					)}
 				</div>
 			</nav>
-			<div className="card text-black border-1 border-zinc-800 bg-white">
-				<div>
-					<h3>{product?.title}</h3>
-					<small>Created by {product?.user_email}</small>
-					<p>{product?.body}</p>
-					<div className={`pill ${product?.priority}`}>{product?.priority} priority</div>
-				</div>
-			</div>
 		</main>
 	)
 }

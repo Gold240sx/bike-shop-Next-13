@@ -12,7 +12,7 @@ export default function DeleteButton({ id }: { id: number }) {
 	const handleClick = async () => {
 		setIsLoading(true)
 
-		const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+		const res = await fetch(`http://localhost:3000/api/products/${id}/delete`, {
 			method: "DELETE",
 		})
 		const json: any = await res.json()
@@ -28,18 +28,18 @@ export default function DeleteButton({ id }: { id: number }) {
 
 	return (
 		<button
-			className="btn-primary text-black text-lg border-black w-fit h-fit rounded "
+			className="btn-primary text-lg w-fit rounded  bg-red-600 p-0 h-9 border-red-600 border"
 			onClick={() => handleClick()}
 			disabled={isLoading}>
 			{isLoading && (
-				<div className="text-black   rounded border-1 px-2 flex justify-center align-middle items-center hover:text-white hover:bg-red-600">
-					<TiDelete />
-					<span>Deleting....</span>
+				<div className=" flex gap-2 items-center  text-red-700 pl-2 pr-4 py-1 cursor-not-allowed  justify-center">
+					<TiDelete className="text-2xl" />
+					<span className="text-red-800">Deleting....</span>
 				</div>
 			)}
 			{!isLoading && (
-				<div className=" rounded border-1  px-2 flex justify-center align-middle items-center hover:bg-red-500 bg-red-600 ">
-					<TiDelete />
+				<div className=" flex gap-2  items-center  hover:bg-red-500 pl-2 pr-4 py-1  justify-center">
+					<TiDelete className="text-2xl" />
 					<span className="text-white">Delete Product</span>
 				</div>
 			)}

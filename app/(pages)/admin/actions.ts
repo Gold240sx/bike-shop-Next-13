@@ -15,11 +15,19 @@ export async function addProduct(formData: FormData) {
 	} = await supabase.auth.getSession()
 
 	// insert the data
-	const { error } = await supabase.from("products").insert({
+	const { error } = await supabase.from("ProductsTest").insert({
 		...product,
 		user_email: session?.user.email,
 	})
 
 	revalidatePath("/products")
-	redirect("/products")
+	if (!session) {
+		redirect("/products")
+	} else {
+		redirect("/admin")
+	}
+}
+
+export const back = (destination: string) => {
+	redirect(destination)
 }
