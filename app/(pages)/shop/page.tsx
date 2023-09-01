@@ -1,9 +1,14 @@
-import React from "react"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
 
-export default function Shop() {
+export default async function Shop() {
+	const supabase = createServerComponentClient({ cookies })
+
+	const { data: post } = await supabase.from("post").select("*")
 	return (
-		<main className="min-h-screen items-center justify-center flex">
+		<main className="min-h-screen items-center justify-center flex flex-col">
 			<h2>Shop</h2>
+			<pre>{JSON.stringify(post, null, 2)}</pre>
 		</main>
 	)
 }

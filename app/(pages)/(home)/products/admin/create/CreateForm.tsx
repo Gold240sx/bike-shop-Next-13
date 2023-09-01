@@ -3,6 +3,7 @@ import SubmitButton from "@/app/components/SubmitButton"
 import BackButton from "@/app/components/BackButton"
 
 const createForm = () => {
+
 	return (
 		<form action={addProduct} className="w-1/2 card">
 			<BackButton destination="/products/admin" />
