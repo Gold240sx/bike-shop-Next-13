@@ -13,6 +13,17 @@ const cssDevNotes = `
         -webkit-focus-ring-color:  rgba(0, 0, 0, 0);
         border: none;
         border: 0;
+    }
+
+    .drd-scrollbar {
+        scrollbar-width: 0px;
+        scrollbar-width: none;
+      -ms-overflow-style: none; 
+    }
+
+    .drd-scrollbar::-webkit-scrollbar { 
+        display: none;  /* Safari and Chrome */
+    }
 `
 
 interface Option {
@@ -181,7 +192,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 				</div>
 				<div
 					style={{ width: width }}
-					className={`absolute group-focus-within:h-fit  h-0 group-focus-within:z-40  mt-7 dropdown max-h-[250px] overflow-y-scroll  bg-gray duration-300 transition-all ease-in-out group-focus-within:opacity-100 opacity-0
+					className={`absolute group-focus-within:h-fit drd-scrollbar min-w-fit  h-0 group-focus-within:z-40  mt-7 dropdown max-h-[250px] overflow-y-scroll  bg-gray duration-300 transition-all ease-in-out group-focus-within:opacity-100 opacity-0
 				 ${
 						value === ""
 							? "pointer-events-none opacity-0 group-focus-within:pointer-events-auto group-focus-within:opacity-100 "
