@@ -3,6 +3,34 @@
 @tailwind utilities;
 
 /* base styles */
+input[type=file]::file-selector-button {
+  width: 0;
+  opacity: 0;
+}
+
+input[type=file]:hover::before {
+    background-color: #CDCDD1;
+}
+input[type=file]::before {
+    content: 'Select files';
+    display: inline-block;
+    background-color: #D4D4D8;
+    border: 1px solid #D4D4D8;
+    border-radius: 5px;
+    padding: 5px 31px;
+    margin-top: -3px;
+    font-stretch: expanded;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer !important;
+    font-weight: 500;
+    font-size: 10pt;
+    color: #6B7280;
+    margin-left: -2px
+}
+
 body {
   /* background: #ebf0fa; */
 
@@ -149,6 +177,7 @@ form button {
     absolute bottom-0 right-0 
     rounded-tl-md;
 }
+
 
 @layer utilities {
     .animate-spin {

@@ -3,6 +3,7 @@ import Image from "next/image"
 import { BiShoppingBag, BiHomeAlt2, BiTable } from "react-icons/bi"
 import { LuLayoutDashboard } from "react-icons/lu"
 import { RxDividerVertical } from "react-icons/rx"
+import { TbCrane } from "react-icons/tb"
 import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
 import Crank from "../../assets/Images/crank.png"
 import CartIcon from "../cart-icon/CartIcon"
@@ -11,8 +12,11 @@ import LogoutButton from "../LogoutButton"
 import "./nav-menu.scss"
 
 const Navbar = ({ user }: { user: any }) => {
+	// refresh component on user change while remaining a server component without using useState
+	const key = user ? "user-logged-in" : "user-logged-out"
+
 	return (
-		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto">
+		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto" key={key}>
 			<Link href="/" className="cursor-pointer z-20">
 				<div className=" bg-white logo rounded-xl group w-fit h-fit justify-between cursor-pointer">
 					<div className="absolute bg-white h-[7.2rem] cursor-pointer rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>
@@ -48,7 +52,11 @@ const Navbar = ({ user }: { user: any }) => {
 				</li>
 			</ul>
 			{user && (
+				// SIGNED IN USERS
 				<div className="bg-zinc-300 rounded-full px-4 pt-1 pb-0.5 flex gap-2">
+					<Link href="/test">
+						<TbCrane className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
 					<Link href="/products">
 						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />
 					</Link>
