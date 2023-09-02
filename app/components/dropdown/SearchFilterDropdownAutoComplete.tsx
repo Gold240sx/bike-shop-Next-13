@@ -183,7 +183,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 						<button
 							className={`${
 								value === "" ? "opacity-0" : "opacity-100"
-							} px-[20px] py-0  h-8 mt-2 text-zinc-700 text-lg  active:bg-zinc-600 cursor-pointer hover:bg-slate-400 rounded-r-md -right-[72px] bg-zinc-300`}
+							} px-[20px] py-0  h-8 mt-2 text-zinc-700 text-lg  active:bg-zinc-600 cursor-pointer hover:bg-[#CDCDD1] rounded-r-md -right-[72px] bg-zinc-300`}
 							onClick={onClear}
 							disabled={value === ""}>
 							Clear

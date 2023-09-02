@@ -5,9 +5,11 @@ interface toggleProps {
 	toggleValue: string
 	setToggleValue: (value: string) => void
 	setImagePreview: (value: string) => void
+	setImageStatus: (value: string) => void
+	setErrorStatus: (value: string) => void
 }
 
-const toggle: React.FC<toggleProps> = ({ toggleValue, setToggleValue, setImagePreview }) => {
+const toggle: React.FC<toggleProps> = ({ toggleValue, setToggleValue, setImagePreview, setImageStatus, setErrorStatus }) => {
 	return (
 		<div className="toggle-container flex bg-zinc-300 w-fit h-fit px-1.5 gap-1 py-1.5 justify-evenly rounded-md text-middle select-none relative">
 			<div
@@ -21,6 +23,8 @@ const toggle: React.FC<toggleProps> = ({ toggleValue, setToggleValue, setImagePr
 				onClick={() => {
 					setToggleValue("URL")
 					setImagePreview("default")
+					setImageStatus("inactive")
+					setErrorStatus("")
 				}}>
 				URL
 			</div>
