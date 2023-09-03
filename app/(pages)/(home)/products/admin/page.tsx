@@ -16,7 +16,7 @@ export default async function Dashboard() {
 		return redirect("/signin")
 	}
 
-	const { data: user } = await supabase.from("user").select("*").match({ id: activeSession.session.user.id }).single()
+	const { data: user } = await supabase.from("users").select("*").match({ id: activeSession.session.user.id }).single()
 	const { data: post } = await supabase.from("post").select("*")
 
 	if (user?.role !== "admin") {

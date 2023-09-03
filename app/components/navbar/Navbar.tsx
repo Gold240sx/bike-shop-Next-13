@@ -3,6 +3,7 @@ import Image from "next/image"
 import { BiShoppingBag, BiHomeAlt2, BiTable } from "react-icons/bi"
 import { LuLayoutDashboard } from "react-icons/lu"
 import { RxDividerVertical } from "react-icons/rx"
+import { HiUsers } from "react-icons/hi"
 import { TbCrane } from "react-icons/tb"
 import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
 import Crank from "../../assets/Images/crank.png"
@@ -56,6 +57,9 @@ const Navbar = ({ user }: { user: any }) => {
 				<div className="bg-zinc-300 rounded-full px-4 pt-1 pb-0.5 flex gap-2">
 					<Link href="/test">
 						<TbCrane className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
+					<Link href="/users">
+						<HiUsers className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>
 					<Link href="/products">
 						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />

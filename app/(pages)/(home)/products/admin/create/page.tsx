@@ -12,7 +12,7 @@ export default async function CreateProduct() {
 		return redirect("/signin")
 	}
 
-	const { data: user } = await supabase.from("user").select("*").match({ id: activeSession.session.user.id }).single()
+	const { data: user } = await supabase.from("users").select("*").match({ id: activeSession.session.user.id }).single()
 
 	if (user?.role !== "admin") {
 		return redirect("/")

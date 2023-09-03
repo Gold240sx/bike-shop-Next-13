@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import Toggle from "../toggles/toggle"
 import ImageNotFound from "../../assets/Images/image-not-found.jpg"
@@ -7,10 +7,11 @@ import SearchFilterDropdownAutoComplete from "../dropdown/SearchFilterDropdownAu
 
 import { TiDeleteOutline, TiDelete } from "react-icons/ti"
 import { BiSolidSave, BiSave, BiError, BiSolidError } from "react-icons/bi"
+import { MdClear } from "react-icons/md"
 import { FiMoreHorizontal } from "react-icons/fi"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-const ImageUploadSingle = () => {
+const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImageChange: any; productColors: any[] }) => {
 	const [toggleValue, setToggleValue] = useState("URL")
 	const [imagePreview, setImagePreview] = useState("default")
 	const [imageStatus, setImageStatus] = useState("inactive") // inactive, loading, error, saveReady , saved
@@ -23,20 +24,26 @@ const ImageUploadSingle = () => {
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
 
+	// useEffect(() => {
+	// 	// Notify the parent component when validImage changes
+	// 	onValidImageChange(validImage)
+	// }, [validImage, onValidImageChange])
+	// ^^ CAUSES SITE CRASH
+
 	const handleUploadImageToURL = () => {
 		// upload image to url
 		let url = ""
-		const supabase = createClientComponentClient({ cookies })
-		const { data, error } = await supabase.storage.from("YOUR_STORAGE_BUCKET_NAME").upload(`public/${file.name}`, file)
+		// const supabase = createClientComponentClient({ cookies })
+		// const { data, error } = await supabase.storage.from("YOUR_STORAGE_BUCKET_NAME").upload(`public/${file.name}`, file)
 
-		if (error) {
-			console.error("Error uploading file:", error.message)
-		} else {
-			// Get the public URL of the uploaded file
-			const fileUrl = `${supabaseUrl}/storage/v1/object/public/${file.name}`
-			console.log("File URL:", fileUrl)
-			// You can now use fileUrl to display or access the uploaded file.
-		}
+		// if (error) {
+		// 	console.error("Error uploading file:", error.message)
+		// } else {
+		// 	// Get the public URL of the uploaded file
+		// 	const fileUrl = `${supabaseUrl}/storage/v1/object/public/${file.name}`
+		// 	console.log("File URL:", fileUrl)
+		// 	// You can now use fileUrl to display or access the uploaded file.
+		// }
 
 		return url
 	}
@@ -60,44 +67,59 @@ const ImageUploadSingle = () => {
 				<div className="input  h-full w-fit px-4 gap-4">
 					<p className="text-white h-6 text-xl ">Source</p>
 					<div className="flex flex-col gap-3 mt-[19px]">
-						{toggleValue === "URL" && (
-							<input
-								name="image-url"
-								type="text"
-								onChange={(e) => {
-									setImagePreview(e.target.value.trim() === "" ? "default" : e.target.value.trim())
-									setErrorStatus(
-										toggleValue !== "URL" || e.target.value.trim() !== ""
-											? isValidWebsite.test(e.target.value.trim())
-												? isValidDomain.test(e.target.value.trim())
-													? isValidImage.test(e.target.value.trim())
-														? ""
-														: "Image URL must end with .jpg, .jpeg, .png or .webp"
-													: ""
-												: "Image URL must start with www, http:// or https://."
-											: ""
-									)
-									setImageStatus("inactive")
-									setValidImage(
-										toggleValue !== "URL" || e.target.value.trim() !== ""
-											? isValidWebsite.test(e.target.value.trim())
-												? isValidDomain.test(e.target.value.trim())
-													? isValidImage.test(e.target.value.trim())
-														? true
+						<div className="flex">
+							{toggleValue === "URL" && (
+								<input
+									name="image-url"
+									type="text"
+									onChange={(e) => {
+										setImagePreview(e.target.value.trim() === "" ? "default" : e.target.value.trim())
+										setErrorStatus(
+											toggleValue !== "URL" || e.target.value.trim() !== ""
+												? isValidWebsite.test(e.target.value.trim())
+													? isValidDomain.test(e.target.value.trim())
+														? isValidImage.test(e.target.value.trim())
+															? ""
+															: "Image URL must end with .jpg, .jpeg, .png or .webp"
+														: ""
+													: "Image URL must start with www, http:// or https://."
+												: ""
+										)
+										setImageStatus("inactive")
+										setValidImage(
+											toggleValue !== "URL" || e.target.value.trim() !== ""
+												? isValidWebsite.test(e.target.value.trim())
+													? isValidDomain.test(e.target.value.trim())
+														? isValidImage.test(e.target.value.trim())
+															? true
+															: false
 														: false
 													: false
 												: false
-											: false
-									)
-								}}
-								value={imagePreview === "default" ? "" : imagePreview}
-								className="h-8 text-md mx-0.5 rounded-md focus:placeholder:opacity-0"
-								placeholder="URL"
-							/>
-						)}
+										)
+									}}
+									value={imagePreview === "default" ? "" : imagePreview}
+									className={`${imagePreview === "" ? "w-[238px]" : "w-[202px]"}
+                                    h-8 text-md mx-0.5 rounded-md focus:placeholder:opacity-0 mr-1`}
+									placeholder="URL"
+								/>
+							)}
+							{toggleValue === "URL" && (
+								<button
+									className="disabled:opacity-0 disabled:w-0  my-auto flex h-8 m-0 p-0"
+									disabled={imagePreview === "" || imagePreview === "default"}
+									onClick={(e) => {
+										e.preventDefault()
+										setImagePreview("")
+										setErrorStatus("")
+									}}>
+									<MdClear className=" text-2xl -translate-y-[3px]" />
+								</button>
+							)}
+						</div>
 						{toggleValue === "File" && (
 							<div
-								className="flex relative group"
+								className="flex relative group w-[213px] -mt-3"
 								onClick={() => {
 									setErrorStatus("")
 									setImageStatus("inactive")
@@ -105,10 +127,10 @@ const ImageUploadSingle = () => {
 								}}>
 								<button
 									type="button"
-									className="bg-zinc-500 pointer-events-none group-hover:bg-zinc-400 absolute z-20 -left-1 text-white rounded-lg flex mr-auto my-2 h-7 ml-4">
+									className="bg-zinc-500 pointer-events-none group-hover:bg-zinc-400 absolute z-20 -left-1 text-white rounded-lg flex mr-auto my-2 mt-[9px] h-7 ml-4">
 									Select Image
 								</button>
-								<div className="border-dashed border-zinc-400 rounded-lg p-0 py-0  border-2 -translate-y-[2px] w-60">
+								<div className="border-dashed w-full border-zinc-400 rounded-lg p-0 py-0  border-2 -translate-y-[2px]">
 									<input
 										ref={inputRef}
 										name="file"
@@ -174,7 +196,7 @@ const ImageUploadSingle = () => {
 				<div className="right   h-full w-fit px-4 gap-2">
 					<p className="text-white h-6 text-xl ">Product Option</p>
 					<div className="flex flex-col gap-[12px] mt-[19px] ">
-						<SearchFilterDropdownAutoComplete />
+						<SearchFilterDropdownAutoComplete data={productColors} />
 					</div>
 				</div>
 				<div className="preview  h-full w-fit px-4 gap-2">

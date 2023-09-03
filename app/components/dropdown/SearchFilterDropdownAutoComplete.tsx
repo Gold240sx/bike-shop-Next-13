@@ -31,12 +31,13 @@ interface Option {
 }
 
 interface SearchFilterDropdownAutoCompleteProps {
-	data?: Option[]
+	data?: (string | Option)[]
 	lazyLoadThreshold?: number
 	placeholder?: string
 	width?: string // number of digits expected to be in the answer
 	max?: number
 	bgFade?: boolean
+	ellipsis?: boolean
 	type?: any
 }
 
@@ -47,6 +48,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	width = "9rem",
 	max = 55,
 	bgFade = false,
+	ellipsis = true,
 	type = "string",
 }) => {
 	const [value, setValue] = useState<string>("")
@@ -57,6 +59,13 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 
 	const inputRef = useRef<HTMLInputElement>(null)
 	const dropdownRef = useRef<HTMLDivElement>(null)
+
+	const options = data.map((item) => {
+		if (typeof item === "string") {
+			return { value: item }
+		}
+		return item
+	})
 
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value)
@@ -75,7 +84,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 
 	const matchingOptions =
 		value.length >= lazyLoadThreshold
-			? data.filter((item) => {
+			? options.filter((item) => {
 					const searchTerm = value.toLowerCase().trim()
 					const fullValue = item.value.toLowerCase().trim()
 
@@ -221,7 +230,9 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 					) : (
 						matchingOptions.map((item, index) => (
 							<div
-								className={`px-2 capitalize py-0.5 dropdown-row  cursor-pointer hover:bg-teal-400 first:mt-6 bg-zinc-50 z-0 w-[${width}] last:rounded-b-md ${
+								className={`px-2 ${
+									ellipsis && "overflow-ellipsis line-clamp-1"
+								} capitalize py-0.5 dropdown-row  cursor-pointer hover:bg-teal-400 first:mt-6 bg-zinc-50 z-0 w-[${width}] last:rounded-b-md ${
 									index % 2 === 0 ? "odd:bg-zinc-100 " : "even:bg-white "
 								} ${item.value === prevVal && " cursor-default bg-teal-200  odd:bg-teal-200 even:bg-teal-200"}${
 									item.value === (value || highlighted) && " cursor-default bg-teal-400 odd:bg-teal-400 even:bg-teal-400"

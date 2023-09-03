@@ -1,5 +1,6 @@
 import SearchFilterDropdownAutoComplete from "@/app/components/dropdown/SearchFilterDropdownAutoComplete"
 import ImageUploadSingle from "@/app/components/image-uploader/single-line-image-upload"
+import ImageUploadMultiple from "@/app/components/image-uploader/multiple-line-image-upload"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 
@@ -10,6 +11,7 @@ export default async function Test() {
 	return (
 		<main className="min-h-screen items-center justify-center flex flex-col">
 			<h1>Tests</h1>
+			<p>https://i.ibb.co/CH8rLhy/Avatar-prop.png</p>
 			{/* <div className="w-full flex-wrap flex overflow-ellipsis">
 				<pre>{JSON.stringify(products, null, 2)}</pre>
 			</div> */}
@@ -39,14 +41,9 @@ export default async function Test() {
 				<div id="image-upload-container" className="flex flex-col w-fit  bg-zinc-300 rounded-lg p-2">
 					<textarea name="description" id="description" cols={30} rows={10} className="w-full h-20 rounded-md"></textarea>
 					{/*  */}
-					{/* start single line  */}
-					<ImageUploadSingle />
-					{/* end   single line  */}
+					<ImageUploadMultiple products={products} />
 					{/*  */}
 					{/* <div className="flex flex-col gap-4 bg-blue-200 w-auto items-start h-fit"> */}
-					<button type="button" className="bg-teal-500 hover:bg-teal-400 text-white rounded-lg flex mr-auto mt-2 ml-4">
-						Add Image
-					</button>
 					{/* </div> */}
 				</div>
 			</form>
