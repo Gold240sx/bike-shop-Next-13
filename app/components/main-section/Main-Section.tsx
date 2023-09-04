@@ -7,8 +7,9 @@ import Path from "../../assets/Images/path.svg"
 import Building from "../../assets/Images/building.jpg"
 import GoogleRating from "../../assets/Icons/GoogleRating.png"
 import Link from "next/link"
+import LinkButton from "../buttons/LinkButton"
 
-const MainSection = ({ history }: any) => {
+const MainSection = ({ history, products }: any) => {
 	return (
 		<>
 			<div
@@ -31,11 +32,17 @@ const MainSection = ({ history }: any) => {
 								shipment. We offer custom builds, rentals, and in-store service and support on all our products so you can
 								hit the trails sooner.
 							</p>
-							<button
+							{/* <button
 								className="px-4  py-1 text-lg ml-5 text-white bg-black hover:bg-zinc-900 hover:ring-2 hover:ring-teal-400 rounded w-fit  hover:shadow-md shadow-black/50"
-								onClick={() => history.push("/product/id")}>
+								// onClick={() => history.push("/product/id")}
+							>
 								View Services
-							</button>
+							</button> */}
+							<LinkButton
+								to="/services"
+								label="View Services"
+								className="px-3 py-1 text-lg text-white rounded w-fit bg-teal-500 hover:bg-teal-400 hover:shadow-md shadow-black/50"
+							/>
 						</div>
 					</div>
 				</div>
@@ -48,6 +55,16 @@ const MainSection = ({ history }: any) => {
 						className="cursor-pointer -mt-8 mb-4 mr-8 flex ml-auto w-fit h-fit"
 					/>
 				</Link>
+			</div>
+			<div className="flex flex-col gap-4 ms-m-description ">
+				{/* <h2 className="font-semibold">{products.Bikes.name}</h2>
+				<p className="line-clamp-[8]">{products.Bikes.description}</p> */}
+				<button
+					className="px-3 py-1 text-lg text-white bg-teal-500 rounded w-fit hover:bg-teal-400 hover:shadow-md shadow-black/50"
+					// onClick={() => history.push("/product/id")}
+				>
+					{/* {products.Bikes.category} Bikes */}
+				</button>
 			</div>
 		</>
 	)

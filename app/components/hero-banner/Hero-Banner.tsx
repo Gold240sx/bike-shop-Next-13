@@ -8,6 +8,7 @@ import onyxLogo from "../../assets/Images/sponsers/onyxLogo.png"
 import ScottLogo from "../../assets/Images/sponsers/ScottLogo.png"
 import TrekLogo from "../../assets/Images/sponsers/TrekLogo.png"
 import WTBLogo from "../../assets/Images/sponsers/wtbLogo.png"
+import LinkButton from "../buttons/LinkButton"
 // import SramLogo from "../../assets/Images/sponsers/SramLogo.png"
 // import FoxLogo from "../../assets/Images/sponsers/FoxLogo.png"
 // import RockShoxLogo from "../../assets/Images/sponsers/RockShoxLogo.png"
@@ -50,7 +51,11 @@ const HeroBanner = () => {
 		<div className="flex flex-col h-fit px-8 py-2 bg-black pt-10 gap-2 overflow-visible">
 			<div className="flex mx-auto text-base  max-w-[800px] items-center justify-between w-full text-yellow-500 align-middle">
 				<p>Check out our brand new Selection of Bikes!</p>
-				<button className="px-3 py-1 text-base bg-teal-600 rounded hover:bg-teal-500 text-black">Bikes and Accessories</button>
+				<LinkButton
+					to="/products"
+					label="Bikes and Accessories"
+					className="px-3 py-1 text-base bg-teal-600 rounded hover:bg-teal-500 text-black"
+				/>
 			</div>
 			<div className=" flex flex-row justify-evenly w-full overflow-visible h-fit p-4 px-10 items-center bg-black">
 				{sponsors.map((sponsor: any) => (

@@ -9,7 +9,7 @@ import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
 import Crank from "../../assets/Images/crank.png"
 import CartIcon from "../cart-icon/CartIcon"
 import Logo from ".././dojo-logo.png"
-import LogoutButton from "../LogoutButton"
+import LogoutButton from "../buttons/LogoutButton"
 import "./nav-menu.scss"
 
 const Navbar = ({ user }: { user: any }) => {

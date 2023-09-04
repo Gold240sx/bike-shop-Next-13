@@ -6,10 +6,14 @@
 - show the url array object with associated color
 - ensure file sets the save ready status correctly
 - reset the product options when a new product is selected.
+- the dropdown no longer supports typing into the input. This is a bug.
+- Change the routing of the products/id to products/id/edit and make the products/id the view page.
 
 - build the upload functionality
 - build the delete functionality
 - build the edit functionality
+- when the upload button is pressed the button dissapears, but the file isnt reset. This is a bug.
 
 ## Site Creation
+- convert homepage to server component
 - build out rest of the website design

@@ -1,23 +1,20 @@
-"use client"
 // import Layout from "./Layout"
 import MainSection from "../main-section/Main-Section"
 import FeaturedCollection from "../featured-collection/Featured-Collection"
 import Carousel from "../carousel/Carousel"
 import HeroBanner from "../hero-banner/Hero-Banner"
 
-const Homepage = () => {
+const Homepage = (products: any) => {
 	return (
 		<>
-			{/* <Layout> */}
 			<>
 				<div className="relative w-screen">
 					<Carousel autoslide={true} interval={9000} />
 					<HeroBanner />
 				</div>
-				<MainSection />
-				<FeaturedCollection />
+				<MainSection products={products} />
+				<FeaturedCollection products={products} />
 			</>
-			{/* </Layout> */}
 		</>
 	)
 }

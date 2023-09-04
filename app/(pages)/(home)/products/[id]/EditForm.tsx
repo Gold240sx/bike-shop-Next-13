@@ -1,7 +1,7 @@
 "use client"
-import BackButton from "@/app/components/BackButton"
+import BackButton from "@/app/components/buttons/BackButton"
 import { editProduct } from "./actions"
-import SubmitButton from "@/app/components/SubmitButton"
+import SubmitButton from "@/app/components/buttons/SubmitButton"
 import { Delete } from "react-feather"
 import DeleteButton from "./DeleteButton"
 

@@ -1,7 +1,7 @@
 "use client"
 import { experimental_useFormStatus as useFormStatus } from "react-dom"
 
-import { back } from "../(pages)/(home)/products/admin/actions"
+import { back } from "../../(pages)/(home)/products/admin/actions"
 
 interface BackButtonProps {
 	label?: string

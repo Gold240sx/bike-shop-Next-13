@@ -1,6 +1,6 @@
 import { addProduct } from "../actions"
-import SubmitButton from "@/app/components/SubmitButton"
-import BackButton from "@/app/components/BackButton"
+import SubmitButton from "@/app/components/buttons/SubmitButton"
+import BackButton from "@/app/components/buttons/BackButton"
 
 const createForm = () => {
 
