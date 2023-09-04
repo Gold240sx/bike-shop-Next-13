@@ -11,12 +11,27 @@ import { MdClear } from "react-icons/md"
 import { FiMoreHorizontal } from "react-icons/fi"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImageChange: any; productColors: any[] }) => {
+const ImageUploadSingle = ({
+	onValidImageChange,
+	onValidColorChange,
+	productColors,
+	chosenProduct,
+	chosenAngle,
+}: {
+	onValidImageChange: any
+	onValidColorChange: any
+	productColors: any[]
+	chosenProduct: any
+	chosenAngle: any
+}) => {
 	const [toggleValue, setToggleValue] = useState("URL")
 	const [imagePreview, setImagePreview] = useState("default")
-	const [imageStatus, setImageStatus] = useState("inactive") // inactive, loading, error, saveReady , saved
+	const [imageStatus, setImageStatus] = useState("inactive") // inactive, loading, error, saveReady , saved, color
 	const [errorStatus, setErrorStatus] = useState("")
 	const [validImage, setValidImage] = useState(false)
+	const [angle, setAngle] = useState("")
+	const [colorValue, setColorValue] = useState("")
+	const [validColor, setValidColor] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const isValidWebsite =
@@ -24,11 +39,32 @@ const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImage
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
 
-	// useEffect(() => {
-	// 	// Notify the parent component when validImage changes
-	// 	onValidImageChange(validImage)
-	// }, [validImage, onValidImageChange])
-	// ^^ CAUSES SITE CRASH
+	// useEffect(() => {}, [validImage])
+
+	useEffect(() => {
+		// Notify the parent component when validImage changes
+		onValidImageChange(validImage)
+		// Notify the parent component when validImage changes
+		onValidColorChange(validImage)
+		if (colorValue !== "") {
+			setValidColor(true)
+		} else {
+			setValidColor(false)
+		}
+	}, [validColor, validImage])
+
+	const handleSelectedColorValue = (value: any) => {
+		setColorValue(value)
+		if (value !== "") {
+			setValidColor(true)
+		} else {
+			setValidColor(false)
+		}
+	}
+
+	const handleSelectedAngleValue = (value: any) => {
+		setAngle(value)
+	}
 
 	const handleUploadImageToURL = () => {
 		// upload image to url
@@ -196,7 +232,7 @@ const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImage
 				<div className="right   h-full w-fit px-4 gap-2">
 					<p className="text-white h-6 text-xl ">Product Option</p>
 					<div className="flex flex-col gap-[12px] mt-[19px] ">
-						<SearchFilterDropdownAutoComplete data={productColors} />
+						<SearchFilterDropdownAutoComplete data={productColors} onChange={handleSelectedColorValue} />
 					</div>
 				</div>
 				<div className="preview  h-full w-fit px-4 gap-2">
@@ -209,6 +245,15 @@ const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImage
 							// uploaded image
 							<img alt="Image preview of uploaded image" src={imagePreview} className="align-middle h-full rounded-md" />
 						)}
+					</div>
+				</div>
+				<div className="right   h-full w-fit px-4 gap-2">
+					<p className="text-white h-6 text-xl ">Image Angle</p>
+					<div className="flex flex-col gap-[12px] mt-[19px] ">
+						<SearchFilterDropdownAutoComplete
+							data={["front", "back", "side", "frame", "close-up"]}
+							onChange={handleSelectedAngleValue}
+						/>
 					</div>
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
@@ -254,6 +299,8 @@ const ImageUploadSingle = ({ onValidImageChange, productColors }: { onValidImage
 					<p className=" text-red-500">{errorStatus}</p>
 				</div>
 			)}
+			<p>colorValue: {colorValue}</p>
+			<p>chosen Product ID: {chosenProduct.id}</p>
 		</div>
 	)
 }
