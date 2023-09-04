@@ -85,9 +85,9 @@ const ImageUploadSingle = ({
 	}
 
 	return (
-		<div className="flex-col bg-zinc-200 rounded-lg p-2">
+		<div className="flex-col flex bg-zinc-200 rounded-lg p-2">
 			<p>{imageStatus}</p>
-			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex text-center ">
+			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex flex-col lg:flex-row text-center ">
 				<div className="toggle  h-full w-fit px-4 gap-4 rounded-tl-lg">
 					<p className="text-white h-6 text-xl ">Toggle</p>
 					<div className="flex flex-col gap-[28px] mt-[22.5px]  h-full">
@@ -299,8 +299,8 @@ const ImageUploadSingle = ({
 					<p className=" text-red-500">{errorStatus}</p>
 				</div>
 			)}
-			<p>colorValue: {colorValue}</p>
-			<p>chosen Product ID: {chosenProduct.id}</p>
+			{/* <p>colorValue: {colorValue}</p>
+			<p>chosen Product ID: {chosenProduct.id}</p> */}
 		</div>
 	)
 }

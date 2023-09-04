@@ -33,7 +33,7 @@ const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
 		setValidColorStatuses(updatedStatuses)
 	}
 
-	const handleSelectedProductValue = (value: string) => {
+	const handleSelectedProductValue = (value: any) => {
 		const selectedProduct = products.find((product: any) => {
 			const combinedTitle = product.manufacturer + " " + product.title
 			return combinedTitle === value
