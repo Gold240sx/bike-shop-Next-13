@@ -49,12 +49,12 @@ const sponsors = [
 const HeroBanner = () => {
 	return (
 		<div className="flex flex-col h-fit px-8 py-2 bg-black pt-10 gap-2 overflow-visible">
-			<div className="flex mx-auto text-base  max-w-[800px] items-center justify-between w-full text-yellow-500 align-middle">
+			<div className="flex mx-auto text-base pb-3  max-w-[800px] items-center justify-between w-full text-yellow-500 align-middle">
 				<p>Check out our brand new Selection of Bikes!</p>
 				<LinkButton
 					to="/products"
 					label="Bikes and Accessories"
-					className="px-3 py-1 text-base bg-teal-600 rounded hover:bg-teal-500 text-black"
+					className="px-3 py-1 text-base bg-yellow-500 hover:bg-yellow-400 rounded text-black"
 				/>
 			</div>
 			<div className=" flex flex-row justify-evenly w-full overflow-visible h-fit p-4 px-10 items-center bg-black">

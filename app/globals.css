@@ -107,7 +107,6 @@ main nav {
 /* button styles */
 button {
   @apply 
-    px-3 py-2 
     rounded-sm 
     flex justify-between items-center gap-2
     text-sm;

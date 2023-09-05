@@ -8,8 +8,15 @@ import Building from "../../assets/Images/building.jpg"
 import GoogleRating from "../../assets/Icons/GoogleRating.png"
 import Link from "next/link"
 import LinkButton from "../buttons/LinkButton"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
 
-const MainSection = ({ history, products }: any) => {
+const MainSection = async ({ history, products }: any) => {
+	const supabase = createServerComponentClient({ cookies })
+
+	const { data: promotions } = await supabase.from("Promotions").select("*").eq("id", 1).single()
+	const { image, header, description, link_label: linkLabel, sub_header: subHeader } = promotions
+
 	return (
 		<>
 			<div
@@ -56,16 +63,24 @@ const MainSection = ({ history, products }: any) => {
 					/>
 				</Link>
 			</div>
-			<div className="flex flex-col gap-4 ms-m-description ">
-				{/* <h2 className="font-semibold">{products.Bikes.name}</h2>
-				<p className="line-clamp-[8]">{products.Bikes.description}</p> */}
-				<button
-					className="px-3 py-1 text-lg text-white bg-teal-500 rounded w-fit hover:bg-teal-400 hover:shadow-md shadow-black/50"
-					// onClick={() => history.push("/product/id")}
-				>
-					{/* {products.Bikes.category} Bikes */}
-				</button>
-			</div>
+
+			<section className="mt-16 mb-12 main-section-container items-center flex  h-fit">
+				<div className="lg:flex main-section-middle mx-auto h-fit">
+					<div className=" ms-m-image p-[15px] mb-8 w-3/4 lg:w-auto mx-auto max-w-[900px] lg:max-w-[500px]">
+						<img src={image} className=" h-auto  w-full" alt="promo" />
+					</div>
+					<div className="flex flex-col gap-4 ms-m-description p-[15px] lg:p-0 w-3/4 lg:w-auto mx-auto max-w-[900px]  lg:max-w-auto ">
+						<h2 className="font-semibold text-4xl text-teal-500 ml-2">{header}</h2>
+						<h2 className="font-semibold pl-4">{subHeader}</h2>
+						<p className="line-clamp-[8] max-w-[60vw] lg:max-w-[30vw] pl-4">{description}</p>
+						<LinkButton
+							to="/products"
+							label={linkLabel}
+							className="px-3 py-1 ml-4 text-lg text-white rounded w-fit bg-[#9C5B3C] hover:bg-[#C9825B] hover:shadow-md shadow-black/50"
+						/>
+					</div>
+				</div>
+			</section>
 		</>
 	)
 }

@@ -1,5 +1,3 @@
-// ./app/components/buttons/LinkButton.tsx
-import { useRouter } from "next/router"
 import PropTypes from "prop-types"
 import Link from "next/link"
 
@@ -12,15 +10,17 @@ interface LinkButtonProps {
 
 const LinkButton: React.FC<LinkButtonProps> = ({ to, className, style, label }) => {
 	return (
-		<Link
-			href={to}
-			className={`${className}`}
+		<button
+			className={`w-fit`}
 			style={{
 				cursor: "pointer",
+				textAlign: "center",
 				...style,
 			}}>
-			{label}
-		</Link>
+			<Link href={to}>
+				<p className={`text-center ${className}`}>{label}</p>
+			</Link>
+		</button>
 	)
 }
 

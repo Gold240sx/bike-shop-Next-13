@@ -4,7 +4,7 @@ import { BiShoppingBag, BiHomeAlt2, BiTable } from "react-icons/bi"
 import { LuLayoutDashboard } from "react-icons/lu"
 import { RxDividerVertical } from "react-icons/rx"
 import { HiUsers } from "react-icons/hi"
-import { TbCrane } from "react-icons/tb"
+import { TbCrane, TbEdit } from "react-icons/tb"
 import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
 import Crank from "../../assets/Images/crank.png"
 import CartIcon from "../cart-icon/CartIcon"
@@ -58,13 +58,15 @@ const Navbar = ({ user }: { user: any }) => {
 					<Link href="/test">
 						<TbCrane className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>
+					<Link href="/edit">
+						<TbEdit className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
 					<Link href="/users">
 						<HiUsers className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>
 					<Link href="/products">
 						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />
 					</Link>
-
 					<Link href="/products/admin">
 						<LuLayoutDashboard className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>

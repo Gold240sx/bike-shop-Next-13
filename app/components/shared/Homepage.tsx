@@ -13,7 +13,7 @@ const Homepage = (products: any) => {
 					<HeroBanner />
 				</div>
 				<MainSection products={products} />
-				<FeaturedCollection products={products} />
+				<FeaturedCollection />
 			</>
 		</>
 	)
