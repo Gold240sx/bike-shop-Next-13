@@ -57,11 +57,16 @@ export default async function ProductDetails({ params }: any) {
 													<h4 className="text-4xl mb-3">{product?.title}</h4>
 													<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product.price)}</h2>
 												</div>
-												<img className="w-24 h-24 ml-auto mr-4" src={manufacturer?.logo} alt="manufacturer logo" />
+												<img
+													className="w-auto h-24 ml-auto mr-4"
+													src={manufacturer?.logo}
+													alt="manufacturer logo"
+												/>
 											</div>
 										</div>
-										<div className="options flex flex-row justify-between mx-8 my-6">
-											<SearchFilterDropdownAutoComplete />
+										<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
+											<h2>Options</h2>
+											<SearchFilterDropdownAutoComplete className="h-10" />
 										</div>
 
 										<div className="add-to-cart-btns flex flex-col mx-8">

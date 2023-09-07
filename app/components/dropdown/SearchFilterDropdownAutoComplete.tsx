@@ -39,6 +39,10 @@ interface SearchFilterDropdownAutoCompleteProps {
 	bgFade?: boolean
 	ellipsis?: boolean
 	type?: any
+	className?: string
+	parent?: boolean
+	reset?: () => void
+	// reset?: (event: React.ChangeEvent<HTMLInputElement>) => voids
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -50,6 +54,9 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	max = 55,
 	bgFade = false,
 	ellipsis = true,
+	className,
+	parent = false,
+	reset,
 	type = "string",
 	onChange = () => {},
 }) => {
@@ -62,6 +69,11 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	const inputRef = useRef<HTMLInputElement>(null)
 	const dropdownRef = useRef<HTMLDivElement>(null)
 
+	useEffect(() => {
+		if (parent) return
+		setValue("")
+	}, [reset])
+
 	const options = data.map((item) => {
 		if (typeof item === "string") {
 			return { value: item }
@@ -69,23 +81,26 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 		return item
 	})
 
-	// const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	setValue(event.target.value)
-	// 	setSelectedOptionIndex(-1)
-	// }
+	const onValChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(event.target.value)
+		setSelectedOptionIndex(-1)
+		// onChange(event)
+	}
 
 	const onSearch = (searchTerm: any) => {
 		setValue(searchTerm)
+		setSelectedOptionIndex(-1)
 		if (searchTerm !== "") {
 			onChange(searchTerm) // Call the onChange callback with the selected value
 		}
 	}
 
 	const onClear = (searchTerm: any) => {
-		setValue("")
 		setHighlighted("")
 		setSelectedOptionIndex(-1)
 		onChange(searchTerm)
+		if (parent) return
+		setValue("")
 	}
 
 	const matchingOptions =
@@ -160,7 +175,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 
 	return (
 		<div
-			className={`relative flex group right-[0px] mr-20`}
+			className={`relative flex group right-[0px] mr-20 ${className}}`}
 			onFocus={() => setIsComponentFocused(true)}
 			onBlur={() => {
 				setIsComponentFocused(false)
@@ -173,8 +188,9 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 			<div className={`group-focus-within:z-[41] search-inner flex w-[${width}]`}>
 				<input
 					type="text"
-					onChange={onChange}
+					onChange={onValChange}
 					value={value}
+					key="search-input"
 					ref={inputRef}
 					placeholder={placeholder}
 					style={{ width: width }}
@@ -198,7 +214,10 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 						className={`${
 							value === "" ? "opacity-0" : "opacity-100"
 						} px-[20px] py-0  h-8 mt-2 text-zinc-700 text-lg  active:bg-zinc-600 cursor-pointer hover:bg-[#CDCDD1] rounded-r-md -right-[72px] bg-zinc-300`}
-						onClick={() => onClear("")}
+						onClick={() => {
+							onClear("")
+							reset && reset()
+						}}
 						disabled={value === ""}>
 						Clear
 					</button>

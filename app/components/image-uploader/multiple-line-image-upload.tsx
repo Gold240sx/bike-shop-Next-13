@@ -1,14 +1,67 @@
 "use client"
-import React, { useState } from "react"
+import React, { use, useState, useEffect } from "react"
 import ImageUploadSingle from "./single-line-image-upload"
 import Image from "next/image"
 import SearchFilterDropdownAutoComplete from "../dropdown/SearchFilterDropdownAutoComplete"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+
+const getColorOptions = async ({ supabase, selectedProductId }: any) => {
+	const { data: colorOptions } = await supabase.from("product_color_options").select("*").eq("product_id", selectedProductId)
+	return { colorOptions }
+}
+
+const getImageURLS = async ({ supabase, prodId }: any) => {
+	const { data: imageURLS } = await supabase.from("product_images").select("image_url").eq("color_option_id", prodId)
+	return imageURLS
+}
 
 const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
-	const [imageCount, setImageCount] = useState(1)
+	const [imageCount, setImageCount] = useState(0)
 	const [selectedProductId, setSelectedProductId] = useState(1)
 	const [validImageStatuses, setValidImageStatuses] = useState([false])
 	const [validColorStatuses, setValidColorStatuses] = useState([false])
+	const [imageURLS, setImageURLS] = useState([false])
+	const [colorOptions, setColorOptions] = useState([false])
+	const supabase = createClientComponentClient()
+
+	useEffect(() => {
+		const fetchData = async () => {
+			const { colorOptions } = await getColorOptions({
+				supabase,
+				selectedProductId,
+			})
+			console.log("colorOptions", colorOptions)
+			const flattenedColorOptions = await Promise.all(
+				colorOptions.map(async (colorOption: any) => {
+					const { data: imageURLS } = await supabase.from("product_color_options").select("*").eq("product_id", selectedProductId)
+					return imageURLS?.map((color: any) => color.color) || []
+				})
+			)
+			setColorOptions(flattenedColorOptions)
+			console.log("flattenedColorOptions", flattenedColorOptions.flat())
+
+			const prodIds = colorOptions.map((colorOption: any) => colorOption.id)
+			const imageURLS = await Promise.all(
+				prodIds.map(async (prodId: any) => {
+					const { data: imageURLS } = await supabase.from("product_images").select("image_url").eq("color_option_id", prodId)
+					return imageURLS?.map((image: any) => image.image_url) || []
+				})
+			)
+			const flattenedImageURLS: any[] = imageURLS.flat()
+			const uniqueImageURLS = [...new Set(flattenedImageURLS)]
+			console.log("imageURLS", uniqueImageURLS)
+			setImageURLS(uniqueImageURLS)
+		}
+
+		fetchData()
+	}, [selectedProductId])
+
+	const reset = () => {
+		setImageCount(1)
+		setValidImageStatuses([false])
+		setValidColorStatuses([false])
+	}
+
 	const angle = ""
 
 	// const chosenProduct = JSON.stringify(products, null, 2)[0].match(id === 1)
@@ -40,8 +93,6 @@ const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
 		})
 		if (selectedProduct) {
 			setSelectedProductId(selectedProduct.id)
-		} else {
-			setSelectedProductId(1)
 		}
 	}
 
@@ -64,8 +115,8 @@ const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
 	}
 
 	return (
-		<div>
-			<div id="product-details" className="bg-zinc-800 rounded-md w-auto- h-fit py-4 px-6 text-white mb-4">
+		<div className="max-w-[80vw] ">
+			<div id="product-details" className="bg-zinc-800 rounded-md w-auto- h-fit py-4 px-6 text-white mb-4 ">
 				<div className="flex">
 					<img
 						alt="selected product image"
@@ -111,6 +162,19 @@ const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
 					</div>
 				)}
 			</div>
+			{/*  for every image in the imageURLS array, set a  ImageUploadSingle component with the value of the ImageURL, the productOption and the ImageAngle*/}
+			{imageURLS.map((imageURL: any, index: number) => (
+				<ImageUploadSingle
+					key={index}
+					productColors={chosenProduct?.colorOptions}
+					chosenProduct={chosenProduct}
+					chosenAngle={angle}
+					imageURL={imageURL}
+					onValidImageChange={(isValid: boolean) => handleValidImageChange(index, isValid)}
+					onValidColorChange={(isValid: boolean) => handleValidColorChange(index, isValid)}
+					// reset={reset}
+				/>
+			))}
 			{Array.from({ length: imageCount }, (_, index) => (
 				<ImageUploadSingle
 					key={index}
@@ -119,6 +183,7 @@ const MultipleLineImageUpload = ({ products, manufacturers }: any) => {
 					chosenAngle={angle}
 					onValidImageChange={(isValid: boolean) => handleValidImageChange(index, isValid)}
 					onValidColorChange={(isValid: boolean) => handleValidColorChange(index, isValid)}
+					// reset={reset}
 				/>
 			))}
 			<button

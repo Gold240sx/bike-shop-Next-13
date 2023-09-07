@@ -16,13 +16,17 @@ const ImageUploadSingle = ({
 	onValidColorChange,
 	productColors,
 	chosenProduct,
-	chosenAngle,
+	imageURL,
+	chosenAngle, // reset,
+	reset,
 }: {
 	onValidImageChange: any
 	onValidColorChange: any
+	imageURL?: any[]
 	productColors: any[]
 	chosenProduct: any
 	chosenAngle: any
+	reset?: any
 }) => {
 	const [toggleValue, setToggleValue] = useState("URL")
 	const [imagePreview, setImagePreview] = useState("default")
@@ -38,8 +42,6 @@ const ImageUploadSingle = ({
 		/^(https?:\/\/(www\.)?[^\s]+|www\.[^\s]+||http:\/\/|https:\/\/|http:\/|http:|https:\/|https:|https|http|htt|ht|h|w|ww|www|www.)$/i
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
-
-	// useEffect(() => {}, [validImage])
 
 	useEffect(() => {
 		// Notify the parent component when validImage changes
@@ -59,6 +61,10 @@ const ImageUploadSingle = ({
 			setValidColor(true)
 		} else {
 			setValidColor(false)
+			if (!parent) {
+				// reset(value)
+				// setImagePreview("default")
+			}
 		}
 	}
 
@@ -84,10 +90,18 @@ const ImageUploadSingle = ({
 		return url
 	}
 
+	useEffect(() => {
+		if (imageURL) {
+			setImagePreview(imageURL)
+			setImageStatus("saved")
+			// setProductOption(ProductOption)
+		}
+	}, [imageURL])
+
 	return (
-		<div className="flex-col flex bg-zinc-200 rounded-lg p-2">
+		<div className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible">
 			<p>{imageStatus}</p>
-			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex flex-col lg:flex-row text-center ">
+			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex  lg:flex-row text-center ">
 				<div className="toggle  h-full w-fit px-4 gap-4 rounded-tl-lg">
 					<p className="text-white h-6 text-xl ">Toggle</p>
 					<div className="flex flex-col gap-[28px] mt-[22.5px]  h-full">
@@ -134,6 +148,7 @@ const ImageUploadSingle = ({
 												: false
 										)
 									}}
+									ref={inputRef}
 									value={imagePreview === "default" ? "" : imagePreview}
 									className={`${imagePreview === "" ? "w-[238px]" : "w-[202px]"}
                                     h-8 text-md mx-0.5 rounded-md focus:placeholder:opacity-0 mr-1`}
@@ -232,7 +247,12 @@ const ImageUploadSingle = ({
 				<div className="right   h-full w-fit px-4 gap-2">
 					<p className="text-white h-6 text-xl ">Product Option</p>
 					<div className="flex flex-col gap-[12px] mt-[19px] ">
-						<SearchFilterDropdownAutoComplete data={productColors} onChange={handleSelectedColorValue} />
+						<SearchFilterDropdownAutoComplete
+							data={productColors}
+							onChange={handleSelectedColorValue}
+							// reset={reset}
+							// parent={false}
+						/>
 					</div>
 				</div>
 				<div className="preview  h-full w-fit px-4 gap-2">
@@ -251,8 +271,10 @@ const ImageUploadSingle = ({
 					<p className="text-white h-6 text-xl ">Image Angle</p>
 					<div className="flex flex-col gap-[12px] mt-[19px] ">
 						<SearchFilterDropdownAutoComplete
-							data={["front", "back", "side", "frame", "close-up"]}
+							data={["front", "back", "side", "frame", "quarter", "close-up"]}
 							onChange={handleSelectedAngleValue}
+							// reset={reset}
+							// parent={false}
 						/>
 					</div>
 				</div>
@@ -299,8 +321,6 @@ const ImageUploadSingle = ({
 					<p className=" text-red-500">{errorStatus}</p>
 				</div>
 			)}
-			{/* <p>colorValue: {colorValue}</p>
-			<p>chosen Product ID: {chosenProduct.id}</p> */}
 		</div>
 	)
 }
