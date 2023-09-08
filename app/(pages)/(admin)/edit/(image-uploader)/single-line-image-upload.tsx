@@ -1,9 +1,9 @@
 "use client"
 import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
-import Toggle from "../toggles/toggle"
-import ImageNotFound from "../../assets/Images/image-not-found.jpg"
-import SearchFilterDropdownAutoComplete from "../dropdown/SearchFilterDropdownAutoComplete"
+import Toggle from "../../../../components/toggles/toggle"
+import ImageNotFound from "../../../../assets/images/image-not-found.jpg"
+import SearchFilterDropdownAutoComplete from "./dropdown/SearchFilterDropdownAutoComplete"
 
 import { TiDeleteOutline, TiDelete } from "react-icons/ti"
 import { BiSolidSave, BiSave, BiError, BiSolidError } from "react-icons/bi"
@@ -12,19 +12,21 @@ import { FiMoreHorizontal } from "react-icons/fi"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
 const ImageUploadSingle = ({
-	onValidImageChange,
-	onValidColorChange,
+	// onValidImageChange,
+	// onValidColorChange,
 	productColors,
 	chosenProduct,
 	imageURL,
 	chosenAngle, // reset,
 	reset,
+	colorOptions,
 }: {
-	onValidImageChange: any
-	onValidColorChange: any
+	// onValidImageChange: any
+	// onValidColorChange: any
 	imageURL?: any[]
 	productColors: any[]
 	chosenProduct: any
+	colorOptions: any[]
 	chosenAngle: any
 	reset?: any
 }) => {
@@ -43,17 +45,17 @@ const ImageUploadSingle = ({
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
 
-	useEffect(() => {
-		// Notify the parent component when validImage changes
-		onValidImageChange(validImage)
-		// Notify the parent component when validImage changes
-		onValidColorChange(validImage)
-		if (colorValue !== "") {
-			setValidColor(true)
-		} else {
-			setValidColor(false)
-		}
-	}, [validColor, validImage])
+	// useEffect(() => {
+	// 	// Notify the parent component when validImage changes
+	// 	onValidImageChange(validImage)
+	// 	// Notify the parent component when validImage changes
+	// 	onValidColorChange(validImage)
+	// 	if (colorValue !== "") {
+	// 		setValidColor(true)
+	// 	} else {
+	// 		setValidColor(false)
+	// 	}
+	// }, [validColor, validImage])
 
 	const handleSelectedColorValue = (value: any) => {
 		setColorValue(value)
@@ -91,15 +93,16 @@ const ImageUploadSingle = ({
 	}
 
 	useEffect(() => {
+		console.log("colorOptions", colorOptions)
 		if (imageURL) {
-			setImagePreview(imageURL)
+			// setImagePreview(imageURL)
 			setImageStatus("saved")
 			// setProductOption(ProductOption)
 		}
 	}, [imageURL])
 
 	return (
-		<div className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible">
+		<div className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible my-2">
 			<p>{imageStatus}</p>
 			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex  lg:flex-row text-center ">
 				<div className="toggle  h-full w-fit px-4 gap-4 rounded-tl-lg">
@@ -244,12 +247,22 @@ const ImageUploadSingle = ({
 						)}
 					</div>
 				</div>
-				<div className="right   h-full w-fit px-4 gap-2">
-					<p className="text-white h-6 text-xl ">Product Option</p>
-					<div className="flex flex-col gap-[12px] mt-[19px] ">
+				<div className="right   h-full w-fit px-4 ">
+					<p className="text-white h-6 text-xl ">Product Options</p>
+					<div className="flex flex-col ">
+						<div className="flex">
+							<SearchFilterDropdownAutoComplete
+								data={colorOptions}
+								onChange={handleSelectedColorValue}
+								// reset={reset}
+								// parent={false}
+							/>
+						</div>
+					</div>
+					<div className="flex flex-col -mt-4">
 						<SearchFilterDropdownAutoComplete
-							data={productColors}
-							onChange={handleSelectedColorValue}
+							data={["front", "back", "side", "frame", "quarter", "close-up"]}
+							onChange={handleSelectedAngleValue}
 							// reset={reset}
 							// parent={false}
 						/>
@@ -265,17 +278,6 @@ const ImageUploadSingle = ({
 							// uploaded image
 							<img alt="Image preview of uploaded image" src={imagePreview} className="align-middle h-full rounded-md" />
 						)}
-					</div>
-				</div>
-				<div className="right   h-full w-fit px-4 gap-2">
-					<p className="text-white h-6 text-xl ">Image Angle</p>
-					<div className="flex flex-col gap-[12px] mt-[19px] ">
-						<SearchFilterDropdownAutoComplete
-							data={["front", "back", "side", "frame", "quarter", "close-up"]}
-							onChange={handleSelectedAngleValue}
-							// reset={reset}
-							// parent={false}
-						/>
 					</div>
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
