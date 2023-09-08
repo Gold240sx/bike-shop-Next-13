@@ -13,12 +13,15 @@ const getAllProductData = async ({ supabase, selectedProductId }: any) => {
 		prodIds.map(async (prodId: any) => {
 			const { data: imageURLS } = await supabase
 				.from("product_images")
-				.select("image_url, color_option_id")
+				.select("image_url, color_option_id, id, product_angle")
 				.eq("color_option_id", prodId)
 			return (
 				imageURLS?.map((image: any) => ({
 					color_id: image.color_option_id,
 					image_url: image.image_url,
+					id: image.id,
+					product_angle: image.product_angle,
+					product_id: colorOptions.find((colorOption: any) => colorOption.id === prodId)?.product_id,
 					color: colorOptions.find((colorOption: any) => colorOption.id === prodId)?.color,
 				})) || []
 			)
@@ -27,7 +30,10 @@ const getAllProductData = async ({ supabase, selectedProductId }: any) => {
 	const imageURLS = unmodifiedURLS.flat().map((item) => ({
 		image_url: item.image_url,
 		color: item.color,
+		image_id: item.id,
+		product_angle: item.product_angle,
 		color_id: item.color_id,
+		product_id: item.product_id,
 	}))
 	// const imageURLS = [
 	// 	...new Set(
