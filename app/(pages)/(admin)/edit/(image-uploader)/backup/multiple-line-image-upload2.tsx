@@ -135,11 +135,11 @@ const MultipleLineImageUpload2 = ({ products, manufacturers }: any) => {
 				</div>
 				{chosenProduct && (
 					<div className="flex">
-						<img
+						{/* <img
 							alt="selected product image"
 							className="w-auto h-20 mr-4 object-contain rounded bg-white p-2"
 							src={chosenProduct.images[0]}
-						/>
+						/> */}
 						<div className="flex flex-col mr-10">
 							<div className="flex">
 								<h1 className="text-yellow-400 mr-2">{chosenProduct.manufacturer}</h1>

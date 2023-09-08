@@ -2,12 +2,12 @@
 
 ## functionality
 - ensure that the color option is required before the ability to save is enabled
-- merge the data into the a simplified product object
 - export url to the url  array display
 - show the url array object with associated color
 - ensure file sets the save ready status correctly
 - reset the product options when a new product is selected.
-- Change the routing of the products/id to products/id/edit and make the products/id the view page.
+- Add a make main image button to the single image edit page.
+- The manufacturer's images are not the same as the manufacturer's logo.
 
 - build the upload functionality
 - build the delete functionality

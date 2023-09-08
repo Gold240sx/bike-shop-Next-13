@@ -12,22 +12,24 @@ import { FiMoreHorizontal } from "react-icons/fi"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
 const ImageUploadSingle = ({
-	// onValidImageChange,
-	// onValidColorChange,
+	onValidImageChange,
+	onValidColorChange,
 	productColors,
 	chosenProduct,
-	imageURL,
-	chosenAngle, // reset,
+	selectedProductId,
+	image,
+	// chosenAngle, // reset,
 	reset,
 	colorOptions,
 }: {
-	// onValidImageChange: any
-	// onValidColorChange: any
-	imageURL?: any[]
-	productColors: any[]
+	onValidImageChange: any
+	onValidColorChange: any
+	image?: any
+	productColors?: any[]
 	chosenProduct: any
-	colorOptions: any[]
-	chosenAngle: any
+	colorOptions?: any[]
+	selectedproductId: any
+	// chosenAngle: any
 	reset?: any
 }) => {
 	const [toggleValue, setToggleValue] = useState("URL")
@@ -35,27 +37,31 @@ const ImageUploadSingle = ({
 	const [imageStatus, setImageStatus] = useState("inactive") // inactive, loading, error, saveReady , saved, color
 	const [errorStatus, setErrorStatus] = useState("")
 	const [validImage, setValidImage] = useState(false)
-	const [angle, setAngle] = useState("")
-	const [colorValue, setColorValue] = useState("")
+	const [angle, setAngle] = useState(image.product_angle)
+	const [colorValue, setColorValue] = useState(image.color)
 	const [validColor, setValidColor] = useState(false)
 	const inputRef = useRef<HTMLInputElement>(null)
+
+	// find the images corresponding angle that matches the photo url
+	// const anglePick = colorPick?.images.find((image: any) => image.product_angle === angle)
+	// Access and display additional attributes
 
 	const isValidWebsite =
 		/^(https?:\/\/(www\.)?[^\s]+|www\.[^\s]+||http:\/\/|https:\/\/|http:\/|http:|https:\/|https:|https|http|htt|ht|h|w|ww|www|www.)$/i
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
 
-	// useEffect(() => {
-	// 	// Notify the parent component when validImage changes
-	// 	onValidImageChange(validImage)
-	// 	// Notify the parent component when validImage changes
-	// 	onValidColorChange(validImage)
-	// 	if (colorValue !== "") {
-	// 		setValidColor(true)
-	// 	} else {
-	// 		setValidColor(false)
-	// 	}
-	// }, [validColor, validImage])
+	useEffect(() => {
+		// Notify the parent component when validImage changes
+		onValidImageChange(validImage)
+		// Notify the parent component when validImage changes
+		onValidColorChange(validImage)
+		if (colorValue !== "") {
+			setValidColor(true)
+		} else {
+			setValidColor(false)
+		}
+	}, [validColor, validImage])
 
 	const handleSelectedColorValue = (value: any) => {
 		setColorValue(value)
@@ -92,14 +98,25 @@ const ImageUploadSingle = ({
 		return url
 	}
 
+	// useEffect(() => {
+	// 	console.log("colorOptions", colorOptions)
+	// 	if (imageURL) {
+	// 		console.log("imageURL", imageURL)
+	// 		// setImagePreview(imageURL)
+	// 		setImageStatus("saved")
+	// 		// setProductOption(ProductOption)
+	// 	}
+	// }, [imageURL])
+
 	useEffect(() => {
-		console.log("colorOptions", colorOptions)
-		if (imageURL) {
-			// setImagePreview(imageURL)
-			setImageStatus("saved")
-			// setProductOption(ProductOption)
-		}
-	}, [imageURL])
+		const colorPick = image.color
+		const anglePick = image.product_angle
+		setImagePreview(image ? image.image_url : "default")
+		setColorValue(image ? colorPick : "")
+		setAngle(image ? anglePick : "")
+		setImageStatus("saved")
+		console.log("product reset")
+	}, [image, selectedProductId])
 
 	return (
 		<div className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible my-2">
@@ -181,7 +198,7 @@ const ImageUploadSingle = ({
 								}}>
 								<button
 									type="button"
-									className="bg-zinc-500 pointer-events-none group-hover:bg-zinc-400 absolute z-20 -left-1 text-white rounded-lg flex mr-auto my-2 mt-[9px] h-7 ml-4">
+									className="bg-zinc-500 pointer-events-none px-2 group-hover:bg-zinc-400 absolute z-20 -left-1 text-white rounded-lg flex mr-auto my-2 mt-[9px] h-7 ml-4">
 									Select Image
 								</button>
 								<div className="border-dashed w-full border-zinc-400 rounded-lg p-0 py-0  border-2 -translate-y-[2px]">
@@ -248,37 +265,43 @@ const ImageUploadSingle = ({
 					</div>
 				</div>
 				<div className="right   h-full w-fit px-4 ">
-					<p className="text-white h-6 text-xl ">Product Options</p>
+					<p className="text-white h-6 text-xl ">Color Selection</p>
 					<div className="flex flex-col ">
 						<div className="flex">
 							<SearchFilterDropdownAutoComplete
 								data={colorOptions}
+								defaultValue={colorValue}
 								onChange={handleSelectedColorValue}
+								// value={colorValue}
 								// reset={reset}
 								// parent={false}
 							/>
 						</div>
 					</div>
-					<div className="flex flex-col -mt-4">
-						<SearchFilterDropdownAutoComplete
-							data={["front", "back", "side", "frame", "quarter", "close-up"]}
-							onChange={handleSelectedAngleValue}
-							// reset={reset}
-							// parent={false}
-						/>
-					</div>
 				</div>
 				<div className="preview  h-full w-fit px-4 gap-2">
 					<p className="text-white h-6 text-xl ">Preview</p>
 					<div className="flex flex-col gap-[1.23px] mt-[9.75px] object-fill w-20 items-center border border-zinc-300 h-[65px] overflow-hidden object-center">
-						{imagePreview === "default" || !validImage ? (
+						{/* {image && (
+							<img alt="Image preview of uploaded image" src={imagePreview} className="align-middle h-full rounded-md" />
+						)} */}
+						{(!image && imagePreview === "default") || (!image && !validImage) ? (
 							// default image
-							<Image alt="The guitarist in the concert." src={ImageNotFound} width={100} height={100} className="-mt-1.5" />
+							<Image alt="image not found" src={ImageNotFound} width={100} height={100} className="-mt-1.5" />
 						) : (
 							// uploaded image
 							<img alt="Image preview of uploaded image" src={imagePreview} className="align-middle h-full rounded-md" />
 						)}
 					</div>
+				</div>
+				<div className="flex flex-col mt-8">
+					<SearchFilterDropdownAutoComplete
+						data={["front", "back", "side", "frame", "quarter", "close-up"]}
+						defaultValue={angle}
+						onChange={handleSelectedAngleValue}
+						// reset={reset}
+						// parent={false}
+					/>
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
 					<p className="text-white h-6 text-xl bg-lime-600"></p>

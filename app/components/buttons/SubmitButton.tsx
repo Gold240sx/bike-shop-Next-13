@@ -5,9 +5,11 @@ import { experimental_useFormStatus as useFormStatus } from "react-dom"
 interface SubmitButtonProps {
 	type: "add" | "update" | "delete" | "fetch" | "submit" | string
 	object: "product" | string
+	className?: string
+	onClick?: () => void
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ type, object }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({ type, object, className, onClick }) => {
 	const { pending } = useFormStatus()
 	let buttonText = ""
 
@@ -31,8 +33,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ type, object }) => {
 
 	return (
 		<button
+			onClick={onClick}
 			disabled={pending}
-			className={`${
+			className={`${className} ${
 				pending
 					? "bg-zinc-400 rounded hover:bg-zinc-400 px-3 py-1 text-lg cursor-not-allowed"
 					: "bg-teal-500 text-white rounded hover:bg-teal-400 px-3 py-1 text-lg "

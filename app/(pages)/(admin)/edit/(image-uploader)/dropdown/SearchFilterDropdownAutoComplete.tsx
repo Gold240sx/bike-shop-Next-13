@@ -1,10 +1,7 @@
 "use client"
-import React, { useState, useEffect, useRef } from "react"
-
+import { useState, useEffect, useRef } from "react"
 const fontSize: string = "16px"
-
 const defaultData = [{ value: "red" }, { value: "blue" }, { value: "green" }]
-
 const cssDevNotes = `
     input:focus, input[type="text"], input:focus-visible, input:focus-within, ::-webkit-input-placeholder {
         outline: none;
@@ -25,15 +22,15 @@ const cssDevNotes = `
         display: none;  /* Safari and Chrome */
     }
 `
-
+// Interfaces
 interface Option {
 	value: string
 }
-
 interface SearchFilterDropdownAutoCompleteProps {
 	data?: (string | Option)[]
 	lazyLoadThreshold?: number
 	placeholder?: string
+	defaultValue?: string
 	width?: string // number of digits expected to be in the answer
 	max?: number
 	bgFade?: boolean
@@ -41,8 +38,7 @@ interface SearchFilterDropdownAutoCompleteProps {
 	type?: any
 	className?: string
 	parent?: boolean
-	reset?: () => void
-	// reset?: (event: React.ChangeEvent<HTMLInputElement>) => voids
+	reset?: (event: React.ChangeEvent<HTMLInputElement>) => void
 	onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -50,6 +46,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	data = defaultData,
 	lazyLoadThreshold = 0, // Default threshold is 3 characters
 	placeholder = "Type to search",
+	defaultValue,
 	width = "9rem",
 	max = 55,
 	bgFade = false,
@@ -60,7 +57,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	type = "string",
 	onChange = () => {},
 }) => {
-	const [value, setValue] = useState<string>("")
+	const [value, setValue] = useState<string>(defaultValue || "")
 	const [prevVal, setPreVal] = useState<string>("")
 	const [highlighted, setHighlighted] = useState<string>("")
 	const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1)
@@ -70,8 +67,13 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	const dropdownRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
-		if (parent) return
-		setValue("")
+		// setValue(defaultValue || "")
+		// if (parent) return
+		// 	// console.log("defaultValue", defaultValue)
+		// 	setValue(defaultValue)
+		// 	// console.log(" no defaultValue")
+		// 	// setValue("")
+		// }
 	}, [reset])
 
 	const options = data.map((item) => {
@@ -82,9 +84,10 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	})
 
 	const onValChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setValue(event.target.value)
+		// setValue(event.target.value)
 		setSelectedOptionIndex(-1)
-		// onChange(event)
+		// console.log("event.target.value", event.target.value)
+		// onChange((e) => e.target.value)
 	}
 
 	const onSearch = (searchTerm: any) => {
@@ -107,19 +110,19 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 		value.length >= lazyLoadThreshold
 			? options.filter((item) => {
 					const searchTerm = value.toLowerCase().trim()
-					const fullValue = value.toLowerCase().trim()
+					const fullValue = item.value.toLowerCase().trim()
 
 					return (fullValue?.startsWith(searchTerm) && searchTerm !== "") || (fullValue && searchTerm === "")
 			  })
 			: []
 
-	// Scroll to the highlighted option
+	// Scroll controls
 	const handleScroll = (optionIndex = 22) => {
 		if (dropdownRef.current) {
 			dropdownRef.current.scrollTop = optionIndex * parseFloat(fontSize.slice(2))
 		}
 	}
-
+	// key controls
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (!isComponentFocused) return
@@ -179,7 +182,6 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 			onFocus={() => setIsComponentFocused(true)}
 			onBlur={() => {
 				setIsComponentFocused(false)
-				// setSelectedOptionIndex(0)
 			}}>
 			<div
 				className={` bgFade ${
@@ -204,7 +206,10 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 						className={`${
 							value === "" ? "opacity-100" : "opacity-0"
 						} px-3  py-0  h-8 mt-2 text-zinc-700 text-lg   cursor-pointer hover:bg-[#CDCDD1] rounded-r-md -right-[72px] bg-zinc-300`}
-						onClick={() => onSearch(value)}
+						onClick={(e) => {
+							e.preventDefault()
+							onSearch(value)
+						}}
 						disabled={value !== ""}>
 						Search
 					</button>
@@ -214,7 +219,8 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 						className={`${
 							value === "" ? "opacity-0" : "opacity-100"
 						} px-[20px] py-0  h-8 mt-2 text-zinc-700 text-lg  active:bg-zinc-600 cursor-pointer hover:bg-[#CDCDD1] rounded-r-md -right-[72px] bg-zinc-300`}
-						onClick={() => {
+						onClick={(e) => {
+							e.preventDefault()
 							onClear("")
 							reset && reset()
 						}}
