@@ -22,7 +22,7 @@ const toggle: React.FC<toggleProps> = ({ toggleValue, setToggleValue, setImagePr
 				}`}
 				onClick={() => {
 					setToggleValue("URL")
-					setImagePreview("default")
+					// setImagePreview("default")
 					setImageStatus("inactive")
 					setErrorStatus("")
 				}}>

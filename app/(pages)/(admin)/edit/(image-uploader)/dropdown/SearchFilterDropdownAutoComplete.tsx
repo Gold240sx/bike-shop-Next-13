@@ -30,7 +30,7 @@ interface SearchFilterDropdownAutoCompleteProps {
 	data?: (string | Option)[]
 	lazyLoadThreshold?: number
 	placeholder?: string
-	defaultValue?: string
+	defaultValue: string
 	width?: string // number of digits expected to be in the answer
 	max?: number
 	bgFade?: boolean
@@ -57,7 +57,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	type = "string",
 	onChange = () => {},
 }) => {
-	const [value, setValue] = useState<string>(defaultValue || "")
+	const [value, setValue] = useState<string>(defaultValue)
 	const [prevVal, setPreVal] = useState<string>("")
 	const [highlighted, setHighlighted] = useState<string>("")
 	const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(-1)
@@ -91,7 +91,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 	}
 
 	const onSearch = (searchTerm: any) => {
-		setValue(searchTerm)
+		// setValue(searchTerm)
 		setSelectedOptionIndex(-1)
 		if (searchTerm !== "") {
 			onChange(searchTerm) // Call the onChange callback with the selected value
@@ -103,11 +103,11 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 		setSelectedOptionIndex(-1)
 		onChange(searchTerm)
 		if (parent) return
-		setValue("")
+		// setValue("")
 	}
 
 	const matchingOptions =
-		value.length >= lazyLoadThreshold
+		value?.length >= lazyLoadThreshold
 			? options.filter((item) => {
 					const searchTerm = value.toLowerCase().trim()
 					const fullValue = item.value.toLowerCase().trim()
@@ -136,14 +136,14 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 				if (selectedOptionIndex === -1 && inputRef.current) {
 					setSelectedOptionIndex(0)
 				} else {
-					setSelectedOptionIndex((prevIndex) => Math.min(prevIndex + 1, matchingOptions.length - 1))
+					setSelectedOptionIndex((prevIndex) => Math.min(prevIndex + 1, matchingOptions?.length - 1))
 				}
 				// Scroll to the highlighted option
 				handleScroll(selectedOptionIndex + 1) // Scroll to the next option
 			} else if (e.key === "Enter" && selectedOptionIndex !== -1) {
 				const selectedValue = matchingOptions[selectedOptionIndex].value
 				onSearch(selectedValue)
-				setValue(selectedValue)
+				// setValue(selectedValue)
 				console.log(selectedValue)
 				setHighlighted(selectedValue) // Highlight the selected value
 				setSelectedOptionIndex(-1)
@@ -174,9 +174,11 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 		}
 	}, [highlighted])
 
-	const noMatchingOptions = value !== "" && !matchingOptions.some((item: any) => item.value === value) && matchingOptions.length === 0
+	const noMatchingOptions = value !== "" && !matchingOptions.some((item: any) => item.value === value) && matchingOptions?.length === 0
 
-	return (
+	return value === "" ? (
+		<p>loading...</p>
+	) : (
 		<div
 			className={`relative flex group right-[0px] mr-20 ${className}}`}
 			onFocus={() => setIsComponentFocused(true)}
@@ -190,10 +192,10 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 			<div className={`group-focus-within:z-[41] search-inner flex w-[${width}]`}>
 				<input
 					type="text"
-					onChange={onValChange}
+					// onChange={onValChange}
 					value={value}
 					key="search-input"
-					ref={inputRef}
+					// ref={inputRef}
 					placeholder={placeholder}
 					style={{ width: width }}
 					maxLength={max}
@@ -239,19 +241,19 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 					} ${
 						!noMatchingOptions
 							? "group-focus-within:shadow-md"
-							: `${noMatchingOptions && value.length >= lazyLoadThreshold && `bg-zinc-700 text-white   w-[${width}]`} `
+							: `${noMatchingOptions && value?.length >= lazyLoadThreshold && `bg-zinc-700 text-white   w-[${width}]`} `
 					}
 				} bg-zinc-50 odd:first:bg-zinc-50  rounded-b-md group-focus-within:z-39  w-[${width}]`}
 				role="listbox"
 				ref={dropdownRef}
 				aria-label="Options"
 				tabIndex={-1}>
-				{noMatchingOptions && value.length < 3 && parseFloat(width.trim().slice(0, 3)) > 8 && (
+				{noMatchingOptions && value?.length < 3 && parseFloat(width.trim().slice(0, 3)) > 8 && (
 					<div className={`flex flex-wrap px-4 pb-3 text-center pt-7 dropdown-row w-[${width}]`} role="option">
 						{<span className="mx-auto text-lg">{lazyLoadThreshold} char Minimum</span>}
 					</div>
 				)}
-				{noMatchingOptions && value.length >= 3 && parseFloat(width.trim().slice(0, 3)) > 8 ? (
+				{noMatchingOptions && value?.length >= 3 && parseFloat(width.trim().slice(0, 3)) > 8 ? (
 					<div className={`flex flex-wrap px-4 pb-3 text-center pt-7 dropdown-row w-[${width}] overflow-hidden`} role="option">
 						{<span className="mx-auto text-lg font-bold">"{value}" </span>} does not have any matching options.
 					</div>

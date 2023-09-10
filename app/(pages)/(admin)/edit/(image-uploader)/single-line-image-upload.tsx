@@ -203,7 +203,7 @@ const ImageUploadSingle = ({
 								</button>
 								<div className="border-dashed w-full border-zinc-400 rounded-lg p-0 py-0  border-2 -translate-y-[2px]">
 									<input
-										ref={inputRef}
+										// ref={inputRef}
 										name="file"
 										type="file"
 										className=" text-md rounded-md my-1 cursor-pointer placeholder:opacity-0"
@@ -268,14 +268,16 @@ const ImageUploadSingle = ({
 					<p className="text-white h-6 text-xl ">Color Selection</p>
 					<div className="flex flex-col ">
 						<div className="flex">
-							<SearchFilterDropdownAutoComplete
-								data={colorOptions}
-								defaultValue={colorValue}
-								onChange={handleSelectedColorValue}
-								// value={colorValue}
-								// reset={reset}
-								// parent={false}
-							/>
+							{colorValue && (
+								<SearchFilterDropdownAutoComplete
+									data={colorOptions}
+									defaultValue={colorValue}
+									onChange={handleSelectedColorValue}
+									// value={colorValue}
+									// reset={reset}
+									// parent={false}
+								/>
+							)}
 						</div>
 					</div>
 				</div>
@@ -295,13 +297,15 @@ const ImageUploadSingle = ({
 					</div>
 				</div>
 				<div className="flex flex-col mt-8">
-					<SearchFilterDropdownAutoComplete
-						data={["front", "back", "side", "frame", "quarter", "close-up"]}
-						defaultValue={angle}
-						onChange={handleSelectedAngleValue}
-						// reset={reset}
-						// parent={false}
-					/>
+					{angle && (
+						<SearchFilterDropdownAutoComplete
+							data={["front", "back", "side", "frame", "quarter", "close-up"]}
+							defaultValue={angle}
+							onChange={handleSelectedAngleValue}
+							// reset={reset}
+							// parent={false}
+						/>
+					)}
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
 					<p className="text-white h-6 text-xl bg-lime-600"></p>
