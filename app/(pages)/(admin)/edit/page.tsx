@@ -12,7 +12,6 @@ export default async function Test() {
 			<h2>Form Image Adder</h2>
 			<form className="flex flex-col gap-4">
 				<div id="image-upload-container" className="flex flex-col w-[90vw] bg-zinc-300 rounded-lg p-2">
-					<textarea name="description" id="description" cols={30} rows={10} className="w-full h-20 rounded-md"></textarea>
 					<ImageUploadMultiple />
 				</div>
 			</form>

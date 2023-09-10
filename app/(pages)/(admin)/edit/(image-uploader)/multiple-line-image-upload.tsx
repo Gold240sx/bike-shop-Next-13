@@ -109,6 +109,14 @@ const MultipleLineImageUpload = () => {
 	return (
 		<div className="">
 			{/* <pre>{JSON.stringify(productData, null, "2")}</pre> */}
+			{/* <textarea
+				name="description"
+				id="description"
+				cols={30}
+				rows={10}
+				className="w-full h-20 rounded-md"
+				value={productData && JSON.stringify(productData, null, "2")}
+			/> */}
 			<ProductSelector
 				productData={productData}
 				selectedProductId={selectedProductId}
