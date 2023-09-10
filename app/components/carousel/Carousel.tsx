@@ -7,6 +7,7 @@ import Hero2 from "../../assets/Images/repairs.jpg"
 import Hero3 from "../../assets/Images/trail.jpg"
 import Mountain from "../../assets/Images/Mountain.png"
 import Image from "next/image"
+import LinkButton from "../buttons/LinkButton"
 
 const slides = [
 	{
@@ -14,11 +15,11 @@ const slides = [
 		content: (
 			<div className="z-50 flex flex-col gap-4 pointer-events-auto">
 				<h2 className="text-4xl font-semibold text-center title">Conquer New Heights: Ride with Power, Soar with Freedom!</h2>
-				<button
+				<LinkButton
+					to="/products"
+					label="Shop now"
 					className="px-4 py-2 mx-auto text-base text-black rounded md:text-xl w-fit bg-white/90 hover:bg-teal-300"
-					onClick={() => console.log("button 1 clicked")}>
-					Shop now
-				</button>
+				/>
 			</div>
 		),
 	},
@@ -28,7 +29,11 @@ const slides = [
 			<>
 				<h2 className="text-4xl font-bold">Annual Bike Maintenence Sale!!!</h2>
 				<p className="text-lg">Sep 5th-30th - 50% OFF!!!</p>
-				<button className="px-4 py-2 mt-4 text-black bg-white rounded-md cursor-pointer hover:bg-teal-300">Get Fixed!</button>
+				<LinkButton
+					to="/services"
+					label="Get Fixed!"
+					className="px-4 py-2 mt-4 text-black bg-white rounded-md cursor-pointer hover:bg-teal-300"
+				/>
 			</>
 		),
 	},
@@ -38,7 +43,11 @@ const slides = [
 			<>
 				<h2 className="text-4xl font-bold">E-bike Demo</h2>
 				<p className="text-lg">Come ride with us!! Nov 11-12</p>
-				<button className="px-4 py-2 mt-4 text-white bg-teal-500 rounded-md cursor-pointer hover:bg-teal-300">More Info</button>
+				<LinkButton
+					to="/services"
+					label="More Info"
+					className="px-4 py-2 mt-4 text-black bg-white rounded-md cursor-pointer hover:bg-teal-300"
+				/>
 			</>
 		),
 	},

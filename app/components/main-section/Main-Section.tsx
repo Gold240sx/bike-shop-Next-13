@@ -7,8 +7,16 @@ import Path from "../../assets/Images/path.svg"
 import Building from "../../assets/Images/building.jpg"
 import GoogleRating from "../../assets/Icons/GoogleRating.png"
 import Link from "next/link"
+import LinkButton from "../buttons/LinkButton"
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
 
-const MainSection = ({ history }: any) => {
+const MainSection = async ({ history, products }: any) => {
+	const supabase = createServerComponentClient({ cookies })
+
+	const { data: promotions } = await supabase.from("Promotions").select("*").eq("id", 1).single()
+	const { image, header, description, link_label: linkLabel, sub_header: subHeader } = promotions
+
 	return (
 		<>
 			<div
@@ -31,11 +39,17 @@ const MainSection = ({ history }: any) => {
 								shipment. We offer custom builds, rentals, and in-store service and support on all our products so you can
 								hit the trails sooner.
 							</p>
-							<button
+							{/* <button
 								className="px-4  py-1 text-lg ml-5 text-white bg-black hover:bg-zinc-900 hover:ring-2 hover:ring-teal-400 rounded w-fit  hover:shadow-md shadow-black/50"
-								onClick={() => history.push("/product/id")}>
+								// onClick={() => history.push("/product/id")}
+							>
 								View Services
-							</button>
+							</button> */}
+							<LinkButton
+								to="/services"
+								label="View Services"
+								className="px-3 py-1 text-lg text-white rounded w-fit bg-teal-500 hover:bg-teal-400 hover:shadow-md shadow-black/50"
+							/>
 						</div>
 					</div>
 				</div>
@@ -49,6 +63,24 @@ const MainSection = ({ history }: any) => {
 					/>
 				</Link>
 			</div>
+
+			<section className="mt-16 mb-12 main-section-container items-center flex  h-fit">
+				<div className="lg:flex main-section-middle mx-auto h-fit">
+					<div className=" ms-m-image p-[15px] mb-8 w-3/4 lg:w-auto mx-auto max-w-[900px] lg:max-w-[500px]">
+						<img src={image} className=" h-auto  w-full" alt="promo" />
+					</div>
+					<div className="flex flex-col gap-4 ms-m-description p-[15px] lg:p-0 w-3/4 lg:w-auto mx-auto max-w-[900px]  lg:max-w-auto ">
+						<h2 className="font-semibold text-4xl text-teal-500 ml-2">{header}</h2>
+						<h2 className="font-semibold pl-4">{subHeader}</h2>
+						<p className="line-clamp-[8] max-w-[60vw] lg:max-w-[30vw] pl-4">{description}</p>
+						<LinkButton
+							to="/products"
+							label={linkLabel}
+							className="px-3 py-1 ml-4 text-lg text-white rounded w-fit bg-[#9C5B3C] hover:bg-[#C9825B] hover:shadow-md shadow-black/50"
+						/>
+					</div>
+				</div>
+			</section>
 		</>
 	)
 }
