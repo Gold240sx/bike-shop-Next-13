@@ -13,85 +13,161 @@ export const dynamicParams = true
 export async function generateMetadata({ params }: any) {
 	const supabase = createServerComponentClient({ cookies })
 
-	const { data: product } = await supabase.from("ProductsTest").select().eq("id", params.id).single()
+	const { data: product } = await supabase.from("Products").select("*").eq("id", params.id).single()
 
 	return {
-		title: `Dojo Helpdesk | ${product?.title || "Product not Found"}`,
+		title: `Dojo Helpdesk | ${product?.manufacturer + " " + product?.title || "Product not Found"}`,
 	}
 }
+
+// async function getProduct(id: string) {
+// 	const supabase = createServerComponentClient({ cookies })
+
+// 	const { data, error } = await supabase.from("Products").select().eq("id", id).single()
+
+// 	return data
+// }
 
 async function getProduct(id: string) {
 	const supabase = createServerComponentClient({ cookies })
 
-	const { data, error } = await supabase.from("Products").select().eq("id", id).single()
+	try {
+		// Step 1: Fetch the product by its id
+		const { data: product }: { data: any } = await supabase.from("Products").select("*").eq("id", id).limit(1)
 
-	return data
+		if (!product || product.length === 0) {
+			// Product not found, return null or an appropriate response
+			return null
+		}
+
+		const productData = product[0]
+
+		// Step 2: Fetch the manufacturer for the product
+		const manufacturerFromProd = productData.manufacturer
+		const { data: companyTitle }: { data: any } = await supabase
+			.from("Manufacturers")
+			.select("manufacturer, logo")
+			.eq("manufacturer", manufacturerFromProd)
+
+		const manufacturer = companyTitle[0] // Assuming there's only one matching manufacturer
+
+		// Step 3: Fetch color options and images for the product
+		const { data: colorOptions }: { data: any } = await supabase
+			.from("product_color_options")
+			.select("id, color")
+			.eq("product_id", productData.id)
+
+		const colorIds = colorOptions.map((color: any) => color.id)
+
+		const colorImages = await Promise.all(
+			colorIds.map(async (colorId: any) => {
+				const { data: images }: { data: any } = await supabase
+					.from("product_images")
+					.select("image_url, product_angle, main_image")
+					.eq("color_option_id", colorId)
+
+				return {
+					id: colorId,
+					color: colorOptions.find((colorOption: any) => colorOption.id === colorId)?.color,
+					images: images.map((image: any) => ({
+						image_url: image.image_url,
+						main_image: image.main_image,
+						product_angle: image.product_angle,
+					})),
+				}
+			})
+		)
+
+		// Combine colorImages into a single array (flattened)
+		const allImages = colorImages.map((colorImage: any) => colorImage.images).flat()
+
+		// Organize the data as you need it
+		const productWithImages = {
+			id: productData.id,
+			manufacturer,
+			description: productData.description,
+			title: productData.title,
+			price: productData.price,
+			images: allImages.map((image: any) => image.image_url),
+			colorOptionsDropdown: colorOptions.map((colorOption: any) => colorOption.color).flat(),
+			colorOptions: colorImages.map((colorImage: any) => ({
+				id: colorImage.id,
+				color: colorImage.color,
+				images: colorImage.images.length > 0 ? colorImage.images : [],
+			})),
+		}
+
+		return productWithImages
+	} catch (error) {
+		console.error("Error fetching product:", error)
+		return null // Return null in case of an error
+	}
 }
 
 export default async function ProductDetails({ params }: any) {
 	const product = await getProduct(params.id)
 
-	const supabase = createServerComponentClient({ cookies })
-	const { data } = await supabase.auth.getSession()
-	const { data: manufacturer } = await supabase.from("Manufacturers").select().eq("id", product.id).single()
+	// check if user is logged in
+	// {(data?.session?.user.email !== undefined && data?.session?.user.email) === product?.user_email ? (
+	//				<EditModal id={product?.id} product={product} />
+	//			) :
 
 	return (
 		<main className="mt-32 mx-16">
 			<nav className="flex flex-col w-full">
 				<div className="w-full">
-					{(data?.session?.user.email !== undefined && data?.session?.user.email) === product?.user_email ? (
-						<EditModal id={product?.id} product={product} />
-					) : (
-						<div className="card text-black border-1 border-zinc-800 bg-white">
-							<h2 className=" text-3xl text-zinc-400 pl-2">Product Details</h2>
-							<div>
-								<div className="single-product-container">
-									<div className="product-image mb-4 p-4 bg-white">
-										<img src={product.images} className="" alt="product" />
-									</div>
-									<div className="product-details">
-										<div className="name-price mb-4 flex flex-col">
-											<div className="flex gap-2 mx-4">
-												<div className="flex-col mx-4">
-													<h4 className="text-yellow-500 text-3xl">{product?.manufacturer}</h4>{" "}
-													<h4 className="text-4xl mb-3">{product?.title}</h4>
-													<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product.price)}</h2>
-												</div>
-												<img
-													className="w-auto h-24 ml-auto mr-4"
-													src={manufacturer?.logo}
-													alt="manufacturer logo"
-												/>
+					<div className="card text-black border-1 border-zinc-800 bg-white">
+						<h2 className=" text-3xl text-zinc-400 pl-2">Product Details</h2>
+						<div>
+							<div className="single-product-container">
+								<div className="product-image mb-4 p-4 bg-white">
+									<img src={product?.images[0]} className="mx-auto" alt="product" />
+								</div>
+								<div className="product-details">
+									<div className="name-price mb-4 flex flex-col">
+										<div className="flex gap-2 mx-4">
+											<div className="flex-col mx-4">
+												<h4 className="text-yellow-500 text-3xl">{product?.manufacturer.manufacturer}</h4>{" "}
+												<h4 className="text-4xl mb-3">{product?.title}</h4>
+												<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product?.price)}</h2>
 											</div>
+											<img
+												className="w-auto h-24 ml-auto mr-4"
+												src={product?.manufacturer.logo}
+												alt="manufacturer logo"
+											/>
 										</div>
-										<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
-											<h2>Options</h2>
-											<SearchFilterDropdownAutoComplete className="h-10" />
-										</div>
+									</div>
+									<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
+										<h2>Options</h2>
+										<SearchFilterDropdownAutoComplete
+											className="h-8"
+											data={product?.colorOptionsDropdown}
+											defaultValue={product?.colorOptions[0].color}
+										/>
+									</div>
 
-										<div className="add-to-cart-btns flex flex-col mx-8">
-											<CartButton
-												product={product}
-												label="ADD TO CART"
-												action="ADD_TO_CART"
-												className="bg-white text-black py-0 w-60 rounded hover:bg-zinc-50 h-12 hover:text-zinc-800"
-											/>
-											<LinkButton
-												to="/cart"
-												label="PROCEED TO CHECKOUT"
-												className="bg-black text-white h-10 w-60 rounded p-[10px]  hover:bg-zinc-800 hover:text-zinc-200"
-											/>
-											{/* <button className="text-white bg-black rounded button w-60">PROCEED TO CHECKOUT</button> */}
-										</div>
-										<div className="product-description mx-4">
-											<p className="mx-4">{product.description}</p>
-										</div>
+									<div className="add-to-cart-btns flex flex-col mx-8">
+										<CartButton
+											product={product?.id}
+											label="ADD TO CART"
+											action="ADD_TO_CART"
+											className="bg-white text-black py-0 w-60 rounded hover:bg-zinc-50 h-12 hover:text-zinc-800"
+										/>
+										<LinkButton
+											to="/cart"
+											label="PROCEED TO CHECKOUT"
+											className="bg-black text-white h-10 w-60 rounded p-[10px]  hover:bg-zinc-800 hover:text-zinc-200"
+										/>
+										{/* <button className="text-white bg-black rounded button w-60">PROCEED TO CHECKOUT</button> */}
+									</div>
+									<div className="product-description mx-4">
+										<p className="mx-4">{product?.description}</p>
 									</div>
 								</div>
-								{/*  */}
 							</div>
 						</div>
-					)}
+					</div>
 				</div>
 			</nav>
 		</main>
