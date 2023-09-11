@@ -268,16 +268,14 @@ const ImageUploadSingle = ({
 					<p className="text-white h-6 text-xl ">Color Selection</p>
 					<div className="flex flex-col ">
 						<div className="flex">
-							{colorValue && (
-								<SearchFilterDropdownAutoComplete
-									data={colorOptions}
-									defaultValue={colorValue}
-									onChange={handleSelectedColorValue}
-									// value={colorValue}
-									// reset={reset}
-									// parent={false}
-								/>
-							)}
+							<SearchFilterDropdownAutoComplete
+								data={colorOptions}
+								defaultValue={colorValue}
+								onChange={handleSelectedColorValue}
+								value={colorValue}
+								// reset={reset}
+								// parent={false}
+							/>
 						</div>
 					</div>
 				</div>
@@ -297,15 +295,13 @@ const ImageUploadSingle = ({
 					</div>
 				</div>
 				<div className="flex flex-col mt-8">
-					{angle && (
-						<SearchFilterDropdownAutoComplete
-							data={["front", "back", "side", "frame", "quarter", "close-up"]}
-							defaultValue={angle}
-							onChange={handleSelectedAngleValue}
-							// reset={reset}
-							// parent={false}
-						/>
-					)}
+					<SearchFilterDropdownAutoComplete
+						data={["front", "back", "side", "frame", "quarter", "close-up"]}
+						defaultValue={angle}
+						onChange={handleSelectedAngleValue}
+						// reset={reset}
+						// parent={false}
+					/>
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
 					<p className="text-white h-6 text-xl bg-lime-600"></p>
