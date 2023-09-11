@@ -139,7 +139,7 @@ export default async function ProductDetails({ params }: any) {
 										</div>
 									</div>
 									<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
-										<h2>Options</h2>
+										<h2>Pick your color:</h2>
 										<SearchFilterDropdownAutoComplete
 											className="h-8"
 											data={product?.colorOptionsDropdown}
