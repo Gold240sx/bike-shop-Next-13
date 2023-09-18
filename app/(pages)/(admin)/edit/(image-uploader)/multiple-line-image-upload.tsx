@@ -133,6 +133,7 @@ const MultipleLineImageUpload = () => {
 							imageURL={image}
 							onValidImageChange={(isValid: boolean) => handleValidImageChange(index, isValid)}
 							onValidColorChange={(isValid: boolean) => handleValidColorChange(index, isValid)}
+							selectedProductId={selectedProductId}
 							image={image}
 							// reset={reset}
 						/>

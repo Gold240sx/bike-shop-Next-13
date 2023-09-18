@@ -2,6 +2,7 @@ import CartButton from "../buttons/CartButton"
 import "./FeaturedProducts.styles.scss"
 import Link from "next/link"
 import { formattedPrice } from "../../functions/priceFormatter"
+import { isInCart } from "@/app/functions/helpers"
 
 const FeaturedProduct = async ({ product }: any) => {
 	const { id, title: name, price, images } = product

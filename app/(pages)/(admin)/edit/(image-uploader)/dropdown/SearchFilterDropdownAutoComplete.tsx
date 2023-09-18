@@ -222,7 +222,7 @@ const SearchFilterDropdownAutoComplete: React.FC<SearchFilterDropdownAutoComplet
 						onClick={(e) => {
 							e.preventDefault()
 							onClear("")
-							reset && reset()
+							reset()
 						}}
 						disabled={value === ""}>
 						Clear

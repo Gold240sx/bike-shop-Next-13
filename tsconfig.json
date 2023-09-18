@@ -26,12 +26,15 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
+		"**/*.js",
+		"**/*.jsx",
 		".next/types/**/*.ts,",
 		".next/types/**/*.ts",
 		"app/(home)/layout.tsx",
 		"app/(home)/layout.tsx",
 		".next/types/app/(dashboard)/layout.jsx",
-		".next/types/app/(dashboard)/layout.tsx"
+		".next/types/app/(dashboard)/layout.tsx",
+		"app/context/providers.js"
 	],
 	"exclude": ["node_modules"]
 }

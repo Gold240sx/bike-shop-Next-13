@@ -20,14 +20,6 @@ export async function generateMetadata({ params }: any) {
 	}
 }
 
-// async function getProduct(id: string) {
-// 	const supabase = createServerComponentClient({ cookies })
-
-// 	const { data, error } = await supabase.from("Products").select().eq("id", id).single()
-
-// 	return data
-// }
-
 async function getProduct(id: string) {
 	const supabase = createServerComponentClient({ cookies })
 

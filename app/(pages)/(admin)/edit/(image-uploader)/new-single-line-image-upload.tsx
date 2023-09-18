@@ -11,7 +11,7 @@ import { MdClear } from "react-icons/md"
 import { FiMoreHorizontal } from "react-icons/fi"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 
-const ImageUploadSingle = ({
+const NewImageUploadSingle = ({
 	onValidImageChange,
 	onValidColorChange,
 	productColors,
@@ -51,18 +51,6 @@ const ImageUploadSingle = ({
 	const isValidDomain = /\.(com|org|co|net|gov|edu|in|mil|int|eu|coop|aero|museum|name|pro|biz|info|jobs|mobi|travel|arpa)/i
 	const isValidImage = /\.(jpg|jpeg|png|webp)$/i
 
-	useEffect(() => {
-		// Notify the parent component when validImage changes
-		onValidImageChange(validImage)
-		// Notify the parent component when validImage changes
-		onValidColorChange(validImage)
-		if (colorValue !== "") {
-			setValidColor(true)
-		} else {
-			setValidColor(false)
-		}
-	}, [validColor, validImage])
-
 	const handleSelectedColorValue = (value: any) => {
 		setColorValue(value)
 		if (value !== "") {
@@ -98,19 +86,18 @@ const ImageUploadSingle = ({
 		return url
 	}
 
-
-	useEffect(() => {
-		const colorPick = image.color
-		const anglePick = image.product_angle
-		setImagePreview(image ? image.image_url : "default")
-		setColorValue(image ? colorPick : "")
-		setAngle(image ? anglePick : "")
-		setImageStatus("saved")
-		console.log("product reset")
-	}, [image, selectedProductId])
+	// useEffect(() => {
+	// 	console.log("colorOptions", colorOptions)
+	// 	if (imageURL) {
+	// 		console.log("imageURL", imageURL)
+	// 		// setImagePreview(imageURL)
+	// 		setImageStatus("saved")
+	// 		// setProductOption(ProductOption)
+	// 	}
+	// }, [imageURL])
 
 	return (
-		<form className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible my-2">
+		<div className="flex-col flex bg-zinc-200 rounded-lg p-2 h-fit ove overflow-y-visible my-2">
 			<p>{imageStatus}</p>
 			<div id="image-upload-container" className="min-h-20 min-w-20  h-fit flex  lg:flex-row text-center ">
 				<div className="toggle  h-full w-fit px-4 gap-4 rounded-tl-lg">
@@ -255,14 +242,13 @@ const ImageUploadSingle = ({
 						)}
 					</div>
 				</div>
-				<div className="right mt-3 h-full w-fit px-4 gap-2 flex flex-col my-auto">
+				<div className="right   h-full w-fit px-4 ">
 					<p className="text-white h-6 text-xl ">Color Selection</p>
-					<div className="flex flex-col  gap-3 ">
+					<div className="flex flex-col ">
 						<div className="flex">
 							{colorValue && (
 								<SearchFilterDropdownAutoComplete
 									data={colorOptions}
-									defaultValue={colorValue}
 									onChange={handleSelectedColorValue}
 									// value={colorValue}
 									// reset={reset}
@@ -272,7 +258,6 @@ const ImageUploadSingle = ({
 							{!colorValue && (
 								<SearchFilterDropdownAutoComplete
 									data={colorOptions}
-									defaultValue={colorValue}
 									onChange={handleSelectedColorValue}
 									// value={colorValue}
 									// reset={reset}
@@ -297,38 +282,33 @@ const ImageUploadSingle = ({
 						)}
 					</div>
 				</div>
-				<div className="flex flex-col gap-2  my-auto ">
-					<p className="text-white h-6 text-xl ">Angle</p>
-					<div>
-						{!colorValue && (
-							<SearchFilterDropdownAutoComplete
-								data={["front", "back", "side", "frame", "quarter", "close-up"]}
-								defaultValue={angle}
-								onChange={handleSelectedAngleValue}
-								// reset={reset}
-								// parent={false}
-							/>
-						)}
-						{colorValue && (
-							<SearchFilterDropdownAutoComplete
-								data={["front", "back", "side", "frame", "quarter", "close-up"]}
-								defaultValue={angle}
-								onChange={handleSelectedAngleValue}
-								// reset={reset}
-								// parent={false}
-							/>
-						)}
-					</div>
+				<div className="flex flex-col mt-8">
+					{!colorValue && (
+						<SearchFilterDropdownAutoComplete
+							data={["front", "back", "side", "frame", "quarter", "close-up"]}
+							onChange={handleSelectedAngleValue}
+							// reset={reset}
+							// parent={false}
+						/>
+					)}
+					{colorValue && (
+						<SearchFilterDropdownAutoComplete
+							data={["front", "back", "side", "frame", "quarter", "close-up"]}
+							onChange={handleSelectedAngleValue}
+							// reset={reset}
+							// parent={false}
+						/>
+					)}
 				</div>
 				<div className="remove  h-full w-10  flex flex-col items-center rounded-tr-lg">
 					<p className="text-white h-6 text-xl bg-lime-600"></p>
 					{imageStatus === "inactive" && <div className="flex group flex-col gap-[28px] mt-[22px] items-center"></div>}
 					{/* delete */}
 					{imageStatus === "saved" && (
-						<button className="flex group flex-col gap-[28px] mt-[22px] items-center">
+						<div className="flex group flex-col gap-[28px] mt-[22px] items-center">
 							<TiDeleteOutline className="text-red-400 h-10 text-4xl flex  text-center group-hover:opacity-0 absolute cursor-pointer" />
 							<TiDelete className="text-red-500 h-10 text-4xl flex  text-center group-hover:opacity-100 opacity-0 cursor-pointer scale-105" />
-						</button>
+						</div>
 					)}
 					{/* save */}
 					{imageStatus === "saveReady" && (
@@ -363,8 +343,8 @@ const ImageUploadSingle = ({
 					<p className=" text-red-500">{errorStatus}</p>
 				</div>
 			)}
-		</form>
+		</div>
 	)
 }
 
-export default ImageUploadSingle
+export default NewImageUploadSingle
