@@ -4,6 +4,7 @@ import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs"
 
 export const dynamic = "force-dynamic"
 
+// this is the post a new product route.
 export async function POST(request: Request): Promise<NextResponse> {
 	const product = await request.json()
 

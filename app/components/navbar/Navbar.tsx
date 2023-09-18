@@ -1,18 +1,28 @@
+"use client"
 import Link from "next/link"
 import Image from "next/image"
 import { BiShoppingBag, BiHomeAlt2, BiTable } from "react-icons/bi"
 import { LuLayoutDashboard } from "react-icons/lu"
 import { RxDividerVertical } from "react-icons/rx"
+import { HiUsers } from "react-icons/hi"
+import { TbCrane, TbEdit } from "react-icons/tb"
 import BikeShopLogo from "../../assets/Images/bikeShopLogo.png"
 import Crank from "../../assets/Images/crank.png"
 import CartIcon from "../cart-icon/CartIcon"
 import Logo from ".././dojo-logo.png"
-import LogoutButton from "../LogoutButton"
+import LogoutButton from "../buttons/LogoutButton"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { cookies } from "next/headers"
 import "./nav-menu.scss"
 
-const Navbar = ({ user }: { user: any }) => {
+const Navbar = ({ user, userData }: { user: any; userData: any }) => {
+	// refresh component on user change while remaining a server component without using useState
+	const key = user ? "user-logged-in" : "user-logged-out"
+	const userIsAdmin = userData?.role === "admin"
+
 	return (
-		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto">
+		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto" key={key}>
+			{/* <pre className="">{JSON.stringify(u, null, "")}</pre> */}
 			<Link href="/" className="cursor-pointer z-20">
 				<div className=" bg-white logo rounded-xl group w-fit h-fit justify-between cursor-pointer">
 					<div className="absolute bg-white h-[7.2rem] cursor-pointer rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>
@@ -20,15 +30,15 @@ const Navbar = ({ user }: { user: any }) => {
 						alt="company logo"
 						quality={100}
 						src={Crank}
-						height={60}
-						width={25}
+						height={160}
+						width={125}
 						className="absolute h-auto mt-2 ml-[74px] cursor-pointer w-[5.5rem] p-2  rounded-xl animate-spin"
 					/>
 					<Image
 						alt="company logo"
 						quality={100}
-						height={90}
-						width={55}
+						height={190}
+						width={155}
 						// priority
 						src={BikeShopLogo}
 						className="absolute h-auto scale-75 sm:scale-[85%] cursor-pointer sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -mt-5 w-[9rem] p-2 -rotate-3 shadow-black shadow-2xl"
@@ -47,13 +57,22 @@ const Navbar = ({ user }: { user: any }) => {
 					</Link>
 				</li>
 			</ul>
-			{user && (
+			{userIsAdmin && (
+				// SIGNED IN USERS
 				<div className="bg-zinc-300 rounded-full px-4 pt-1 pb-0.5 flex gap-2">
+					<Link href="/test">
+						<TbCrane className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
+					<Link href="/edit">
+						<TbEdit className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
+					<Link href="/users">
+						<HiUsers className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
+					</Link>
 					<Link href="/products">
 						<BiTable className="hover:scale-110 ml-[5px] text-zinc-700 hover:text-black -mt-0.5 h-8 w-8" />
 					</Link>
-
-					<Link href="/admin">
+					<Link href="/products/admin">
 						<LuLayoutDashboard className="hover:scale-110 text-zinc-700 hover:text-black ml-[5px] h-7 w-7" />
 					</Link>
 				</div>

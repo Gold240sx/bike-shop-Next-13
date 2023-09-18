@@ -1,42 +1,45 @@
 {
-	"name": "bike-shop-13",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
-		"lint": "next lint"
-	},
-	"dependencies": {
-		"@supabase/auth-helpers-nextjs": "latest",
-		"@supabase/supabase-js": "latest",
-		"@typescript-eslint/eslint-plugin": "^6.0.0",
-		"@typescript-eslint/parser": "^6.0.0",
-		"autoprefixer": "10.4.15",
-		"eslint": "^8.45.0",
-		"eslint-plugin-react-hooks": "^4.6.0",
-		"eslint-plugin-react-refresh": "^0.4.3",
-		"husky": "^8.0.3",
-		"lint-staged": "^13.2.3",
-		"next": "13.4.19",
-		"postcss": "8.4.28",
-		"prettier": "^3.0.1",
-		"prettier-plugin-tailwindcss": "^0.4.1",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"react-feather": "^2.0.10",
-		"react-icons": "^4.10.1",
-		"react-router-dom": "^6.15.0",
-		"sass": "^1.64.2",
-		"tailwindcss": "3.3.3",
-		"typescript": "5.1.6"
-	},
-	"devDependencies": {
-		"@types/node": "20.5.1",
-		"@types/react": "18.2.12",
-		"@types/react-dom": "18.2.5",
-		"@types/react-router-dom": "^5.3.3",
-		"encoding": "^0.1.13"
-	}
+  "name": "bike-shop-13",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@supabase/auth-helpers-nextjs": "latest",
+    "@supabase/supabase-js": "latest",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "autoprefixer": "10.4.15",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "flowbite": "^1.8.1",
+    "flowbite-react": "^0.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "micro": "^10.0.1",
+    "next": "13.4.19",
+    "postcss": "8.4.28",
+    "prettier": "^3.0.1",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-feather": "^2.0.10",
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.15.0",
+    "sass": "^1.64.2",
+    "tailwindcss": "3.3.3",
+    "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "20.5.1",
+    "@types/react": "18.2.12",
+    "@types/react-dom": "18.2.5",
+    "@types/react-router-dom": "^5.3.3",
+    "encoding": "^0.1.13"
+  }
 }
