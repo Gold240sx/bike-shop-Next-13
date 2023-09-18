@@ -16,15 +16,21 @@ export default async function ShoppingLayout({ children }: { children: any }) {
 
 	const { data: user } = await supabase.from("users").select("*").match({ id: data.session.user.id }).single()
 
-	if (user?.role !== "admin") {
-		return redirect("/")
-	}
+    	const { data: userData, error } = await supabase
+			.from("users")
+			.select("role")
+			.eq("id", user?.id)
+			.single()
 
-	return (
-		<>
-			<Navbar user={data?.session?.user} />
-			<div className="">{children}</div>
-			<Footer />
-		</>
-	)
+		if (user?.role !== "admin") {
+			return redirect("/")
+		}
+
+		return (
+			<>
+				<Navbar user={data?.session?.user} userData={userData} />
+				<div className="">{children}</div>
+				<Footer />
+			</>
+		)
 }
