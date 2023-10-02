@@ -10,15 +10,17 @@ interface CartButtonProps {
 	label: string
 	product: any
 	action: string
+	disabled?: boolean
 }
 
-const CartButton: React.FC<CartButtonProps> = ({ product, action, className, style, label }) => {
+const CartButton: React.FC<CartButtonProps> = ({ product, action, className, style, label, disabled }) => {
 	const { addProduct, cartItems, removeProduct } = useContext(CartContext)
 	const { id } = product
 	console.log("product", product)
 
 	return (
 		<button
+			disabled={disabled}
 			className={`${className}`}
 			onClick={() => addProduct(id)}
 			style={{
@@ -26,7 +28,7 @@ const CartButton: React.FC<CartButtonProps> = ({ product, action, className, sty
 				textAlign: "center",
 				...style,
 			}}>
-			<p className="text-center w-full">{label}</p>
+			<p className={`${disabled && "bg-zinc-200 text-zinc-400 cursor-not-allowed h-full p-[12px]"}  text-center w-full`}>{label}</p>
 		</button>
 	)
 }

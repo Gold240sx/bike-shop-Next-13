@@ -1,4 +1,4 @@
-import ImageUploadMultiple2 from "@/app/(pages)/(admin)/edit/(image-uploader)/backup/multiple-line-image-upload2"
+import ImageUploadMultiple2 from "@/app/(pages)/admin/edit/(image-uploader)/backup/multiple-line-image-upload2"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 
@@ -16,7 +16,7 @@ const Edit = async () => {
 				<form className="flex flex-col gap-4">
 					<div id="image-upload-container" className="flex flex-col w-fit  bg-zinc-300 rounded-lg p-2">
 						<textarea name="description" id="description" cols={30} rows={10} className="w-full h-20 rounded-md"></textarea>
-						<ImageUploadMultiple2 products={products} manufacturers={manufacturers} />
+						{/* <ImageUploadMultiple2 products={products} manufacturers={manufacturers} /> */}
 					</div>
 				</form>
 			</div>

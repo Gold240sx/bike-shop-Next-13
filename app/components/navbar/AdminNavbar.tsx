@@ -15,36 +15,13 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import "./nav-menu.scss"
 
-const Navbar = ({ user, userData }: { user: any; userData: any }) => {
+const AdminNavbar = ({ user, userData }: { user: any; userData: any }) => {
 	// refresh component on user change while remaining a server component without using useState
 	const key = user ? "user-logged-in" : "user-logged-out"
 	const userIsAdmin = userData?.role === "admin"
 
 	return (
-		<nav id="nav-menu" className="container z-10 items-center nav-menu mx-auto" key={key}>
-			{/* <pre className="">{JSON.stringify(u, null, "")}</pre> */}
-			<Link href="/" className="cursor-pointer z-20">
-				<div className=" bg-white logo rounded-xl group w-fit h-fit justify-between cursor-pointer">
-					<div className="absolute bg-white h-[7.2rem] cursor-pointer rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>
-					<Image
-						alt="company logo"
-						quality={100}
-						src={Crank}
-						height={160}
-						width={125}
-						className="absolute h-auto mt-2 ml-[74px] cursor-pointer w-[5.5rem] p-2  rounded-xl animate-spin"
-					/>
-					<Image
-						alt="company logo"
-						quality={100}
-						height={190}
-						width={155}
-						// priority
-						src={BikeShopLogo}
-						className="absolute h-auto scale-75 sm:scale-[85%] cursor-pointer sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -mt-5 w-[9rem] p-2 -rotate-3 shadow-black shadow-2xl"
-					/>
-				</div>
-			</Link>
+		<nav id="nav-menu" className="container z-10 py-4 px-8 items-center  mx-auto bg-white" key={key}>
 			<ul className="flex h-full my-auto text-3xl align-middle ml-auto justify-between gap-6">
 				<li>
 					<Link href="/">
@@ -80,7 +57,7 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 			{!user && <CartIcon />}
 			<RxDividerVertical className="scale-150 -mr-2 text-zinc-300" />
 			{user && (
-				<p className="absolute right-32 top-[86px] z-[11] bg-black rounded-full px-3 text-zinc-200">
+				<p className="absolute right-10 top-[86px] z-[11] bg-black rounded-full px-3 text-zinc-200">
 					Hello, <span className="text-yellow-400 ml-2">{user?.email}!</span>
 				</p>
 			)}
@@ -96,4 +73,4 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 	)
 }
 
-export default Navbar
+export default AdminNavbar

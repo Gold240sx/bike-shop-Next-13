@@ -174,7 +174,7 @@ form select {
     mb-0;
 }
 .card p {
-  @apply my-4 text-sm leading-6;
+  @apply text-sm leading-6;
 }
 
 /* pill styles */

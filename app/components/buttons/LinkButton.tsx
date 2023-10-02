@@ -6,9 +6,10 @@ interface LinkButtonProps {
 	className?: string
 	style?: React.CSSProperties
 	label: string
+	disabled?: boolean
 }
 
-const LinkButton: React.FC<LinkButtonProps> = ({ to, className, style, label }) => {
+const LinkButton: React.FC<LinkButtonProps> = ({ to, className, style, label, disabled }) => {
 	return (
 		<button
 			className={`w-fit`}
@@ -18,7 +19,9 @@ const LinkButton: React.FC<LinkButtonProps> = ({ to, className, style, label }) 
 				...style,
 			}}>
 			<Link href={to}>
-				<p className={`text-center ${className}`}>{label}</p>
+				<p className={`${disabled && "bg-zinc-200 text-zinc-400 cursor-not-allowed h-full p-[12px]"}  text-center w-full`}>
+					{label}
+				</p>
 			</Link>
 		</button>
 	)

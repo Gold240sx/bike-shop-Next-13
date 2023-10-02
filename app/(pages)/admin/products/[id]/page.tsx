@@ -4,9 +4,10 @@ import CartButton from "../../../../components/buttons/CartButton"
 import { formattedPrice } from "../../../../functions/priceFormatter"
 
 // components
-import EditModal from "./EditModal"
+// import EditModal from "./EditModal"
 import LinkButton from "@/app/components/buttons/LinkButton"
 import SearchFilterDropdownAutoComplete from "@/app/(pages)/admin/edit/(image-uploader)/dropdown/SearchFilterDropdownAutoComplete"
+import ImageSwitcher from "@/app/components/shared/ImageSwitcher"
 
 export const dynamicParams = true
 
@@ -105,17 +106,39 @@ export default async function ProductDetails({ params }: any) {
 	//			) :
 
 	return (
-		<main className="mt-32 mx-16">
+		<main className="mt-10 max-w-[900px] mx-auto flex">
 			<nav className="flex flex-col w-full">
 				<div className="w-full">
 					<div className="card text-black border-1 border-zinc-800 bg-white">
-						<h2 className=" text-3xl text-zinc-400 pl-2">Product Details</h2>
+						<div className="flex justify-between mb-4">
+							<h2 className=" text-3xl text-zinc-400 pl-2">Customer Product View:</h2>
+							<div className="flex gap-2">
+								<LinkButton
+									to={`/admin/products/`}
+									label="Back"
+									className="bg-zinc-800 text-white rounded p-2 hover:bg-zinc-700"
+								/>
+								<button className="bg-zinc-800 text-white rounded p-2 hover:bg-zinc-700">Edit</button>
+								<button className="bg-zinc-800 text-white rounded p-2 hover:bg-zinc-700">Delete</button>
+							</div>
+						</div>
 						<div>
 							<div className="single-product-container">
-								<div className="product-image mb-4 p-4 bg-white">
+								{/* <div className="product-image mb-4 p-4 bg-white">
 									<img src={product?.images[0]} className="mx-auto" alt="product" />
 								</div>
-								<div className="product-details">
+								<div id="other-images" className="flex gap-4 ">
+									{product?.images.map(
+										(image: any, index) =>
+											index > 0 && (
+												<div className="product-image p-4 cursor-pointer bg-white">
+													<img src={image} className="mx-auto h-20" alt="product" />
+												</div>
+											)
+									)}
+								</div>  */}
+								<ImageSwitcher images={product?.images} />
+								<div className="product-details pt-8">
 									<div className="name-price mb-4 flex flex-col">
 										<div className="flex gap-2 mx-4">
 											<div className="flex-col mx-4">
@@ -138,22 +161,23 @@ export default async function ProductDetails({ params }: any) {
 											defaultValue={product?.colorOptions[0].color}
 										/>
 									</div>
-
-									<div className="add-to-cart-btns flex flex-col mx-8">
+									<div className="add-to-cart-btns flex gap-4 mx-8">
 										<CartButton
+											disabled={true}
 											product={product?.id}
 											label="ADD TO CART"
 											action="ADD_TO_CART"
-											className="bg-white text-black py-0 w-60 rounded hover:bg-zinc-50 h-12 hover:text-zinc-800"
+											className="bg-white text-black py-0 w-60 rounded hover:bg-zinc-50  hover:text-zinc-800"
 										/>
 										<LinkButton
+											disabled={true}
 											to="/cart"
 											label="PROCEED TO CHECKOUT"
-											className="bg-black text-white h-10 w-60 rounded p-[10px]  hover:bg-zinc-800 hover:text-zinc-200"
+											className="bg-black text-white w-60 rounded hover:bg-zinc-800 hover:text-zinc-200"
 										/>
 										{/* <button className="text-white bg-black rounded button w-60">PROCEED TO CHECKOUT</button> */}
 									</div>
-									<div className="product-description mx-4">
+									<div className="product-description mx-4 pt-8">
 										<p className="mx-4">{product?.description}</p>
 									</div>
 								</div>

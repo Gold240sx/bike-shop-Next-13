@@ -1,13 +1,13 @@
 "use client"
 import Link from "next/link"
-import ImageUploadMultiple from "@/app/(pages)/(admin)/edit/(image-uploader)/multiple-line-image-upload"
+// import ImageUploadMultiple from "@/app/(pages)/(admin)/edit/(image-uploader)/multiple-line-image-upload"
 import BackButton from "@/app/components/buttons/BackButton"
-import { editProduct } from "../../(home)/products/[id]/actions"
+// import { editProduct } from "../../(home)/products/[id]/actions"
 import SubmitButton from "@/app/components/buttons/SubmitButton"
-import { addProduct } from "../../(home)/products/admin/actions"
-import { Delete } from "react-feather"
-import SingleProduct from "@/app/components/shared/Single-Product"
-import NewImageUploadSingle from "../edit/(image-uploader)/new-single-line-image-upload"
+import { addProduct } from "../../../(home)/products/admin/actions"
+// import { Delete } from "react-feather"
+// import SingleProduct from "@/app/components/shared/Single-Product"
+// import NewImageUploadSingle from "../edit/(image-uploader)/new-single-line-image-upload"
 import { Dropdown } from "flowbite-react"
 import { ReactElement, MouseEventHandler, useState } from "react"
 
@@ -53,17 +53,17 @@ const page = () => {
 	const [category, setCategory] = useState("Select")
 	const [subCategory, setSubCategory] = useState("Select")
 	return (
-		<main className="min-h-screen items-center justify-center flex flex-col mt-0 pt-8">
-			<Link href="/add-new" className=" h-fit ml-auto items-end pr-12 ">
+		<main className="min-h-screen items-center justify-center flex flex-col mt-0 py-8 px-10">
+			{/* <Link href="/add-new" className=" h-fit ml-auto items-end pr-12 ">
 				<div className=" w-fit font-bold  text-base text-right px-3 py-1.5 m-3 bg-teal-400 hover:bg-teal-300 text-white rounded-md">
 					Add New
 				</div>
-			</Link>
-			<form action={addProduct} className="w-1/2 card">
-				<div id="image-upload-container" className="flex flex-col w-[90vw]  bg-zinc-300 rounded-lg p-2">
+			</Link> */}
+			<form action={addProduct} className=" w-full card">
+				<div id="image-upload-container" className="flex flex-col  bg-zinc-300 rounded-lg p-2">
 					<h1 className="text-2xl font-bold pl-2 text-zinc-800 pt-2">Product Editor: Add New Product</h1>
 				</div>
-				<hr className="w-[90vw] mx-auto my-4" />
+				<hr className=" mx-auto my-4" />
 				{/*  */}
 				<BackButton destination="/products/admin" />
 				<label>
