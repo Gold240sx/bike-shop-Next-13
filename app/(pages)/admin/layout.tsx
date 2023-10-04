@@ -30,7 +30,7 @@ export default async function AdminLayout({ children }: { children: any }) {
 	}
 
 	return (
-		<>
+		<div className=" bg-[#F4F4F5;]">
 			<TailwindUISidebarLayout
 				children={
 					<>
@@ -40,6 +40,6 @@ export default async function AdminLayout({ children }: { children: any }) {
 					</>
 				}
 			/>
-		</>
+		</div>
 	)
 }

@@ -20,14 +20,14 @@ const MainSection = async ({ history, products }: any) => {
 	return (
 		<>
 			<div
-				className=" main-section-container w-full relative h-fit bg-fixed bg-cover overflow-y-scroll flex flex-col"
+				className="  dark:bg-zinc-800 w-full relative h-fit bg-fixed bg-cover overflow-y-scroll flex flex-col"
 				style={{
 					backgroundImage: "url('https://i.ibb.co/whQkGzy/trail-trees.jpg')",
 					backgroundSize: "cover",
 					backgroundPosition: "right bottom",
 				}}>
 				<div className="flex">
-					<div className="absolute z-[9] w-full h-full bg-gradient-to-b from-black via-black/40 to-transparent"></div>
+					<div className="absolute  z-[9] w-full h-full bg-gradient-to-b from-black via-black/40 to-transparent"></div>
 					<div className=" ms-m-image p-[15px] mb-8 my-auto mt-24 ml-[15vw] z-50 h-72 w-72  object-cover aspect-square ">
 						<Image src={Building} alt="company building" className="rounded-full h-full object-cover z-50 shadow-xl " />
 					</div>
@@ -64,7 +64,7 @@ const MainSection = async ({ history, products }: any) => {
 				</Link>
 			</div>
 
-			<section className="mt-16 mb-12 main-section-container items-center flex  h-fit">
+			<section className="mt-16 mb-12 main-section-container  items-center flex  h-fit">
 				<div className="lg:flex main-section-middle mx-auto h-fit">
 					<div className=" ms-m-image p-[15px] mb-8 w-3/4 lg:w-auto mx-auto max-w-[900px] lg:max-w-[500px]">
 						<img src={image} className=" h-auto  w-full" alt="promo" />

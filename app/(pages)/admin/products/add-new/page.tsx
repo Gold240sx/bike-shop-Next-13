@@ -65,7 +65,7 @@ const page = () => {
 				</div>
 				<hr className=" mx-auto my-4" />
 				{/*  */}
-				<BackButton destination="/products/admin" />
+				<BackButton destination="/admin/products" />
 				<label>
 					<span>Manufacturer:</span>
 					<input required type="text" name="manufacturer" />

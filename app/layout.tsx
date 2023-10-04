@@ -1,6 +1,7 @@
 import { Providers } from "./context/providers"
 import "./globals.css"
 import { Rubik } from "next/font/google"
+import { ThemeProvider } from "../components/themeProvider"
 
 export const dynamic = "force-dynamic"
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: { children: any }) {
 	return (
 		<html lang="en">
 			<body className={rubik.className}>
-				<Providers>{children}</Providers>
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+					<Providers>{children}</Providers>
+				</ThemeProvider>
 			</body>
 		</html>
 	)

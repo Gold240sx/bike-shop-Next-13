@@ -18,12 +18,12 @@ export default async function HomeLayout({ children }: { children: any }) {
 		.single()
 
 	return (
-		<div className=" bg-zinc-100">
+		<div className=" bg-zinc-100 dark:bg-[#0A0A0C]">
 			<Navbar user={user} userData={userData} />
 			{/* <pre className="">{JSON.stringify(u, null, "")}</pre> */}
 			{/* <pre>{JSON.stringify(user.id, null, "")}</pre>
 			<pre>{JSON.stringify(userData?.role, null, "")}</pre> */}
-			<div className="min-h-screen">{children}p</div>
+			<div className="min-h-screen">{children}</div>
 			<Footer />
 		</div>
 	)

@@ -1,82 +1,86 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+ 
+@layer base {
+  :root {
+    /* --background: #F4F4F5;
+    --foreground: #F4F4F5; */
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+ 
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+ 
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+ 
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+ 
+    --radius: 0.5rem; 
+  }
+ 
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+ 
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+ 
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+
+    * {
+    @apply border-border;
+  }
+  body {
+    /* @apply bg-background text-foreground; */
+    /* background-color: var(--background); */
+  }
+}
+
 
 /* base styles */
-input[type=file]::file-selector-button {
-  width: 0;
-  opacity: 0;
-}
-
-input[type=file]:hover::before {
-    background-color: #CDCDD1;
-}
-input[type=file]::before {
-    content: 'Select files';
-    display: inline-block;
-    background-color: #D4D4D8;
-    border: 1px solid #D4D4D8;
-    border-radius: 5px;
-    padding: 5px 31px;
-    margin-top: -3px;
-    font-stretch: expanded;
-    outline: none;
-    white-space: nowrap;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: pointer !important;
-    font-weight: 500;
-    font-size: 10pt;
-    color: #6B7280;
-    margin-left: -2px
-}
-
-.drd-scrollbar {
-    scrollbar-width: 0px;
-    scrollbar-width: none;
-      -ms-overflow-style: none; 
-}
-
-.drd-scrollbar::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
-
-    input:focus, input[type="text"], input:focus-visible, input:focus-within {
-        outline: none;
-        outline: transparent;
-         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        -webkit-focus-ring-color:  rgba(0, 0, 0, 0);
-        border: none;
-        border: 0;
-    }
-
-    input[type="file"] {
-         opacity: 0;
-    -moz-opacity: 0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
-    }
-
 body {
-  /* background: #ebf0fa; */
-
-  @apply text-gray-500
-    bg-zinc-100
+  @apply text-gray-500;
 }
 h1, h2 {
   @apply font-bold ;
-}
-
-.main {
-    @apply 
-        py-6 px-8 
-        mx-auto 
-        max-w-5xl
-        min-h-[85vh]
-        pt-24
-        items-center
-        justify-center
-        flex
-        flex-col;
 }
 
 main > h2 {
@@ -91,8 +95,7 @@ nav {
   @apply
     pb-4
     flex items-center gap-5 
-    mx-auto 
-    max-w-5xl;
+    px-6
 }
 nav a, nav span {
   @apply text-gray-500;
@@ -107,6 +110,7 @@ main nav {
 /* button styles */
 button {
   @apply 
+    px-3 py-2 
     rounded-sm 
     flex justify-between items-center gap-2
     text-sm;
@@ -142,6 +146,9 @@ form select {
     mt-2 my-4 px-2 py-1 
     rounded-sm w-full;
 }
+form button {
+  @apply block mx-auto;
+}
 
 /* feedback styles */
 .error {
@@ -160,11 +167,10 @@ form select {
 /* card styles */
 .card {
   @apply 
-    bg-[#EAEAEA]
+    bg-white 
     shadow-sm 
     rounded-md 
     py-3 px-4 my-4 
-    pt-6 flex flex-col gap-2
     relative 
     overflow-hidden;
 }
@@ -174,7 +180,7 @@ form select {
     mb-0;
 }
 .card p {
-  @apply text-sm leading-6;
+  @apply my-4 text-sm leading-6;
 }
 
 /* pill styles */
@@ -198,7 +204,6 @@ form select {
     absolute bottom-0 right-0 
     rounded-tl-md;
 }
-
 
 @layer utilities {
     .animate-spin {

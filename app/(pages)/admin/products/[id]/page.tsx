@@ -124,19 +124,6 @@ export default async function ProductDetails({ params }: any) {
 						</div>
 						<div>
 							<div className="single-product-container">
-								{/* <div className="product-image mb-4 p-4 bg-white">
-									<img src={product?.images[0]} className="mx-auto" alt="product" />
-								</div>
-								<div id="other-images" className="flex gap-4 ">
-									{product?.images.map(
-										(image: any, index) =>
-											index > 0 && (
-												<div className="product-image p-4 cursor-pointer bg-white">
-													<img src={image} className="mx-auto h-20" alt="product" />
-												</div>
-											)
-									)}
-								</div>  */}
 								<ImageSwitcher images={product?.images} />
 								<div className="product-details pt-8">
 									<div className="name-price mb-4 flex flex-col">
@@ -146,11 +133,9 @@ export default async function ProductDetails({ params }: any) {
 												<h4 className="text-4xl mb-3">{product?.title}</h4>
 												<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product?.price)}</h2>
 											</div>
-											<img
-												className="w-auto h-24 ml-auto mr-4"
-												src={product?.manufacturer.logo}
-												alt="manufacturer logo"
-											/>
+											<div className="object-fit max-w-[150px]  ml-auto mr-4 ">
+												<img className="w-auto " src={product?.manufacturer.logo} alt="manufacturer logo" />
+											</div>
 										</div>
 									</div>
 									<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
