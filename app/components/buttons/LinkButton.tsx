@@ -12,7 +12,7 @@ interface LinkButtonProps {
 const LinkButton: React.FC<LinkButtonProps> = ({ to, className, style, label, disabled }) => {
 	return (
 		<button
-			className={`w-fit`}
+			className={`w-fit ${className} ${disabled && "cursor-not-allowed"}`}
 			style={{
 				cursor: "pointer",
 				textAlign: "center",

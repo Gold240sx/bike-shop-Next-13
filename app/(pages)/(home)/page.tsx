@@ -10,7 +10,7 @@ export default async function Home() {
 	const { data: products } = await supabase.from("Products").select("*")
 
 	return (
-		<main className="">
+		<main className="h-full">
 			<Homepage products={products} />
 		</main>
 	)

@@ -1,4 +1,4 @@
-import ImageUploadMultiple2 from "@/app/(pages)/admin/edit/(image-uploader)/backup/multiple-line-image-upload2"
+import ImageUploadMultiple2 from "@/app/(pages)/admin/_edit/(image-uploader)/backup/multiple-line-image-upload2"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 

@@ -20,7 +20,7 @@ const MainSection = async ({ history, products }: any) => {
 	return (
 		<>
 			<div
-				className="  dark:bg-zinc-800 w-full relative h-fit bg-fixed bg-cover overflow-y-scroll flex flex-col"
+				className="  dark:bg-zinc-800 w-full relative h-fit bg-fixed bg-cover flex flex-col"
 				style={{
 					backgroundImage: "url('https://i.ibb.co/whQkGzy/trail-trees.jpg')",
 					backgroundSize: "cover",

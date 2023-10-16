@@ -30,14 +30,14 @@ export default async function AdminLayout({ children }: { children: any }) {
 	}
 
 	return (
-		<div className=" bg-[#F4F4F5;]">
+		<div className="bg-[#F4F4F5;] min-h-screen">
 			<TailwindUISidebarLayout
 				children={
-					<>
+					<div className="h-full">
 						<AdminNavbar user={data?.session?.user} userData={userData} />
-						<div className="">{children}</div>
+						<div className="h-full">{children}</div>
 						<AdminFooter />
-					</>
+					</div>
 				}
 			/>
 		</div>
