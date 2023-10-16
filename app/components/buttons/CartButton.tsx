@@ -55,7 +55,7 @@ const CartButton: React.FC<CartButtonProps> = ({ product, action, className, sty
 			{isInCart || (direct !== "REMOVE_ITEM" && action !== "DECREASE") ? (
 				<button
 					disabled={disabled}
-					className={`${className}`}
+					className={`${className} relative`}
 					onClick={() => !disabled && specAction(product, direct)}
 					style={{
 						cursor: "pointer",
@@ -64,8 +64,12 @@ const CartButton: React.FC<CartButtonProps> = ({ product, action, className, sty
 					}}>
 					<p className={`${disabled && "bg-zinc-200 text-zinc-400 cursor-not-allowed h-full p-[12px]"}  text-center w-full`}>
 						{isInCart && label === "ADD TO CART" ? "ADD MORE" : label}
-						{itemCount > 0 && label === "ADD TO CART" ? ` (${itemCount})` : null}
 					</p>
+					{itemCount > 0 && label === "ADD TO CART" && (
+						<div className="bg-zinc-600 rounded-full text-white pt-[1px] w-6 h-6 text-center  justify-center text-base absolute right-3">
+							{itemCount}
+						</div>
+					)}
 				</button>
 			) : null}
 		</>

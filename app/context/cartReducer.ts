@@ -39,7 +39,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 					quantity: 1,
 				})
 			}
-			// console.log("state.cart", state.cart)
+			console.log("state.cart", state.cart)
 			// console.log("cartTotal", sumItems(state.cart))
 			return {
 				...state,

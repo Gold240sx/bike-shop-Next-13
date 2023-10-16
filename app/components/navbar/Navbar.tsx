@@ -24,7 +24,7 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 	const userIsAdmin = userData?.role === "admin"
 
 	return (
-		<nav id="nav-menu" className="container z-10 items-center w-full px-12 py-4 bg-white" key={key}>
+		<nav id="nav-menu" className="z-10 items-center w-full py-4 bg-white" key={key}>
 			<Link href="/" className="z-20 cursor-pointer">
 				<div className="justify-between bg-white cursor-pointer dark:bg-zinc-900 logo rounded-xl group w-fit h-fit">
 					<div className="absolute bg-white h-[7.2rem] cursor-pointer rounded  -mt-5 w-[9rem] 75 sm:scale-[85%] sm:group-hover:scale-90 md:scale-95 md:group-hover:scale-100 lg:group-hover:scale-105 -rotate-3"></div>

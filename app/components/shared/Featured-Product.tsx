@@ -24,20 +24,20 @@ const FeaturedProduct = async ({ product }: any) => {
 					product={product}
 					action="ADD_TO_CART"
 					label="ADD TO CART"
-					className="px-3 py-2 text-white bg-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:text-zinc-200"
+					className="px-3 py-2 text-white bg-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:bg-zinc-800 active:bg-zinc-600"
 				/>
 				<div className="flex w-full h-8 gap-3">
 					<CartButton
 						product={product}
 						action="DECREASE"
 						label="REMOVE ITEM"
-						className="w-full px-3 py-2 text-black bg-white border border-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:text-zinc-200"
+						className="w-full px-3 py-2 text-black bg-white border border-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:border-teal-500 active:border-2"
 					/>
 					<CartButton
 						product={product}
 						action="REMOVE_ITEM"
 						label="REMOVE ALL"
-						className="w-full px-3 py-2 text-black bg-white border border-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:text-zinc-200"
+						className="w-full px-3 py-2 text-black bg-white border border-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 "
 					/>
 				</div>
 			</div>
