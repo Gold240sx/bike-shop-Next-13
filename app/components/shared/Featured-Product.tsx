@@ -26,11 +26,11 @@ const FeaturedProduct = async ({ product }: any) => {
 					label="ADD TO CART"
 					className="px-3 py-2 text-white bg-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:text-zinc-200"
 				/>
-				<div className="flex w-full gap-3">
+				<div className="flex w-full h-8 gap-3">
 					<CartButton
 						product={product}
 						action="DECREASE"
-						label="REMOVE 1 FROM CART"
+						label="REMOVE ITEM"
 						className="w-full px-3 py-2 text-black bg-white border border-black dark:bg-zinc-300 dark:text-black dark:hover:bg-zinc-200 dark:hover:text-zinc-700 hover:text-zinc-200"
 					/>
 					<CartButton

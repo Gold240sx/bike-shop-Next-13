@@ -26,6 +26,7 @@ type CartAction =
 	| { type: "ADD_ITEM"; payload: CartItem }
 	| { type: "REMOVE_ITEM"; payload: CartItem }
 	| { type: "INCREASE"; payload: CartItem }
+	| { type: "DECREASE"; payload: CartItem }
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
 	switch (action.type) {
@@ -38,7 +39,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 					quantity: 1,
 				})
 			}
-			console.log("state.cart", state.cart)
+			// console.log("state.cart", state.cart)
 			// console.log("cartTotal", sumItems(state.cart))
 			return {
 				...state,
@@ -46,7 +47,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 				...sumItems(state.cart),
 			}
 		case "REMOVE_ITEM":
-			console.log("REMOVE_ITEM", action)
+			// console.log("REMOVE_ITEM", action)
 			return {
 				...state,
 				cart: state.cart.filter((item) => item.id !== action.payload.id),
@@ -54,18 +55,23 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 				// Add other state updates as needed
 			}
 		case "INCREASE":
-			console.log("INCREASE", action)
+			// console.log("INCREASE", action)
 			return {
 				...state,
 				cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item)),
 				...sumItems(state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item))),
 			}
 		case "DECREASE":
-			console.log("DECREASE", action)
+			// console.log("DECREASE", action)
 			return {
 				...state,
 				cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item)),
-				...sumItems(state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item))),
+				// ...sumItems(state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item))),
+				...sumItems(
+					state.cart
+						.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item))
+						.filter((item) => item.quantity > 0)
+				),
 			}
 		default:
 			return state
