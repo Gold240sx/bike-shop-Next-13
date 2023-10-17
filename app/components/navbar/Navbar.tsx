@@ -18,6 +18,7 @@ import { cookies } from "next/headers"
 import "./nav-menu.scss"
 import { ModeToggle } from "../REUSABLE/SCN-components/ModeToggle"
 import CountrySelector from "../vanilla/dropdowns/CountrySelect"
+import CurrencySelect from "../vanilla/dropdowns/CurrencySelect"
 
 const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 	// refresh component on user change while remaining a server component without using useState
@@ -100,8 +101,9 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 					</Link>
 				</div>
 			)}
+			<CurrencySelect />
 			<CountrySelector />
-			<ModeToggle />
+			{/* <ModeToggle /> */}
 			<RxDividerVertical className="-mr-2 scale-150 text-zinc-300 dark:text-zinc-700" />
 			{user && (
 				<>

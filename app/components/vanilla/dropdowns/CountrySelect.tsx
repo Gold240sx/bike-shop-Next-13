@@ -4,7 +4,7 @@ const CountrySelector = () => {
 	return (
 		<>
 			<div className="relative w-fit dark:text-white" data-testid="flowbite-tooltip-target" aria-describedby=":r12:">
-				<button className="flex items-center" onClick={() => setDropdownOpen(!dropdownOpen)}>
+				<button className="flex items-center -ml-5 -mr-6" onClick={() => setDropdownOpen(!dropdownOpen)}>
 					<span className="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-700 dark:hover:text-white">
 						<span className="sr-only">Current language</span>
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3900 3900" className="w-6 h-6 rounded-full">
@@ -50,7 +50,7 @@ const CountrySelector = () => {
 						<div className="text-sm text-gray-700 rounded-xl dark:text-gray-200">
 							<ul className="">
 								<ul className="py-1" role="none">
-									<li className="h-full cursor-pointer hover:bg-zinc-100">
+									<li className="h-full cursor-pointer">
 										<a
 											href="#"
 											className="block px-4 py-2 text-sm text-gray-700 pointer-events-none hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white">

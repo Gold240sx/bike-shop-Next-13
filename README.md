@@ -2,9 +2,14 @@
 
 ## Technologies and Features
 -  Server Actions (NEXT.JS 13 Experimental Feature)
-- 
+- Full Cart Functionality with Stripe
+- Fully custom Integrated CMS with Role-based Authentication built into Supabase
+- User, subscriber and role management
+- Product Management ( stock, price, description, images, etc)
 - Shipping Calculator Integration
 - Sales Tax Calculator Integration
+- Ads Management, Order Management, Business Reports, and more,
+- Employee Chat
 
 
 ## Todos:
