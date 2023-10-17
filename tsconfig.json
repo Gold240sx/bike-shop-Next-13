@@ -34,7 +34,7 @@
 		"app/(home)/layout.tsx",
 		".next/types/app/(dashboard)/layout.jsx",
 		".next/types/app/(dashboard)/layout.tsx",
-		"app/context/providers.js"
+		"app/context/providers.tsx"
 	],
 	"exclude": ["node_modules"]
 }

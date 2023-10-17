@@ -1,0 +1,71 @@
+"use client"
+import React, { createContext, useReducer, ReactNode } from "react"
+import cartReducer from "./cartReducer"
+
+interface CartState {
+	itemCount: number
+	cart: any[] // You should define a proper type for cart items
+	cartOpen: boolean
+	cartTotal: number
+	cartTax: number
+	cartSubTotal: number
+	addToCart: (product: any) => void // You should define a proper type for product
+	removeFromCart: (product: any) => void
+	clearCart: () => void
+	toggleCart: () => void
+	handleCheckout: () => void
+	handleQuantity: (product: any, action: any) => void // You should define a proper type for action
+}
+
+export const CartContext = createContext<CartState | undefined>(undefined)
+
+const initialState: CartState = {
+	itemCount: 0,
+	cart: [],
+	cartOpen: false,
+	cartTotal: 0,
+	cartTax: 0,
+	cartSubTotal: 0,
+	addToCart: (product) => {},
+	removeFromCart: (product) => {},
+	clearCart: () => {},
+	toggleCart: () => {},
+	handleCheckout: () => {},
+	handleQuantity: (product, action) => {},
+}
+
+interface CartContextProviderProps {
+	children: ReactNode
+}
+
+const CartContextProvider: React.FC<CartContextProviderProps> = ({ children }) => {
+	const [state, dispatch] = useReducer(cartReducer, initialState)
+
+	const addProduct = (product: any) => {
+		dispatch({ type: "ADD_ITEM", payload: product })
+	}
+
+	const removeProduct = (product: any) => {
+		dispatch({ type: "REMOVE_ITEM", payload: product })
+	}
+
+	const increase = (product: any) => {
+		dispatch({ type: "INCREASE", payload: product })
+	}
+
+	const decrease = (product: any) => {
+		dispatch({ type: "DECREASE", payload: product })
+	}
+
+	const contextValues: CartState = {
+		...state,
+		addProduct,
+		removeProduct,
+		increase,
+		decrease,
+	}
+
+	return <CartContext.Provider value={contextValues}>{children}</CartContext.Provider>
+}
+
+export default CartContextProvider

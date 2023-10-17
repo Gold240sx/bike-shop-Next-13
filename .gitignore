@@ -38,3 +38,6 @@ next-env.d.ts
 # test routing
 _app-backup
 _app-backup2
+
+.notebook
+

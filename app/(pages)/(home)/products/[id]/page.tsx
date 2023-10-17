@@ -6,7 +6,7 @@ import { formattedPrice } from "../../../../functions/priceFormatter"
 // components
 import EditModal from "./EditModal"
 import LinkButton from "@/app/components/buttons/LinkButton"
-import SearchFilterDropdownAutoComplete from "@/app/(pages)/(admin)/edit/(image-uploader)/dropdown/SearchFilterDropdownAutoComplete"
+import SearchFilterDropdownAutoComplete from "@/app/(pages)/admin/_edit/(image-uploader)/dropdown/SearchFilterDropdownAutoComplete"
 
 export const dynamicParams = true
 
