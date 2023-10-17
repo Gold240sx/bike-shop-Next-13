@@ -105,22 +105,22 @@ export default async function ProductDetails({ params }: any) {
 	//			) :
 
 	return (
-		<main className="mt-32 mx-16">
+		<main className="mx-16 mt-32">
 			<nav className="flex flex-col w-full">
 				<div className="w-full">
-					<div className="card text-black border-1 border-zinc-800 bg-white">
-						<h2 className=" text-3xl text-zinc-400 pl-2">Product Details</h2>
+					<div className="text-black bg-white card border-1 border-zinc-800">
+						<h2 className="pl-2 text-3xl  text-zinc-400">Product Details</h2>
 						<div>
 							<div className="single-product-container">
-								<div className="product-image mb-4 p-4 bg-white">
+								{/* <div className="p-4 mb-4 bg-white product-image">
 									<img src={product?.images[0]} className="mx-auto" alt="product" />
-								</div>
+								</div> */}
 								<div className="product-details">
-									<div className="name-price mb-4 flex flex-col">
+									<div className="flex flex-col mb-4 name-price">
 										<div className="flex gap-2 mx-4">
 											<div className="flex-col mx-4">
-												<h4 className="text-yellow-500 text-3xl">{product?.manufacturer.manufacturer}</h4>{" "}
-												<h4 className="text-4xl mb-3">{product?.title}</h4>
+												<h4 className="text-3xl text-yellow-500">{product?.manufacturer.manufacturer}</h4>{" "}
+												<h4 className="mb-3 text-4xl">{product?.title}</h4>
 												<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product?.price)}</h2>
 											</div>
 											<img
@@ -130,7 +130,7 @@ export default async function ProductDetails({ params }: any) {
 											/>
 										</div>
 									</div>
-									<div className="options flex flex-col gap-2 justify-between mx-8 my-6 border-b border-t border-black/10 py-4">
+									<div className="flex flex-col justify-between gap-2 py-4 mx-8 my-6 border-t border-b options border-black/10">
 										<h2>Pick your color:</h2>
 										<SearchFilterDropdownAutoComplete
 											className="h-8"
@@ -139,12 +139,12 @@ export default async function ProductDetails({ params }: any) {
 										/>
 									</div>
 
-									<div className="add-to-cart-btns flex flex-col mx-8">
+									<div className="flex flex-col mx-8 add-to-cart-btns">
 										<CartButton
 											product={product?.id}
 											label="ADD TO CART"
 											action="ADD_TO_CART"
-											className="bg-white text-black py-0 w-60 rounded hover:bg-zinc-50 h-12 hover:text-zinc-800"
+											className="h-12 py-0 text-black bg-white rounded w-60 hover:bg-zinc-50 hover:text-zinc-800"
 										/>
 										<LinkButton
 											to="/cart"
@@ -153,7 +153,7 @@ export default async function ProductDetails({ params }: any) {
 										/>
 										{/* <button className="text-white bg-black rounded button w-60">PROCEED TO CHECKOUT</button> */}
 									</div>
-									<div className="product-description mx-4">
+									<div className="mx-4 product-description">
 										<p className="mx-4">{product?.description}</p>
 									</div>
 								</div>

@@ -2,11 +2,15 @@ interface CartItem {
 	id: string
 	quantity: number
 	price: number
+	CartQuantity: number
+	stock: number
 	// Add other properties as needed
 }
 
 interface CartState {
 	cart: CartItem[]
+	itemCount: number
+	total: number
 	// Add other properties as needed
 }
 
@@ -39,34 +43,33 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 					quantity: 1,
 				})
 			}
+			if (isExistingItitemBoolean) {
+				state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item))
+			}
 			console.log("state.cart", state.cart)
-			// console.log("cartTotal", sumItems(state.cart))
 			return {
 				...state,
-				cart: [...state.cart],
 				...sumItems(state.cart),
 			}
 		case "REMOVE_ITEM":
-			// console.log("REMOVE_ITEM", action)
+			console.log("REMOVE_ITEM", action)
 			return {
 				...state,
-				cart: state.cart.filter((item) => item.id !== action.payload.id),
+				// cart: state.cart.filter((item) => item.id !== action.payload.id),
 				...sumItems(state.cart.filter((item) => item.id !== action.payload.id)), // Recalculate on removal
-				// Add other state updates as needed
 			}
 		case "INCREASE":
-			// console.log("INCREASE", action)
+			console.log("INCREASE", action)
 			return {
 				...state,
-				cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item)),
+				// cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item)),
 				...sumItems(state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item))),
 			}
 		case "DECREASE":
-			// console.log("DECREASE", action)
+			console.log("DECREASE", action)
 			return {
 				...state,
-				cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item)),
-				// ...sumItems(state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item))),
+				// cart: state.cart.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item)),
 				...sumItems(
 					state.cart
 						.map((item) => (item.id === action.payload.id ? { ...item, quantity: item.quantity - 1 } : item))

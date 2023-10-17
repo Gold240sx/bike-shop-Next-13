@@ -31,6 +31,7 @@ export const getSingleProduct = async ({ slug, componentType }: { slug: URLSLUG;
 export const getAllProductsFormatted = async () => {
 	const supabase = createServerComponentClient({ cookies })
 	const { data: products } = await supabase.from("Products").select("*")
+	console.log("all products", products)
 	return products
 }
 
@@ -41,6 +42,7 @@ export async function getFeaturedProductsFormatted() {
 		// Step 1: Fetch featured products
 		const { data: featuredProducts }: { data: any } = await supabase.from("Products").select("*").eq("featured_product", true).limit(4)
 
+		// console.log("data", featuredProducts)
 		// Step 2: Fetch manufacturers for these products and map to get logos
 		const addedManufacturerLogoToFeatured = await Promise.all(
 			featuredProducts.map(async (product: any) => {
@@ -93,6 +95,7 @@ export async function getFeaturedProductsFormatted() {
 						title: productWithManufacturer.title,
 						price: productWithManufacturer.price,
 						images: flatImages,
+						stock: productWithManufacturer.stock,
 						colorOptions: colorImages.map((colorImage: any) => ({
 							id: colorImage.id,
 							color: colorImage.color,

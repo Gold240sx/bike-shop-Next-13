@@ -1,10 +1,13 @@
 "use client"
-import React, { useContext } from "react"
+import React, { ReactEventHandler, useContext } from "react"
 import CartItems from "./cart-item"
 // import { ussCart } from "../../context/cartContext"
 import useCart from "../../../hooks/useCart"
 import { CartContext } from "../../../context/cartContext"
 import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid"
+import { BiPlusCircle, BiMinusCircle, BiCross } from "react-icons/bi"
+import StepperMinimal from "../../../components/vanilla/steppers/stepper-minimal"
+// import { useFormatter } from "next-intl"
 
 // const products = [
 // 	{
@@ -31,13 +34,44 @@ import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid"
 // 	// More products...
 // ]
 
+type StepperProps = {
+	name: string
+	handleOnChange: any
+	min: number
+	max: number
+	step: number
+	start: number
+	layout: string
+	unit: string
+	style: string
+	className: string
+}
+
 const Cart = () => {
 	const { cart } = useCart()
+	const { addProduct, removeProduct, increase, decrease, total } = useContext(CartContext)
+
+	// const handleOnChange = (e: any) => {
+	// 	if (e.target.value > prevValue) {
+	// 		increase()
+	// 	} else {
+	// 		decrease()
+	// 	}
+	// }
+
+	const FormattedTotal = (number: number) => {
+		return useFormatter(number, { style: "currency", currency: "USD" })
+	}
+
+	const overStockCount = (product: any) => {
+		const overOrder = product?.quantity - product?.stock
+		return overOrder
+	}
 
 	return (
 		<div className="w-full bg-white">
 			{/* <pre>{JSON.stringify(cart, null, 2)}</pre> */}
-			<div className="max-w-4xl px-4 py-16 mx-auto sm:px-6 sm:py-24 lg:px-8">
+			<div className="px-4 py-16 mx-auto sm:px-6 sm:py-24 lg:px-8">
 				<h1 className="text-3xl font-bold tracking-tight text-gray-900">Shopping Cart</h1>
 				<form className="w-full mt-12">
 					<div>
@@ -45,10 +79,10 @@ const Cart = () => {
 
 						<ul role="list" className="border-t border-b border-gray-200 divide-y divide-gray-200">
 							{cart.map((product, productIdx) => (
-								<li key={product.id} className="flex py-6 sm:py-10">
+								<li key={productIdx} className="flex py-6 sm:py-10">
 									<div className="flex-shrink-0">
 										<img
-											src={product.images[0]}
+											src={product ? product.images[0] : null}
 											alt={product.imageAlt}
 											className="object-cover object-center w-24 h-24 rounded-lg sm:h-32 sm:w-32"
 										/>
@@ -59,7 +93,7 @@ const Cart = () => {
 											<div className="flex justify-between sm:grid sm:grid-cols-2">
 												<div className="pr-6">
 													<h3 className="text-sm">
-														<a href={product.href} className="font-medium text-gray-700 hover:text-gray-800">
+														<a href={product.id} className="font-medium text-gray-700 hover:text-gray-800">
 															{product.manufacturer.manufacturer} {product.title}
 														</a>
 													</h3>
@@ -67,44 +101,88 @@ const Cart = () => {
 													{product.size ? <p className="mt-1 text-sm text-gray-500">{product.size}</p> : null}
 												</div>
 
-												<p className="text-sm font-medium text-right text-gray-900">{product.price}</p>
+												<div className="flex flex-col gap-1">
+													<p className="pr-8 text-sm font-medium text-right text-gray-900">${product.price}</p>
+													<div
+														onClick={() => removeProduct(product)}
+														className="flex pr-8 ml-auto text-sm font-medium text-teal-600 cursor-pointer w-fit hover:text-teal-500">
+														<span>Remove</span>
+													</div>
+												</div>
 											</div>
 
-											<div className="flex items-center mt-4 sm:absolute sm:left-1/2 sm:top-0 sm:mt-0 sm:block">
-												<label htmlFor={`quantity-${productIdx}`} className="sr-only">
-													Quantity, {product.name}
-												</label>
-												<select
-													id={`quantity-${productIdx}`}
-													name={`quantity-${productIdx}`}
-													onChange={() => console.log("change")}
-													className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 sm:text-sm">
-													<option value={1}>1</option>
-													<option value={2}>2</option>
-													<option value={3}>3</option>
-													<option value={4}>4</option>
-													<option value={5}>5</option>
-													<option value={6}>6</option>
-													<option value={7}>7</option>
-													<option value={8}>8</option>
-												</select>
-
-												<button
-													type="button"
-													className="ml-4 text-sm font-medium text-teal-600 hover:text-teal-500 sm:ml-0 sm:mt-3">
-													<span>Remove</span>
-												</button>
+											<div className="flex items-center text-black select-none sm:absolute sm:left-1/2 sm:top-0 sm:mt-0 sm:block">
+												<div className="flex items-center gap-2">
+													<BiPlusCircle
+														className="text-teal-500 cursor-pointer hover:text-teal-400 active:text-teal-800 w-7 h-7"
+														disabled={product.quantity >= product.stock}
+														// onClick={(e: ReactEventHandler) => {
+														// 	product.quantity >= product.stock ? null : increase(product)
+														// }}
+														onClick={() => increase(product)}
+													/>
+													<div className="border rounded-md select-none border-zinc-300">
+														<div className="flex items-center justify-center px-2 py-1 text-base font-medium text-zinc-600">
+															{product.quantity}
+														</div>
+													</div>
+													<BiMinusCircle
+														className={`${
+															product.quantity <= 1
+																? "text-gray-300 cursor-default"
+																: "text-teal-500 hover:text-teal-400 cursor-pointer active:text-teal-800"
+														}  w-7 h-7 `}
+														disabled={product.quantity <= 1}
+														onClick={(e: ReactEventHandler) => {
+															product.quantity <= 1 ? null : decrease(product)
+														}}
+													/>
+												</div>
 											</div>
 										</div>
 
-										<p className="flex mt-4 space-x-2 text-sm text-gray-700">
+										<p className="flex space-x-2 text-sm text-gray-700 select-none">
 											{product.inStock ? (
-												<CheckIcon className="flex-shrink-0 w-5 h-5 text-green-500" aria-hidden="true" />
+												<CheckIcon className="flex-shrink-0 text-green-500 w-7 h-7" aria-hidden="true" />
 											) : (
-												<ClockIcon className="flex-shrink-0 w-5 h-5 text-gray-300" aria-hidden="true" />
+												<ClockIcon className="flex-shrink-0 text-gray-300 w-7 h-7" aria-hidden="true" />
 											)}
+											<div className="">
+												<p className="text-lg">{product.inStock ? `${product.stock} In stock` : "On backorder"}</p>
+												<>
+													{overStockCount(product) > 0 && (
+														<div className="flex flex-col gap-1">
+															<div className="flex gap-1">
+																<p>Stocked Items Ship in:</p>
+																<div className="flex gap-1 font-bold">
+																	<p>{product.leadTime}</p>
+																	<p className="">{product.leadTimeUnit}</p>
+																</div>
+															</div>
+															<p className="text-red-500">
+																{overStockCount(product)} items will be backordered
+															</p>
+															<div className="flex gap-1">
+																<p>Backorder Ships in:</p>
+																<div className="flex gap-1 font-bold">
+																	<p>{product.backorderLeadTime}</p>
+																</div>
+																<p>(estimate)</p>
+															</div>
+														</div>
+													)}
+												</>
 
-											<span>{product.inStock ? "In stock" : `Ships in ${product.leadTime}`}</span>
+												{overStockCount(product) <= 0 && (
+													<div className="flex gap-1">
+														<p>Ships in:</p>
+														<div className="flex gap-1 font-bold">
+															<p>{product.leadTime}</p>
+															<p className="">{`${product.leadTimeUnit}`}</p>
+														</div>
+													</div>
+												)}
+											</div>
 										</p>
 									</div>
 								</li>
@@ -121,7 +199,8 @@ const Cart = () => {
 								<dl className="-my-4 text-sm divide-y divide-gray-200">
 									<div className="flex items-center justify-between py-4">
 										<dt className="text-gray-600">Subtotal</dt>
-										<dd className="font-medium text-gray-900">$99.00</dd>
+										{/* <dd className="font-medium text-gray-900">${FormattedTotal(total)}</dd> */}
+										<dd className="font-medium text-gray-900">${total}</dd>
 									</div>
 									<div className="flex items-center justify-between py-4">
 										<dt className="text-gray-600">Shipping</dt>
@@ -133,7 +212,7 @@ const Cart = () => {
 									</div>
 									<div className="flex items-center justify-between py-4">
 										<dt className="text-base font-medium text-gray-900">Order total</dt>
-										<dd className="text-base font-medium text-gray-900">$112.32</dd>
+										<dd className="text-base font-medium text-gray-900">PENDING</dd>
 									</div>
 								</dl>
 							</div>
@@ -149,7 +228,7 @@ const Cart = () => {
 						<div className="mt-6 text-sm text-center text-gray-500">
 							<p>
 								or
-								<a href="/shop" className="pl-2 font-medium text-teal-600 hover:text-teal-500">
+								<a href="/products" className="pl-2 font-medium text-teal-600 hover:text-teal-500">
 									Continue Shopping
 									<span aria-hidden="true"> &rarr;</span>
 								</a>

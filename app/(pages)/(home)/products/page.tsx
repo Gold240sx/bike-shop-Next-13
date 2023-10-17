@@ -59,6 +59,11 @@ async function getProduct(id: string) {
 			description: productData.description,
 			title: productData.title,
 			price: productData.price,
+			inStock: productData.stock > 0,
+			stock: productData.stock,
+			leadTime: productData.lead_time,
+			leadTimeUnit: productData.lead_time_unit,
+			backorderLeadTime: productData.backorder_lead_time,
 			images: allImages, // Include the images property here
 			colorOptionsDropdown: colorOptions.map((colorOption: any) => colorOption.color).flat(),
 			colorOptions: colorImages.map((colorImage: any) => ({
@@ -111,10 +116,10 @@ export default async function Products() {
 	)
 
 	return (
-		<main className="min-h-screen  flex flex-col px-8 py-10">
+		<main className="flex flex-col min-h-screen px-8 py-10">
 			<div className="whole-admin-collection">
 				<h2 className="whole-admin-section-title">Shop</h2>
-				<div className="whole-admin-products grid lg:grid-cols-4 md:grid-cols-2 gap-2 p-2">
+				<div className="grid gap-2 p-2 whole-admin-products lg:grid-cols-4 md:grid-cols-2">
 					{productsWithImages?.map((product) => <FeaturedProduct product={product} key={product.id} />)}
 				</div>
 			</div>

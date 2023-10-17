@@ -1,12 +1,35 @@
 import React from "react"
 import { CheckIcon, ClockIcon } from "@heroicons/react/20/solid"
+import { useContext } from "react"
+import { CartContext } from "../../../context/cartContext"
 
 const CartItem = (products: any) => {
-	const { title, images, price, quantity, id } = products
+	const { title, images, price, quantity, id, stock } = products
+	const { addProduct, cart, removeProduct, increase, decrease } = useContext(CartContext)
+
+	const specAction = (product: any, direct: string) => {
+		switch (action) {
+			case "REMOVE_ITEM":
+				return removeProduct(product, action)
+			case "DECREASE":
+				return decrease(product, action)
+			default:
+				null
+		}
+		switch (direct) {
+			case "ADD_TO_CART":
+				return addProduct(product, action)
+			case "INCREASE":
+				return increase(product, action)
+			default:
+				return
+		}
+	}
 
 	const pickedImage = () => {
 		if (images.length) {
-			return images[0]
+			return images
+			// return images[0]
 		} else {
 			return "https://via.placeholder.com/150"
 		}
@@ -18,11 +41,11 @@ const CartItem = (products: any) => {
 			{products.map((product: any) => (
 				<li key={product.id} className="flex py-6 sm:py-10">
 					<div className="flex-shrink-0">
-						{/* <img
+						<img
 							src={pickedImage()}
 							alt={product.imageAlt}
 							className="object-cover object-center w-24 h-24 rounded-lg sm:h-32 sm:w-32"
-						/> */}
+						/>
 					</div>
 
 					<div className="relative flex flex-col justify-between flex-1 ml-4 sm:ml-6">
@@ -47,6 +70,7 @@ const CartItem = (products: any) => {
 								</label>
 								<select
 									id={`quantity-${productIdx}`}
+									onChange={(e) => console.log(e.target.value)}
 									name={`quantity-${productIdx}`}
 									className="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
 									<option value={1}>1</option>

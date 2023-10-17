@@ -8,7 +8,7 @@ export default async function Shop() {
 	const { data: products } = await supabase.from("Products").select("*")
 
 	return (
-		<main className="min-h-screen items-center justify-center flex flex-col">
+		<main className="flex flex-col items-center justify-center min-h-screen pt-24">
 			<h2>Shop</h2>
 
 			<div className="featured-collection ">
