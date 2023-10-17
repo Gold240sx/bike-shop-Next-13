@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import CartButton from "../../../../components/buttons/CartButton"
 import { formattedPrice } from "../../../../functions/priceFormatter"
+import ImageSwitcher from "../../../../components/shared/ImageSwitcher"
 
 // components
 import EditModal from "./EditModal"
@@ -109,12 +110,13 @@ export default async function ProductDetails({ params }: any) {
 			<nav className="flex flex-col w-full">
 				<div className="w-full">
 					<div className="text-black bg-white card border-1 border-zinc-800">
-						<h2 className="pl-2 text-3xl  text-zinc-400">Product Details</h2>
+						<h2 className="pl-2 text-3xl text-zinc-400">Product Details</h2>
 						<div>
 							<div className="single-product-container">
 								{/* <div className="p-4 mb-4 bg-white product-image">
 									<img src={product?.images[0]} className="mx-auto" alt="product" />
 								</div> */}
+								<ImageSwitcher images={product?.images} />
 								<div className="product-details">
 									<div className="flex flex-col mb-4 name-price">
 										<div className="flex gap-2 mx-4">
