@@ -18,10 +18,8 @@
 - form submit should save overstock details to pendingOrder doc. 
 - install next-intl and format the prices. Also use a country selector.
 - complete the color and size selectior on the product page and add to context.
-
-Next-Intl: "https://next-intl-docs.vercel.app/docs/getting-started/app-router-client-components"
-
-sales-Tax: "https://www.npmjs.com/package/sales-tax"
+- format the product page to a horizontal layout
+- update the admin project page with item-stock.
 
 ## tags: 
 - Next.js
@@ -31,3 +29,7 @@ sales-Tax: "https://www.npmjs.com/package/sales-tax"
 - E-commerce
 - CMS
 - Application-UI
+
+## future references: 
+- Next-Intl: "https://next-intl-docs.vercel.app/docs/getting-started/app-router-client-components"
+- sales-Tax: "https://www.npmjs.com/package/sales-tax"
