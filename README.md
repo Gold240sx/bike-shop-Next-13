@@ -22,3 +22,12 @@
 Next-Intl: "https://next-intl-docs.vercel.app/docs/getting-started/app-router-client-components"
 
 sales-Tax: "https://www.npmjs.com/package/sales-tax"
+
+## tags: 
+- Next.js
+- Supabase
+- Stripe
+- Tailwind CSS
+- E-commerce
+- CMS
+- Application-UI
