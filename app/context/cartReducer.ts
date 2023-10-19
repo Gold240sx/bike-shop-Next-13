@@ -4,25 +4,38 @@ interface CartItem {
 	price: number
 	CartQuantity: number
 	stock: number
-	// Add other properties as needed
 }
 
 interface CartState {
 	cart: CartItem[]
 	itemCount: number
 	total: number
-	// Add other properties as needed
+}
+
+const storeCartItems = (cartItems: CartItem[]) => {
+	const cart = cartItems.length > 0 ? [...cartItems] : []
+	localStorage.setItem("cart", JSON.stringify([...cart]))
 }
 
 export const sumItems = (cartItems: CartItem[]): CartState => {
 	const itemCount = cartItems.reduce((total, product) => total + product.quantity, 0)
 	const total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0)
+	// update the storeCartItems(cartItems) but including the new and adjusted itemCount as the quantity
+	storeCartItems(cartItems)
+	// storeCartItems(
+	// 	cartItems.map((item) => {
+	// 		return {
+	// 			...item,
+	// 			CartQuantity: itemCount,
+	// 			quantity: item.quantity,
+	// 		}
+	// 	})
+	// )
 
 	return {
 		cart: cartItems,
 		itemCount,
 		total,
-		// Add other properties as needed
 	}
 }
 
@@ -31,6 +44,7 @@ type CartAction =
 	| { type: "REMOVE_ITEM"; payload: CartItem }
 	| { type: "INCREASE"; payload: CartItem }
 	| { type: "DECREASE"; payload: CartItem }
+	| { type: "CLEAR" }
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
 	switch (action.type) {
@@ -76,6 +90,15 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 						.filter((item) => item.quantity > 0)
 				),
 			}
+		case "CLEAR":
+			localStorage.removeItem("cart")
+			// storeCartItems([...state.cart])
+			return {
+				cart: [],
+				itemCount: 0,
+				total: 0,
+			}
+
 		default:
 			return state
 	}

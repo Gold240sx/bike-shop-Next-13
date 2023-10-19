@@ -1,3 +1,7 @@
+import React, { useState, useMemo } from "react"
+import Select from "react-select"
+// import countryList from "react-select-country-list"
+
 const CountrySelector = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false)
 	const [pickedlang, setPickedLang] = useState("English (US)")
@@ -157,19 +161,15 @@ const CountrySelector = () => {
 
 // export default CountrySelect
 
-import React, { useState, useMemo } from "react"
-import Select from "react-select"
-import countryList from "react-select-country-list"
+// function CountryPicker() {
+// 	const [value, setValue] = useState("")
+// 	const options = useMemo(() => countryList().getData(), [])
 
-function CountryPicker() {
-	const [value, setValue] = useState("")
-	const options = useMemo(() => countryList().getData(), [])
+// 	const changeHandler = (value) => {
+// 		setValue(value)
+// 	}
 
-	const changeHandler = (value) => {
-		setValue(value)
-	}
-
-	return <Select options={options} value={value} onChange={changeHandler} />
-}
+// 	return <Select options={options} value={value} onChange={changeHandler} />
+// }
 
 export default CountrySelector

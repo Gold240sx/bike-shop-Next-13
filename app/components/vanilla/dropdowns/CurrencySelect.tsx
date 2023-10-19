@@ -84,18 +84,11 @@ const CurrencySelect = () => {
 						className="z-50 h-8 py-0 pl-4 pr-4 text-gray-500 bg-transparent border-transparent rounded-md hover:cursor-pointer sm:text-sm">
 						{currencies.map((currency) => (
 							<option key={currency.name}>
-								<span>
-									{/* {CurrencyFormat(currency)} */}
-									{currency.name}
-								</span>
+								{/* {CurrencyFormat(currency)} */}
+								{currency.name}
 							</option>
 						))}
 					</select>
-				</div>
-				<div className="absolute inset-y-0 right-0 flex items-center">
-					<svg className="w-2 h-2 mr-4 text-gray-300" viewBox="0 0 8 8" fill="currentColor">
-						<path d="M0 0l4 4 4-4z" />
-					</svg>
 				</div>
 			</div>
 		</div>

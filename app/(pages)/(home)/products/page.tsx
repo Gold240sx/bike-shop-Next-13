@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import Link from "next/link"
 import FeaturedProduct from "@/app/components/shared/Featured-Product"
+import Breadcrumb from "@/app/components/REUSABLE/TWUI-components/Breadcrumbs"
 
 async function getProduct(id: string) {
 	const supabase = createServerComponentClient({ cookies })
@@ -117,8 +118,9 @@ export default async function Products() {
 
 	return (
 		<main className="flex flex-col min-h-screen px-8 py-10">
-			<div className="whole-admin-collection">
-				<h2 className="whole-admin-section-title">Shop</h2>
+			<div className="mt-32 whole-admin-collection ">
+				<Breadcrumb pages={[{ name: "Shop", href: "/shop", current: true }]} />
+				<h2 className="ml-4 text-4xl whole-admin-section-title">Shop</h2>
 				<div className="grid gap-2 p-2 whole-admin-products lg:grid-cols-4 md:grid-cols-2">
 					{productsWithImages?.map((product) => <FeaturedProduct product={product} key={product.id} />)}
 				</div>

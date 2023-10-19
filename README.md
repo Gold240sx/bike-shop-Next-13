@@ -11,7 +11,6 @@
 - Ads Management, Order Management, Business Reports, and more,
 - Employee Chat
 
-
 ## Todos:
 - use node-sales-tax for tax calculation
 - use a shipping api for shipping calculation
@@ -20,6 +19,7 @@
 - complete the color and size selectior on the product page and add to context.
 - format the product page to a horizontal layout
 - update the admin project page with item-stock.
+- provide user auth password reset option, a user photo, and delete account
 
 ## tags: 
 - Next.js
@@ -33,3 +33,4 @@
 ## future references: 
 - Next-Intl: "https://next-intl-docs.vercel.app/docs/getting-started/app-router-client-components"
 - sales-Tax: "https://www.npmjs.com/package/sales-tax"
+-React Admin Dashboad ( Flowbite ) : https://flowbite.com/react-admin-dashboard-pro/preview/

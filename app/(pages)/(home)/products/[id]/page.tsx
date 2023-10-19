@@ -8,6 +8,7 @@ import ImageSwitcher from "../../../../components/shared/ImageSwitcher"
 import EditModal from "./EditModal"
 import LinkButton from "@/app/components/buttons/LinkButton"
 import SearchFilterDropdownAutoComplete from "@/app/(pages)/admin/_edit/(image-uploader)/dropdown/SearchFilterDropdownAutoComplete"
+import Breadcrumb from "@/app/components/REUSABLE/TWUI-components/Breadcrumbs"
 
 export const dynamicParams = true
 
@@ -105,19 +106,25 @@ export default async function ProductDetails({ params }: any) {
 	//				<EditModal id={product?.id} product={product} />
 	//			) :
 
+	const pages = [
+		{ name: "Products", href: "/products", current: false },
+		{ name: product?.title, href: `/products/${product?.id}`, current: true },
+	]
+
 	return (
-		<main className="mx-16 mt-32">
-			<nav className="flex flex-col w-full">
+		<main className="mx-5 mt-32 md:mx-16">
+			<nav className="flex flex-col w-full md:flex-row">
 				<div className="w-full">
+					<Breadcrumb pages={pages} />
 					<div className="text-black bg-white card border-1 border-zinc-800">
-						<h2 className="pl-2 text-3xl text-zinc-400">Product Details</h2>
+						<h2 className="pb-10 pl-2 text-3xl text-zinc-400">Product Details</h2>
 						<div>
-							<div className="single-product-container">
+							<div className="flex flex-col single-product-container md:grid md:grid-cols-5">
 								{/* <div className="p-4 mb-4 bg-white product-image">
 									<img src={product?.images[0]} className="mx-auto" alt="product" />
 								</div> */}
-								<ImageSwitcher images={product?.images} />
-								<div className="product-details">
+								<ImageSwitcher images={product?.images} className="md:col-span-2 md:grid" />
+								<div className="pt-10 product-details md:col-span-3">
 									<div className="flex flex-col mb-4 name-price">
 										<div className="flex gap-2 mx-4">
 											<div className="flex-col mx-4">
@@ -126,7 +133,8 @@ export default async function ProductDetails({ params }: any) {
 												<h2 className="text-xl font-medium text-zinc-600">{formattedPrice(product?.price)}</h2>
 											</div>
 											<img
-												className="w-auto h-24 ml-auto mr-4"
+												className="h-24 ml-auto max-w-[100px] pr-4"
+												style={{ height: "min(100px, auto)", width: "min(70px, auto)" }}
 												src={product?.manufacturer.logo}
 												alt="manufacturer logo"
 											/>

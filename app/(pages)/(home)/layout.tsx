@@ -23,7 +23,7 @@ export default async function HomeLayout({ children }: { children: any }) {
 			{/* <pre className="">{JSON.stringify(u, null, "")}</pre> */}
 			{/* <pre>{JSON.stringify(user.id, null, "")}</pre>
 			<pre>{JSON.stringify(userData?.role, null, "")}</pre> */}
-			<div className="min-h-screen">{children}</div>
+			<div className="h-full min-h-screen">{children}</div>
 			<Footer />
 		</div>
 	)
