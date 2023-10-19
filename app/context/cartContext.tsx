@@ -3,7 +3,7 @@ import React, { createContext, useReducer, ReactNode } from "react"
 import cartReducer, { sumItems } from "./cartReducer"
 
 interface CartState {
-	itemCount: number
+	itemCount: number | undefined
 	cart: any[] // You should define a proper type for cart items
 	cartOpen: boolean
 	cartTotal: number
@@ -17,7 +17,7 @@ interface CartState {
 	handleQuantity: (product: any, action: any) => void // You should define a proper type for action
 }
 
-export const CartContext = createContext<CartState | undefined>(undefined)
+export const CartContext = createContext<CartState>({} as CartState)
 
 export const cartFromStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")!) : []
 

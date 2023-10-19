@@ -17,6 +17,12 @@ const CartIcon = () => {
 			: sumItems(JSON.parse(localStorage.getItem("cart")!)).itemCount
 		: 0
 
+        itemCount !== localCartLength && localStorage.setItem("cart", JSON.stringify(cartFromStorage))
+
+		if (!itemCount) {
+			return null
+		}
+
 	return (
 		<>
 			{itemCount > 0 ? (

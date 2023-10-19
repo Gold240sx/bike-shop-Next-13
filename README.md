@@ -20,6 +20,7 @@
 - format the product page to a horizontal layout
 - update the admin project page with item-stock.
 - provide user auth password reset option, a user photo, and delete account
+- add a cookies notification with cookies adjustment to context (functional cookies)
 
 ## tags: 
 - Next.js
