@@ -8,6 +8,7 @@ Slogan: (Full-Stack Next 13 App Router + Supabase + Stripe + Tailwind CSS)
 - Fully working Fullstack Stripe API integration
     - Frontend: Next.js, React-stripe-js for checkout and elements
     - Backend: Next.js Route Handlers, and Server actions, stripe-node with Typescript
+- Email order confirmation with Resend
 - Fully custom Integrated CMS with Role-based Authentication built into Supabase
 - User, subscriber and role management
 - Product Management ( stock, price, description, images, etc)
@@ -15,6 +16,7 @@ Slogan: (Full-Stack Next 13 App Router + Supabase + Stripe + Tailwind CSS)
 - Sales Tax Calculator Integration
 - Ads Management, Order Management, Business Reports, and more,
 - Employee Chat
+- Saved Credit Card Payments (prossibly)
 
 ## Todos:
 - use node-sales-tax for tax calculation
@@ -26,11 +28,19 @@ Slogan: (Full-Stack Next 13 App Router + Supabase + Stripe + Tailwind CSS)
 - update the admin project page with item-stock.
 - provide user auth password reset option, a user photo, and delete account
 - add a cookies notification with cookies adjustment to context (functional cookies)
+- update the donation naming convention in the checkout and associated functions.
+ - Complete the order confirmation page. ( orderSummary, clientCartRefresh )
+
+
 
 ## tags: 
 - Next.js
 - Supabase
 - Stripe
+- Email
+- Resend (Email)
+-  Fullstack
+- Webhooks
 - Tailwind CSS
 - E-commerce
 - CMS

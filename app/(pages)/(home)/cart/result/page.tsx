@@ -3,6 +3,9 @@ import type { Stripe } from "stripe"
 import PrintObject from "../../../../components/checkout/PrintObject"
 import { stripe } from "../../../../lib/stripe"
 import ClientCartRefresh from "./clientCartRefresh"
+import OrderSummary from "@/app/components/REUSABLE/TWUI-components/OrderSummary"
+// import { CartContext } from "../../../../context/cartContext"
+// import { useContext } from "react"
 
 export default async function ResultPage({
 	searchParams, // clearCart,
@@ -11,6 +14,17 @@ export default async function ResultPage({
 	// clearCart: () => void
 }): Promise<JSX.Element> {
 	if (!searchParams.session_id) throw new Error("Please provide a valid session_id (`cs_test_...`)")
+	// const { clearCart, cart } = useContext(CartContext)
+	// const products = cart.map((product: any) => ({
+	// 	id: product.id,
+	// 	name: product.title,
+	// 	href: `/products/${product.id}`,
+	// 	price: product.price,
+	// 	// color: product.color,
+	// 	// size: product.size,
+	// 	imageSrc: product.images[0], // update this one too...
+	// 	imageAlt: product.images[0],
+	// }))
 
 	const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.retrieve(searchParams.session_id, {
 		expand: ["line_items", "payment_intent"],
@@ -26,7 +40,8 @@ export default async function ResultPage({
 				<h2 className="flex mr-auto">Status: {paymentIntent.status}</h2>
 				<h3 className="flex mr-auto">Checkout Session response:</h3>
 				<PrintObject content={checkoutSession} className="items-start bg-zinc-900 max-h-[400px] overflow-scroll p-6" />
-				<ClientCartRefresh isValid={paymentStatus} />
+				<ClientCartRefresh isValid={paymentStatus} sessionData={checkoutSession.id !== null && checkoutSession} />
+				{/* <OrderSummary sessionData={checkoutSession.line_items} products={products} /> */}
 			</div>
 		</div>
 	)
