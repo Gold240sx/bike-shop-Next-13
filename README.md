@@ -1,9 +1,13 @@
-# Bike Shop
+# Bike Shop Mega App 
+Slogan: (Full-Stack Next 13 App Router + Supabase + Stripe + Tailwind CSS)
 
 ## Technologies and Features
 -  Server Actions (NEXT.JS 13 Experimental Feature)
 - Full Cart Functionality with Stripe. 
-- (Node.js backend integration with Stripe)
+- Global state management with React Context with persistence co-managed with local storage
+- Fully working Fullstack Stripe API integration
+    - Frontend: Next.js, React-stripe-js for checkout and elements
+    - Backend: Next.js Route Handlers, and Server actions, stripe-node with Typescript
 - Fully custom Integrated CMS with Role-based Authentication built into Supabase
 - User, subscriber and role management
 - Product Management ( stock, price, description, images, etc)

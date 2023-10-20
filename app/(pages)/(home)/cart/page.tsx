@@ -9,6 +9,8 @@ import { BiPlusCircle, BiMinusCircle, BiCross } from "react-icons/bi"
 import StepperMinimal from "../../../components/vanilla/steppers/stepper-minimal"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
+import { createCheckoutSession } from "@/app/actions/stripe"
+import * as config from "@/app/config/config"
 // import { useFormatter } from "next-intl"
 
 // const products = [
@@ -36,6 +38,8 @@ import Link from "next/link"
 // 	// More products...
 // ]
 
+// line 85 is where the form is at
+
 type StepperProps = {
 	name: string
 	handleOnChange: any
@@ -51,28 +55,25 @@ type StepperProps = {
 
 const Cart = () => {
 	const { cart } = useCart()
-	const { addProduct, removeProduct, increase, decrease, total, clearCart } = useContext(CartContext)
+	const { removeProduct, increase, decrease, total, clearCart } = useContext(CartContext)
 
-	// const handleOnChange = (e: any) => {
-	// 	if (e.target.value > prevValue) {
-	// 		increase()
-	// 	} else {
-	// 		decrease()
-	// 	}
+	// const FormattedTotal = (number: number) => {
+	// 	return useFormatter(number, { style: "currency", currency: "USD" })
 	// }
-
-	const FormattedTotal = (number: number) => {
-		return useFormatter(number, { style: "currency", currency: "USD" })
-	}
 
 	const overStockCount = (product: any) => {
 		const overOrder = product?.quantity - product?.stock
 		return overOrder
 	}
 
+	const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e): void =>
+		setInput({
+			...input,
+			[e.currentTarget.name]: e.currentTarget.value,
+		})
+
 	return (
 		<div className="w-full h-full bg-white">
-			{/* <pre>{JSON.stringify(cart, null, 2)}</pre> */}
 			<div className="h-full px-4 py-16 mx-auto sm:px-6 sm:py-24 lg:px-8">
 				<div className="flex items-center justify-between">
 					<h1 className="text-3xl font-bold tracking-tight text-gray-900">Shopping Cart</h1>
@@ -87,7 +88,22 @@ const Cart = () => {
 						<Button className="flex px-6 mx-6 mt-4 ml-auto" onClick={clearCart}>
 							Clear
 						</Button>
-						<form className="w-full mt-12">
+						<form
+							className="w-full mt-12"
+							action={createCheckoutSession}
+							// action={() => createCheckoutSession(formData, clearCart)
+						>
+							{/*  insert input that has a value of the cart total */}
+							<input
+								className="hidden checkout-style"
+								name="customDonation"
+								min={config.MIN_AMOUNT}
+								max={config.MAX_AMOUNT}
+								step={config.AMOUNT_STEP}
+								currency={config.CURRENCY}
+								onChange={handleInputChange}
+								value={total}
+							/>
 							<div>
 								<h2 className="sr-only">Items in your shopping cart</h2>
 

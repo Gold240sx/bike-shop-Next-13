@@ -4,6 +4,8 @@ import { Rubik } from "next/font/google"
 import { ThemeProvider } from "../components/themeProvider"
 import ContextContainer from "./context/ContextContainer"
 import CartContextProvider from "./context/cartContext"
+import { loadStripe } from "@stripe/stripe-js/pure" // "pure"delays the lib import until the customer reaches checkout!
+const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
 export const dynamic = "force-dynamic"
 

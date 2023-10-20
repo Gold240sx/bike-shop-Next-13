@@ -1,16 +1,4 @@
-interface CartItem {
-	id: string
-	quantity: number
-	price: number
-	CartQuantity: number
-	stock: number
-}
-
-interface CartState {
-	cart: CartItem[]
-	itemCount: number
-	total: number
-}
+import { CartItem, CartState } from "./cartContext"
 
 const storeCartItems = (cartItems: CartItem[]) => {
 	const cart = cartItems.length > 0 ? [...cartItems] : []

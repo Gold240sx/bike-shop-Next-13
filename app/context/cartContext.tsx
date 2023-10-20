@@ -2,10 +2,19 @@
 import React, { createContext, useReducer, ReactNode } from "react"
 import cartReducer, { sumItems } from "./cartReducer"
 
-interface CartState {
+export interface CartItem {
+	id: string
+	quantity: number
+	price: number
+	CartQuantity: number
+	stock: number
+}
+
+export interface CartState {
 	itemCount: number | undefined
-	cart: any[] // You should define a proper type for cart items
+	cart: CartItem[] // You should define a proper type for cart items
 	cartOpen: boolean
+	total: number
 	cartTotal: number
 	cartTax: number
 	cartSubTotal: number
@@ -13,8 +22,12 @@ interface CartState {
 	removeFromCart: (product: any) => void
 	clearCart: () => void
 	toggleCart: () => void
-	handleCheckout: () => void
-	handleQuantity: (product: any, action: any) => void // You should define a proper type for action
+	handleCheckout?: () => void
+	handleQuantity?: (product: any, action: any) => void // You should define a proper type for action
+	addProduct?: (product: CartItem) => void
+	removeProduct?: (product: CartItem) => void
+	increase?: (product: CartItem) => void
+	decrease?: (product: CartItem) => void
 }
 
 export const CartContext = createContext<CartState>({} as CartState)
