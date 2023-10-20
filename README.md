@@ -2,7 +2,8 @@
 
 ## Technologies and Features
 -  Server Actions (NEXT.JS 13 Experimental Feature)
-- Full Cart Functionality with Stripe
+- Full Cart Functionality with Stripe. 
+- (Node.js backend integration with Stripe)
 - Fully custom Integrated CMS with Role-based Authentication built into Supabase
 - User, subscriber and role management
 - Product Management ( stock, price, description, images, etc)
@@ -10,7 +11,6 @@
 - Sales Tax Calculator Integration
 - Ads Management, Order Management, Business Reports, and more,
 - Employee Chat
-
 
 ## Todos:
 - use node-sales-tax for tax calculation
@@ -20,6 +20,8 @@
 - complete the color and size selectior on the product page and add to context.
 - format the product page to a horizontal layout
 - update the admin project page with item-stock.
+- provide user auth password reset option, a user photo, and delete account
+- add a cookies notification with cookies adjustment to context (functional cookies)
 
 ## tags: 
 - Next.js
@@ -33,3 +35,4 @@
 ## future references: 
 - Next-Intl: "https://next-intl-docs.vercel.app/docs/getting-started/app-router-client-components"
 - sales-Tax: "https://www.npmjs.com/package/sales-tax"
+-React Admin Dashboad ( Flowbite ) : https://flowbite.com/react-admin-dashboard-pro/preview/

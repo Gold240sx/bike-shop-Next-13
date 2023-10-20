@@ -52,12 +52,12 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 			<ul className="flex justify-between h-full gap-6 my-auto ml-auto text-3xl align-middle ">
 				<li>
 					<Link href="/">
-						<BiHomeAlt2 className="hover:scale-110 hover:text-teal-500 " />
+						<BiHomeAlt2 className="cursor-pointer hover:scale-110 hover:text-teal-500 " />
 					</Link>
 				</li>
 				<li>
 					<Link href="/products">
-						<BiShoppingBag className="hover:scale-110 hover:text-teal-500 " />
+						<BiShoppingBag className="cursor-pointer hover:scale-110 hover:text-teal-500 " />
 					</Link>
 				</li>
 			</ul>
@@ -129,7 +129,7 @@ const Navbar = ({ user, userData }: { user: any; userData: any }) => {
 			)}
 			{user && <LogoutButton />}
 			{!user && (
-				<div className="ml-6">
+				<div className="">
 					<Link
 						href="/signin"
 						className="px-4 py-2 transition-colors duration-100 ease-in-out rounded cursor-pointer bg-zinc-200 dark:bg-zinc-700 dark:text-zinc-300 hover:bg-teal-400/50 dark:hover:bg-teal-300 dark:hover:text-teal-800 hover:text-white">
